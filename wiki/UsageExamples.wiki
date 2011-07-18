@@ -84,3 +84,34 @@ foreach($search->getResults() as $idx => $topicName) {
   ...
 }
 }}}
+
+= Working with groups =
+== Getting all users of a group (transitively) ==
+{{{
+use twikilib\wrap\Group;
+...
+$topic = $db->loadTopicByName('SomeGroup');
+$group = new Group($topic);
+$groupUsers = $group->getGroupUsers();
+}}}
+
+= Working with attachments =
+== Searching for topics using attachment comments ==
+{{{
+use twikilib\search\MetaSearch;
+...
+$search = new MetaSearch($config);
+$search->setAttachCommentFilter('logo_[0-9]+_'); // searches for matching substring or regular expression
+$search->executeQuery();
+$results = $search->getResults(); // list of topic names
+}}}
+
+== Filtering attachments by comment or other attributes ==
+This is useful, when we already have an instance of type `ITopic` and we are interested only in attachments matching a given comment, e.g. logos.
+{{{
+$topic = $db->loadTopicByName('SomeProjectTopic');
+$matchingAttachments = $topic->getTopicAttachmentsNode()->getAttachmentsByComment('logo');
+// It is also possible to use other attributes for filtering.
+$matchingAttachments = $topic->getTopicAttachmentsNode()->getAttachmentsByUser('SomeUser');
+$matchingAttachments = $topic->getTopicAttachmentsNode()->getAttachmentsByName('jpg');
+}}}

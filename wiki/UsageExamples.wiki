@@ -1,5 +1,8 @@
 #summary Usage Examples.
 
+Table of contents:
+<wiki:toc max_depth="2" />
+
 = API initialization =
 {{{
 require_once 'path/to/init-twiki-api.php';

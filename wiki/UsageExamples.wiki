@@ -63,3 +63,24 @@ $topic = $db->loadTopicByName('SomeTopic');
 $secretBankAccount = $topic->getTopicFormNode()->getFormField('BankAccount');
 echo $secretBankAccount; // returns empty string
 }}}
+
+
+= Searching =
+
+Try to keep the amount of queries at minimum. Complex filters should be reimplemented with some sort of caching mechanism if possible. Anyway, the query processing is independent of the TWiki Perl implementation and thus parallel execution will be handled by multiple cores.
+
+== General use of query filters ==
+{{{
+use twikilib\search\MetaSearch;
+...
+$search = new MetaSearch($config);
+$search->setParentFilter('SomeParentTopic');
+$search->setFormNameFilter('UserForm');
+$search->setFormFieldFilter('Name', 'Peter.*');
+$search->invertLastFilter();
+$search->executeQuery();
+foreach($search->getResults() as $idx => $topicName) {
+  $topic = $db->loadTopicByName($topicName);
+  ...
+}
+}}}

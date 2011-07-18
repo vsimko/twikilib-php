@@ -11,7 +11,7 @@ use \ReflectionFunction;
  * 
  * @author Viliam Simko
  */
-class Cache2 {
+class ResultCache {
 
 	/**
 	 * Location relative to the twiki root.

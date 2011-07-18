@@ -115,3 +115,37 @@ $matchingAttachments = $topic->getTopicAttachmentsNode()->getAttachmentsByCommen
 $matchingAttachments = $topic->getTopicAttachmentsNode()->getAttachmentsByUser('SomeUser');
 $matchingAttachments = $topic->getTopicAttachmentsNode()->getAttachmentsByName('jpg');
 }}}
+
+
+= Cached Images =
+
+== User's e-mail address as PNG image ==
+{{{
+use twikilib\wrap\UserTopic;
+...
+$topic = $db->loadTopicByName('SomeUser');
+$wrapped = new UserTopic($topic);
+$url = $wrapped->getPublicEmailAsImageUrl();
+}}}
+
+
+== Cached image thumbnails ==
+Sometimes it is necessary to get a thumbnail of an image.
+The API provides mechanism for resizing and caching images.
+Such images are then publicly accessible through a URL.
+
+{{{
+use twikilib\core\ResultCache;
+use twikilib\utils\ImageUtils;
+...
+$cache = new ResultCache($config, $db);
+$callback = function($imgSrcFile, $width, $height) {
+  return ImageUtils::createImageThumbnail($imgSrcFile, $width, $height);
+};
+
+$url = $cache->getCachedUrl( $callback, $pathToImg, 100, 200); // crop to 100x200
+
+$url = $cache->getCachedUrl( $callback, $pathToImg, 100, 0, false ); // height is resized proportionally to width=100px
+$url = $cache->getCachedUrl( $callback, $pathToImg, 0, 80, false );  // width is resized proportionally to height=80px
+$url = $cache->getCachedUrl( $callback, $pathToImg, 100, 80, true ); // crop-to-fit 100x80 + grayscale image
+}}}

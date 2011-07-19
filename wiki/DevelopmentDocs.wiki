@@ -36,7 +36,7 @@ To run tests agains the generated PHAR archive:
 
 
 == How to setup Eclipse for automated unit-testing ==
-Install the *MakeGood* plugin using `Help->Eclipse Marketplace`.
+Install [http://marketplace.eclipse.org/content/makegood MakeGood] plugin using `Help->Eclipse Marketplace`.
 Make sure you have phpunit in the include_path of twikilib-php project.
 
 `Project->Properties->PHP Include Path->Libraries`. There are more ways how to add phpunit to the include_path. For example, you can add `External Source Folder`, on Ubuntu `/usr/share/php` (PHPUnit is located inside that directory)

@@ -213,24 +213,28 @@ class Config {
 		$inistr = file_get_contents($filename, true);
 		$parsedConfig = parse_ini_string($inistr);
 		foreach($parsedConfig as $name => $value) {
-			if( property_exists($this, $name) )
+			if( property_exists($this, $name) ) {
 				$this->$name = $value;
-			else
+			} else {
 				throw new UnsupportedConfigItemException($name);
+			}
 		}
 	}
 	
 	/**
+	 * Content of the .htpasswd file will be cached here.
+	 * Note: The value is cached throughout the whole request.
 	 * @var string
 	 */
 	private $htpasswdData;
 	
 	/**
 	 * Returns content of the TWIKIROOT/data/.htpasswd file.
+	 * Note: The value is cached throughout the whole request.
 	 * @return string
 	 */
 	final public function getHtpasswd() {
-		if(empty($this->htpasswdData)) {
+		if( empty($this->htpasswdData) ) {
 			$this->htpasswdData = file_get_contents($this->twikiRootDir.'/data/.htpasswd');
 		}
 		return $this->htpasswdData;

@@ -6,9 +6,9 @@
 // The cretaed PHAR archive is intended to be put on include path and used with PHP 5.3+
 //
 // How to set include path:
-// 1. inside a PHP script: ini_set('include_path', 'phar://mylib.phar'.PATH_SEPARATOR.get_include_path());
-// 2. in .htaccess file: php_value include_path phar://mylib.phar
-// 3. in php.ini file
+// 1. in .htaccess file: php_value include_path phar://path/to/mylib.phar
+// 2. inside a PHP script: set_include_path( 'phar://path/to/mylib.phar'.PATH_SEPARATOR.get_include_path() );
+// 3. when running from cli: php -d include_path=phar://path/to/mylib.phar
 //
 // Make sure that suhosin.executor.include.whitelist=phar is set in the php.ini or suhosin.ini file.
 
@@ -17,11 +17,11 @@ $SRCNAME	= 'src';
 $DISTNAME	= "dist/{$PKGNAME}.phar";
 
 $phar = new Phar( $DISTNAME );
+$phar->setAlias($PKGNAME);
 $phar->buildFromDirectory( $SRCNAME, '/^(.(?!\.svn))*$/' ); // exclude .svn subdirectories
 
 // Uncomment this if you want to explore the content of a PHAR using ZIP tools
 //$phar->convertToExecutable(Phar::ZIP);
 
-echo "PHAR written to: ".$phar->getAlias()."\n";
-
+echo "PHAR written to '".$phar->getPath()."' using alias '".$phar->getAlias()."'\n";
 ?>

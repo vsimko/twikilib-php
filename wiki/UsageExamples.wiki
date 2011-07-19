@@ -16,7 +16,7 @@ Example `config.ini` file:
 
 
 == The easiest way ==
-Download the latest version of the library packaged as a PHAR archive (`twikilib-php.phar`). The API initialization is performed when the PHAR is included.
+Download the latest version of the library packaged as a PHAR archive ([http://twikilib-php.googlecode.com/svn/trunk/dist/twikilib-php.phar twikilib-php.phar]). The API initialization is performed when the PHAR is included.
 {{{
 require_once 'path/to/twikilib-php.phar';
 

@@ -4,8 +4,21 @@ Table of contents:
 <wiki:toc max_depth="2" />
 
 = API initialization =
+
+Example `config.ini` file:
 {{{
-require_once 'path/to/init-twiki-api.php';
+[Config]
+  twikiRootDir = /var/www/twiki42
+  twikiWebUrl = http://yourhostname.com/twiki
+  userName = SomeTestingUser
+  defaultWeb = Main
+}}}
+
+
+== The easiest way ==
+Download the latest version of the library packaged as a PHAR archive (`twikilib-php.phar`). The API initialization is performed when the PHAR is included.
+{{{
+require_once 'path/to/twikilib-php.phar';
 
 use twikilib\core\Config;
 use twikilib\core\FilesystemDB;
@@ -14,29 +27,30 @@ $config = new Config('path/to/config.ini');
 $db = new FilesystemDB($config);
 }}}
 
-Example config.ini file:
+
+== Using PHAR on include path ==
+If you put the `twikilib-php.phar` library to your `include_path`, you could cleverly decouple your scripts from the physical location of the library. There are more ways how to do that:
+   # using .htaccess file: {{{php_value include_path phar://full/path/to/twikilib-php.phar}}}
+   # when running from cli: {{{php -d include_path=phar://full/path/to/twikilib-php.phar}}}
+   # inside a PHP script: {{{set_include_path( 'phar://full/path/to/twikilib-php.phar'.PATH_SEPARATOR.get_include_path() )}}}
+
+(Note: PHAR can be created from SVN source using the `build-phar.php` script which generates `dist/twikilib-php.phar`)
+
+Now initialize the API using:
 {{{
-[Config]
-  twikiRootDir = /var/www/twiki42
-  twikiWebUrl = http://research.ciant.cz/twiki42
-  userName = TWikiPhpLibUser
-  defaultWeb = Main
+require_once 'init-twikilib-api.php';
 }}}
 
-= Handling errors =
-== Non-existing topic ==
+
+== Using directory on include path ==
+Similar to the previous verion.
+   # using .htaccess file: {{{php_value include_path full/path/to/twikilib-php/src}}}
+
+And again, initialize the API using:
 {{{
-use twikilib\core\TopicNotFoundException;
-...
-try {
-  $topic = $db->loadTopicByName('SomeNonExistingTopic');
-  // this line will never be reached
-  ...
-} catch(TopicNotFoundException $e) {
-  echo "Sorry, could not find the topic.";
-  exit;
-}
+require_once 'init-twikilib-api.php';
 }}}
+
 
 == Non-published form field ==
 There are two possibilities.

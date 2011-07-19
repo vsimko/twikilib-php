@@ -1,0 +1,41 @@
+#summary Documentation for developers
+
+= Introduction =
+
+For those who would like to contribute to the twikilib-php project.
+
+
+= Unit Tests =
+We use [http://www.phpunit.de PHPUnit framework] for automated unit-testing.
+
+All tests are located inside the *tests/* directory. The directory also contains testing data inside *dummy_twiki_root* subdirectory.
+
+
+== How to setup PHPUnit ==
+On Ubuntu, just install the version from repository using `sudo apt-get install phpuni`.
+On other platforms, please refer to the [http://www.phpunit.de/manual/3.4/en/installation.html PHPUnit manual]
+
+
+== How to run tests ==
+To run tests agains the source code:
+{{{
+  #!/bin/sh
+  cd path/to/your/twikilib-php
+  FULLPATH=`pwd`
+  phpunit --include-path "$FULLPATH/src" tests/
+}}}
+
+To run tests agains the generated PHAR archive:
+{{{
+  #!/bin/sh
+  cd path/to/your/twikilib-php
+  FULLPATH=`pwd`
+  phpunit --include-path "phar://$FULLPATH/dist/twikilib-php.phar" tests/
+}}}
+
+
+== How to setup Eclipse for automated unit-testing ==
+Install the *MakeGood* plugin using `Help->Eclipse Marketplace`.
+Make sure you have phpunit in the include_path of twikilib-php project.
+
+`Project->Properties->PHP Include Path->Libraries`. There are more ways how to add phpunit to the include_path. For example, you can add `External Source Folder`, on Ubuntu `/usr/share/php` (PHPUnit is located inside that directory)

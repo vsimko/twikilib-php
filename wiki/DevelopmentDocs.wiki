@@ -4,6 +4,7 @@
 
 For those who would like to contribute to the twikilib-php project.
 
+<wiki:toc max_depth="2" />
 
 = Unit Tests =
 We use [http://www.phpunit.de PHPUnit framework] for automated unit-testing.

@@ -6,6 +6,13 @@ For those who would like to contribute to the twikilib-php project.
 
 <wiki:toc max_depth="2" />
 
+
+= Setup Eclipse IDE =
+ * Install Eclipse 3.6 Helios
+ * Install Subclipse SVN plugin from Help -> Eclipse Marketplace
+ * Update PDT to milestone 2.2, use update site: http://download.eclipse.org/tools/pdt/updates/2.2/milestones/
+
+
 = Unit Tests =
 We use [http://www.phpunit.de PHPUnit framework] for automated unit-testing.
 

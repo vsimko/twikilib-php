@@ -1,0 +1,24 @@
+%META:TOPICINFO{author="TestUser" date="1299515641" format="1.1" version="1.97"}%
+%META:TOPICPARENT{name="TWikiUsers"}%
+---++ Staff Calendar
+%COMMENT{type=staffcalentry}%
+
+%META:FORM{name="UserForm"}%
+%META:FIELD{name="FirstName" attributes="MP" title="First Name" value="Test"}%
+%META:FIELD{name="LastName" attributes="MP" title="Last Name" value="User"}%
+%META:FIELD{name="Profession" attributes="MP" title="Profession" value="IT Consultant"}%
+%META:FIELD{name="Professioncs" attributes="P" title="Profession @cs" value="IT konzultant"}%
+%META:FIELD{name="HomePage" attributes="P" title="Home Page" value="http://test.com"}%
+%META:FIELD{name="PublicEmail" attributes="P" title="Public Email" value="test@test.com"}%
+%META:FIELD{name="PublicBio" attributes="P" title="Public Bio" value="Some testing biography."}%
+%META:FIELD{name="PublicBiocs" attributes="P" title="Public Bio @cs" value="Testovacia biografia."}%
+%META:FIELD{name="OrganisationName" attributes="" title="Organisation Name" value="TestOrg"}%
+%META:FIELD{name="Address" attributes="" title="Address" value="Test 1"}%
+%META:FIELD{name="Postcode" attributes="" title="Post code" value="101010"}%
+%META:FIELD{name="City" attributes="" title="City" value="Prague"}%
+%META:FIELD{name="Country" attributes="" title="Country" value="Czech Republic"}%
+%META:FIELD{name="BankAccountInfo" attributes="" title="Bank Account Info" value="Secret info"}%
+%META:FIELD{name="MyUnknownField" attributes="" title="My Unknown Field" value="This field should not be defined in the form model"}%
+%META:FILEATTACHMENT{name="photo_Test.jpg" attachment="photo_Test.jpg" attr="" comment="Default photo" date="1258036803" path="photo_Test.jpg" size="13409" stream="photo_Test.jpg" tmpFilename="/tmp/hln1uJlND6" user="TestUser" version="1"}%
+%META:REVCOMMENT{ncomments="0"}%
+%META:PREFERENCE{name="VIEW_TEMPLATE" title="VIEW_TEMPLATE" type="Local" value="UserView"}%

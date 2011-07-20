@@ -74,9 +74,7 @@ class Attachment implements IRenderable {
 	 * @return string
 	 */
 	final public function getComment() {
-		$comment = $this->args->comment; // in case the assignment would have side-efects (redefined __get method)
-		assert( is_string($comment) );
-		return $comment;
+		return (string) @ $this->args->comment;
 	}
 	
 	/**

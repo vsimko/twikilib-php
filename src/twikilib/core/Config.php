@@ -63,6 +63,7 @@ class Config {
 	 * Sets a new value for useStrictPublishedMode flag
 	 * and pushes the old value to the stack.
 	 * @param boolean $strictMode
+	 * @return void
 	 */
 	final public function pushStrictMode($strictMode) {
 		array_push($this->strictModeStack, $this->useStrictPublishedMode);
@@ -71,14 +72,25 @@ class Config {
 	
 	/**
 	 * Restores the last value from stack.
+	 * @return void
 	 */
 	final public function popStrictMode() {
 		$this->useStrictPublishedMode = array_pop($this->strictModeStack);
 	}
 	
 	/**
+	 * Whether the strict mode is active or not.
+	 * Active strict mode causes exceptions to be thrown when accessing non-published form fields.
+	 * @return boolean TRUE if strict mode is active
+	 */
+	final public function isStrictMode() {
+		return $this->useStrictPublishedMode;
+	}
+	
+	/**
 	 * The constructor can be called with or without the config filename specification.
 	 * @param string $configFilename
+	 * @return void
 	 */
 	public function __construct($configFilename = null) {
 		if( $configFilename ) {
@@ -88,11 +100,13 @@ class Config {
 	
 	/**
 	 * Cloning not allowed for this class.
+	 * @return void
 	 */
 	final private function __clone() {}
 	
 	/**
 	 * Serialization not allowed for this class.
+	 * @return void
 	 */
 	final public function __sleep() {}
 
@@ -100,6 +114,7 @@ class Config {
 	 * Creates a filesystem path to the directory containing
 	 * texts of topics for a given web.
 	 * @param string $webName
+	 * @return string
 	 */
 	final public function getWebDataDir($webName) {
 		return $this->twikiRootDir.'/data/'.$webName;
@@ -109,6 +124,7 @@ class Config {
 	 * Creates a filesystem path to the directory containing
 	 * attachments of topics for a given web.
 	 * @param string $webName
+	 * @return string
 	 */
 	final public function getWebPubDir($webName) {
 		return $this->twikiRootDir.'/pub/'.$webName;
@@ -139,6 +155,7 @@ class Config {
 	 * - an array with 'web' and 'topic' fields
 	 * - an object (stdClass) with 'web' and 'topic' fields
 	 * @param mixed $topicName string, array or object
+	 * @return string
 	 */
 	final public function normalizeTopicName($topicName) {
 		assert( !empty($topicName) );

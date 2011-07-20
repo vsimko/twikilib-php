@@ -110,7 +110,7 @@ abstract class System {
 		if(empty($argv))
 			return;
 			
-		chdir( dirname($argv[0]) );
+		//chdir( dirname($argv[0]) );
 		for($i=1; $i<count($argv); $i += 2) {
 			$paramName = @$argv[$i];
 			$paramValue = @$argv[$i+1];

@@ -1,6 +1,6 @@
 <?php
 
-namespace ciant\wrap;
+namespace twikilib\wrap;
 
 use \Exception;
 class UnknowTopicType extends Exception {}

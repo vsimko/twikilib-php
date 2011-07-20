@@ -51,14 +51,18 @@ And again, initialize the API using:
 require_once 'init-twikilib-api.php';
 }}}
 
+= Accessing form fields =
+If a topic has a form attached, you can access its fields.
+By default, all fields are protected from reading and any access would throw the `FormFieldNotPublishedException`.
+Only fields marked with "published" flag are accessible.
 
-== Non-published form field ==
 There are two possibilities.
- * Either the default strict mode is used which causes exceptions to be thrown when a non-published field is accessed,
- * or the silent mode is used which returns empty values for such fields
+ * Either the default *strict mode* is used which causes exceptions to be thrown when a non-published or non-existing field is accessed,
+ * or the silent mode can be used, which returns the field value regardless of the "published" flag
+
+== Handling exceptions in strict mode ==
 
 {{{
-// handling exceptions in strict mode
 use twikilib\nodes\FormFieldNotPublishedException;
 ...
 $topic = $db->loadTopicByName('SomeTopic');
@@ -70,12 +74,13 @@ try {
 }
 }}}
 
+== Using silent mode ==
 {{{
-// using silent mode
-$config->useStrictPublishedMode = false;
-$topic = $db->loadTopicByName('SomeTopic');
-$secretBankAccount = $topic->getTopicFormNode()->getFormField('BankAccount');
-echo $secretBankAccount; // returns empty string
+$config->pushStrictMode(false);
+  $topic = $db->loadTopicByName('SomeTopic');
+  $secretBankAccount = $topic->getTopicFormNode()->getFormField('BankAccount');
+  echo $secretBankAccount; // returns empty string
+$config->popStrictMode();
 }}}
 
 

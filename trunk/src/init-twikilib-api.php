@@ -39,8 +39,9 @@ set_error_handler( function($errno, $errstr, $errfile, $errline) {
 	}
 });
 
-// TODO: the default autoloader as explained here http://www.php.net/manual/en/function.spl-autoload-register.php#92514 does not work for some reason
+// TODO: the default autoloader does not work for some reason
 // ================================
+// http://www.php.net/manual/en/function.spl-autoload-register.php#92514
 // spl_autoload_extensions(".php");
 // spl_autoload_register();
 // ================================

@@ -1,10 +1,10 @@
 <?php
-namespace ciant\wrap;
+namespace twikilib\wrap;
 
 use twikilib\utils\System;
 use twikilib\core\ITopic;
 use twikilib\core\ITopicFactory;
-use ciant\wrap\ITopicWrapper;
+use twikilib\wrap\ITopicWrapper;
 
 /**
  * @author Viliam Simko

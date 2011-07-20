@@ -1,0 +1,34 @@
+%META:TOPICINFO{author="TestingUser" date="1303994002" format="1.1" version="1.30"}%
+The following line *allows everybody* to view the UserForm
+   * Set DENYTOPICVIEW =
+
+
+---+ User Form
+
+__Note:__ This is a maintenance topic, used by the TWiki administrator.
+
+This form defines the form of the home pages of registered TWiki users listed in %WIKIUSERSTOPIC%.
+
+| *Name* | *Type* | *Size* | *Values* | *Tooltip message* | *Attributes* |
+| First Name | text | 40 | | First name will be published on our official web pages | MP |
+| Last Name | text | 40 | | Last name will be published on our official web pages | MP |
+| Title | radio | | MR, MS | Title | |
+| Profession | text | 40 | | Profession will be published on our web page| MP |
+| Profession @cs | text | 40 | | Profession in Czech will be published on our web page| P |
+| Home Page | textarea | 60x4 | | Homepage will be published on our web pages | P |
+| Public Email | text | 40 | | This e-mail address will be published on our official web pages | P |
+| Alternate Emails | textarea | 60x4 | | | |
+| Public Bio | textarea | 60x8 | | Published biography visible on our official web pages (English) | P |
+| Public Bio @cs | textarea | 60x8 | | Published biography visible on our official web pages (Czech) | P |
+| Organisation Name | text | 40 | | | |
+| Address | text | 60 | | Street number | |
+| Post code | text | 60 | | | |
+| City | text | 40 | | | |
+| Country | select | 1 | %INCLUDE{"HelperLists" section="countries"}% | | |
+| Bank Account Info | textarea | 60x9 | | | |
+
+__%X% Note:__ Please keep the %TWIKIWEB%.TWikiRegistration form and this form definition in sync. When you update this form you need to edit/save the %TWIKIWEB%.NewUserTemplate topic. This ensures that the fields are in the right order.
+
+__Related topics:__ %WIKIUSERSTOPIC%, UserViewTemplate, %TWIKIWEB%.NewUserTemplate, UserHomepageHeader, %TWIKIWEB%.TWikiForms, %TWIKIWEB%.TWikiRegistration
+
+%META:REVCOMMENT{comment_1=" " minor_1="1" ncomments="1" rev_1="" t_1="1303994002"}%

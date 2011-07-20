@@ -1,5 +1,5 @@
 <?php
-namespace ciant\wrap;
+namespace twikilib\wrap;
 
 /**
  * This interface just marks classes that provide

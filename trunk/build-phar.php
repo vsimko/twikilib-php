@@ -10,9 +10,15 @@
 // 2. inside a PHP script: set_include_path( 'phar://path/to/mylib.phar'.PATH_SEPARATOR.get_include_path() );
 // 3. when running from cli: php -d include_path=phar://path/to/mylib.phar
 //
-// Make sure that suhosin.executor.include.whitelist=phar is set in the php.ini or suhosin.ini file.
+// Make sure that suhosin.executor.include.whitelist=phar is set in the suhosin.ini file
+// (The config file is located in /etc/php5/conf.d/suhosin.ini on Ubuntu)
 
-$PKGNAME	= basename(__DIR__);
+// accepting a single optional parameter
+if( ! empty($argv[1])) {
+	chdir( $argv[1] );
+}
+
+$PKGNAME = basename( getcwd() );
 $SRCNAME	= 'src';
 $DISTNAME	= "dist/{$PKGNAME}.phar";
 

@@ -1,9 +1,9 @@
 <?php
-namespace ciant\wrap;
+namespace twikilib\wrap;
 
 use twikilib\core\ResultCache;
 use twikilib\core\ITopic;
-use ciant\wrap\ITopicWrapper;
+use twikilib\wrap\ITopicWrapper;
 use twikilib\fields\Attachment;
 use twikilib\form\IFormField;
 use twikilib\utils\ImageUtils;

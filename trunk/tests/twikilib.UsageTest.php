@@ -12,19 +12,9 @@ class UsageTestFromIncludePath extends PHPUnit_Framework_TestCase {
 		$this->assertTrue( class_exists('System', true) );
 		System::log("we should be able to print this test message");
     }
-}
-
-class UsageTestFromPhar extends PHPUnit_Framework_TestCase {
-	
-	protected function setUp() {
-    	require_once __DIR__.'/../dist/twikilib-php.phar';
-	}
-	
-	public function testApiInilialization() {
-		// the System class should be autoloaded
-		$this->assertTrue( class_exists('System', true) );
-		System::log("we should be able to print this test message");
+    
+    public function testPharExists() {
+    	$this->assertFileExists(__DIR__.'/../dist/twikilib-php.phar');
     }
-	
 }
 ?>

@@ -32,7 +32,7 @@ class TopicFormNodeTest extends PHPUnit_Framework_TestCase {
 			$backAccountInfo = $this->testUserTopic->getTopicFormNode()->getFormField('BankAccountInfo');
 			$this->fail("BankAccountInfo should not be readable in strict mode");
 		} catch (FormFieldNotPublishedException $e) {
-			$this->assertNull($backAccountInfo);
+			$this->assertTrue( empty($backAccountInfo) );
 		}
 	}	
 	

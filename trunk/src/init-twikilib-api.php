@@ -49,8 +49,7 @@ set_error_handler( function($errno, $errstr, $errfile, $errline) {
 spl_autoload_register( function ($class) {
 	// echo "Autoloading class:$class\n"; // DEBUG
 	// convert namespace to full file path
-	$class = str_replace('\\', '/', $class) . '.php';
-	require_once $class;
+	@include_once(str_replace('\\', '/', $class) . '.php');
 });
 
 use twikilib\utils\System;

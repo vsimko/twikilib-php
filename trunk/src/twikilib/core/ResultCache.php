@@ -18,8 +18,7 @@ class ResultCache {
 	 * @var string
 	 */
 	const CACHE_SUBDIR = 'pub/twikiphplibcache';
-	const CACHE_LIFETIME_SECONDS = 300; // TODO: cache lifetime is fixed at the moment, it can be reimplemented in future
-	
+
 	/**
 	 * @var Config
 	 */
@@ -127,7 +126,7 @@ class ResultCache {
 		$cachedFileName = $this->idToFileName($cachedId);
 				
 		if(	!file_exists($cachedFileName) ||
-			filemtime($cachedFileName) + self::CACHE_LIFETIME_SECONDS < time() )
+			filemtime($cachedFileName) + $this->twikiConfig->cacheLifetimeSeconds < time() )
 		{
 			System::measureTime("Generating new cache item: $cachedFileName");
 			

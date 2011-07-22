@@ -22,9 +22,11 @@ $PKGNAME = basename( getcwd() );
 $SRCNAME	= 'src';
 $DISTNAME	= "dist/{$PKGNAME}.phar";
 
+unlink($DISTNAME);
 $phar = new Phar( $DISTNAME );
 $phar->setAlias($PKGNAME);
 $phar->buildFromDirectory( $SRCNAME, '/^(.(?!\.svn))*$/' ); // exclude .svn subdirectories
+//$phar->setStub( $phar->createDefaultStub('index.php', 'index.php') );
 
 // Uncomment this if you want to explore the content of a PHAR using ZIP tools
 //$phar->convertToExecutable(Phar::ZIP);

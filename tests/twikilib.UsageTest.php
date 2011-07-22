@@ -1,6 +1,5 @@
 <?php
 use twikilib\utils\System;
-
 class UsageTestFromIncludePath extends PHPUnit_Framework_TestCase {
 
 	protected function setUp() {
@@ -9,8 +8,41 @@ class UsageTestFromIncludePath extends PHPUnit_Framework_TestCase {
 	
 	public function testApiInilialization() {
 		// the System class should be autoloaded
-		$this->assertTrue( class_exists('System', true) );
-		System::log("we should be able to print this test message");
+		$this->assertTrue( class_exists('twikilib\utils\System', true) );
+		$this->assertTrue( class_exists('twikilib\core\Config', true) );
+		$this->assertTrue( class_exists('twikilib\core\FilesystemDB', true) );
+    }
+    
+    public function testEnabledLogging() {
+    	$msg_in = "we should be able to print this test message";
+		ob_start();
+		System::log($msg_in);
+		$msg_out = ob_get_clean();
+		
+		$this->assertEquals($msg_out, $msg_in."\n");
+    }
+    
+    /**
+     * @depends testEnabledLogging
+     */
+    public function testDisabledLogging() {
+		System::disableLogger();
+		ob_start();
+		System::log("should be invisible");
+		System::logWarning("should be invisible");
+		$msg_out = ob_get_contents();
+		
+		// messages should be invisible
+		$this->assertEquals('', $msg_out);
+		
+		// trying to reenable logging
+		System::initLogger();
+		ob_start();
+		System::log($msg_in);
+		$msg_out = ob_get_clean();
+		
+		// messages should be visible again
+		$this->assertFalse( empty($msg_out) );
     }
     
     public function testPharExists() {

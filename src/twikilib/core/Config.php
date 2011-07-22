@@ -47,6 +47,12 @@ class Config {
 	public $language = null;
 	
 	/**
+	 * When the cached values should expire.
+	 * @var integer
+	 */
+	public $cacheLifetimeSeconds = 300;
+	
+	/**
 	 * Restricts the API to fields with the 'P' attribute.
 	 * TODO: make this variable private and introduce isStrictMode() method. Make sure all code uses the push/pop methods
 	 * @var boolean

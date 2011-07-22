@@ -73,7 +73,9 @@ class TopicImpl implements ITopic, IInjectedAfterUnserialization {
 	 * @return string
 	 */
 	final public function __toString() {
-		return 'Topic: '.$this->getTopicName().' with form '.$this->getTopicFormNode()->getFormName();
+		$formName = $this->getTopicFormNode()->getFormName();
+		return 'Topic: '.$this->getTopicName()." ".
+			( empty($formName) ? 'without form' : "with form $formName" );
 	}
 	
 	/**

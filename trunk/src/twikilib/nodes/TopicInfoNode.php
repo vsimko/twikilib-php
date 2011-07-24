@@ -1,8 +1,8 @@
 <?php
 namespace twikilib\nodes;
 
+use twikilib\runtime\Logger;
 use twikilib\utils\EncoderException;
-use twikilib\utils\System;
 use twikilib\core\ParseNodeException;
 use twikilib\core\ITopic;
 use twikilib\utils\Encoder;
@@ -112,7 +112,7 @@ class TopicInfoNode implements IParseNode {
 		try {
 			$this->parentTopicArgs = Encoder::parseWikiTagArgs($rawArgs);
 		} catch(EncoderException $e) {
-			System::logWarning($e->getMessage());
+			Logger::logWarning($e->getMessage());
 		}
 	}
 	

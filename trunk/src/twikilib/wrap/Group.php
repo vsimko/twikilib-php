@@ -1,7 +1,6 @@
 <?php
 namespace twikilib\wrap;
 
-use twikilib\utils\System;
 use twikilib\core\ITopic;
 use twikilib\core\ITopicFactory;
 use twikilib\wrap\ITopicWrapper;
@@ -43,7 +42,6 @@ class Group implements ITopicWrapper {
 				$topicNames = explode(',', $var->value);
 				foreach($topicNames as $topicName) {
 					$topicName = trim($topicName);
-					//System::log($topicName);
 					$topic = $topicFactory->loadTopicByName($topicName);
 					$formName = $topic->getTopicFormNode()->getFormName();
 					

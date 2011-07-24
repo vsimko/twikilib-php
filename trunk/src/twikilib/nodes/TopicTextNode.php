@@ -1,8 +1,6 @@
 <?php
 namespace twikilib\nodes;
 
-use twikilib\utils\System;
-
 use twikilib\fields\TextSection;
 use twikilib\fields\Table;
 use twikilib\core\IRenderable;

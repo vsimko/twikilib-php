@@ -1,7 +1,7 @@
 <?php
 namespace twikilib\core;
 
-use twikilib\utils\System;
+use twikilib\runtime\Container;
 use \ReflectionObject;
 use \ReflectionProperty;
 
@@ -63,7 +63,7 @@ class Serializer {
 	 * @return mixed
 	 */
 	final public function unserialize($data) {
-		System::measureTime("Unserialization with dependency injection");
+		Container::measureTime("Unserialization with dependency injection");
 			self::$currentSerializer = $this;			
 			$unserialized = @unserialize($data);
 			
@@ -71,7 +71,7 @@ class Serializer {
 			if( $unserialized === false && $data !== 'b:0;')
 				$unserialized = $data;
 				
-		System::measureTime();
+		Container::measureTime();
 		return $unserialized;
 	}
 	

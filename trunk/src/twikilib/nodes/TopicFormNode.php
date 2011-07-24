@@ -1,12 +1,8 @@
 <?php
 namespace twikilib\nodes;
 
-use twikilib\utils\System;
-
 use twikilib\form\FieldTag;
-
 use twikilib\core\ParseNodeException;
-
 use twikilib\form\FieldFactory;
 use twikilib\form\FormModel;
 use twikilib\form\IFormField;
@@ -155,7 +151,6 @@ class TopicFormNode implements IParseNode {
 		// only a single "@" is allowed, which represents the translated version of the field
 		assert( strlen(preg_replace('/[^@]/', '', $fieldName)) <= 1 );
 		
-		//System::log("DEBUG: Trying to get '$fieldName'");
 		$twikiConfig = $this->topicContext->getConfig();
 		
 		if( ! $this->isFieldCreated($fieldName) ) {

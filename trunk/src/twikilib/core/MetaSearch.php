@@ -1,7 +1,7 @@
 <?php
 namespace twikilib\core;
 
-use twikilib\utils\System;
+use twikilib\runtime\Container;
 use twikilib\core\Config;
 
 /**
@@ -157,9 +157,9 @@ class MetaSearch {
 		$output = array();
 		$returnCode = 0;
 		
-		System::measureTime("Searching: ".$shellCommand);
+		Container::measureTime("Searching: ".$shellCommand);
 		exec( $shellCommand, $output, $returnCode );
-		System::measureTime();
+		Container::measureTime();
 		
 		$this->results = array();
 		

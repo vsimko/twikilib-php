@@ -1,9 +1,11 @@
 <?php
 namespace twikilib\core;
 
+use twikilib\runtime\Logger;
+use twikilib\runtime\Container;
 use twikilib\core\Serializer;
-use twikilib\utils\System;
 use \ReflectionFunction;
+use \ReflectionObject;
 
 /**
  * This class encapsulates caching API.
@@ -128,7 +130,7 @@ class ResultCache {
 		if(	!file_exists($cachedFileName) ||
 			filemtime($cachedFileName) + $this->twikiConfig->cacheLifetimeSeconds < time() )
 		{
-			System::measureTime("Generating new cache item: $cachedFileName");
+			Container::measureTime("Generating new cache item: $cachedFileName");
 			
 			$callback = array_shift($params);
 			$data = call_user_func_array($callback, $params);
@@ -147,9 +149,9 @@ class ResultCache {
 				file_put_contents($cachedFileName, $data);
 			}
 			@chmod($cachedFileName, 0664);
-			System::measureTime();
+			Container::measureTime();
 		} else
-			System::log("Loaded from cache $cachedFileName");
+			Logger::log("Loaded from cache $cachedFileName");
 		
 		return $cachedId;
 	}

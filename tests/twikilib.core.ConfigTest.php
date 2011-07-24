@@ -1,6 +1,5 @@
 <?php
 use twikilib\core\Config;
-require_once 'init-twikilib-api.php';
 
 class ConfigTest extends PHPUnit_Framework_TestCase {
 
@@ -11,6 +10,10 @@ class ConfigTest extends PHPUnit_Framework_TestCase {
 
 	protected function setUp() {
 		chdir(__DIR__);
+		
+		// we presume that the API is on include path
+		require_once 'init-twikilib-api.php';
+		
 		$this->twikiConfig = new Config( 'dummy-twikilib-config.ini' );
 	}
 	

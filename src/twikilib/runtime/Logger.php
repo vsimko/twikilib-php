@@ -1,38 +1,10 @@
 <?php
-namespace twikilib\utils;
+namespace twikilib\runtime;
 
 /**
- * - Logging
- * - Performance measurement
- * - CLI prameters
- * 
  * @author Viliam Simko
  */
-abstract class System {
-	/**
-	 * Measures execution time between two points in a script.
-	 * Uses a stack for nested measures.
-	 *
-	 * @param string $measureId non-empty value pushes time to stack, empty value pops the time from stack
-	 */
-	static final public function measureTime($measureId = null) {
-		static $timeStart = array();
-		
-		$timestamp = time() + microtime();
-		
-		if ($measureId === null) {
-			list($start, $measureId) = array_pop($timeStart);
-			
-			$taken = round($timestamp - $start, 4);
-			self::log( round($timestamp, 0) . " TIME TAKEN [$measureId] : $taken second(s), memused:".memory_get_usage() );
-		} else {
-			$timeStart[] = array($timestamp, $measureId);
-			$taken = null;
-		}
-		
-		return $taken;
-	}
-	
+class Logger {
 	/**
 	 * Log message are written directly to the web page by default
 	 * You can change this by using Engine::initLogger() method.
@@ -96,26 +68,6 @@ abstract class System {
 	static final public function logWarning($message) {
 		assert(is_string($message));
 		self::log('WARNING: ' . $message);
-	}
-	
-	/**
-	 * Copies CLI parameters (args) to the $_REQUEST variable
-	 * as if they were received from HTTP request.
-	 * 
-	 * @return void
-	 */
-	static final public function argvToRequest() {
-		global $argv;
-		
-		if(empty($argv))
-			return;
-			
-		//chdir( dirname($argv[0]) );
-		for($i=1; $i<count($argv); $i += 2) {
-			$paramName = @$argv[$i];
-			$paramValue = @$argv[$i+1];
-			$_REQUEST[$paramName] = $paramValue;
-		}
 	}
 }
 ?>

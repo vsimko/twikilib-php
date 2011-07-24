@@ -26,10 +26,33 @@ unlink($DISTNAME);
 $phar = new Phar( $DISTNAME );
 $phar->setAlias($PKGNAME);
 $phar->buildFromDirectory( $SRCNAME, '/^(.(?!\.svn))*$/' ); // exclude .svn subdirectories
-//$phar->setStub( $phar->createDefaultStub('index.php', 'index.php') );
+
+foreach(glob("$SRCNAME/*.php") as $entry) {
+	$filecontent = file_get_contents($entry);
+	if( preg_match('/^[^\n]*@pharstub[^\n]*\n/', $filecontent) ) {
+		$pharstub = basename($entry);
+	}
+	
+	if( preg_match('/^[^\n]*@pharwebstub[^\n]*\n/', $filecontent) ) {
+		$pharwebstub = basename($entry);
+	}
+}
+
+if( empty($pharstub) ) {
+	$pharstub = 'index.php';
+}
+
+if( empty($pharwebstub) ) {
+	$pharwebstub = 'index.php';
+}
+
+$phar->setStub( $phar->createDefaultStub($pharstub, $pharwebstub) );
 
 // Uncomment this if you want to explore the content of a PHAR using ZIP tools
 //$phar->convertToExecutable(Phar::ZIP);
 
 echo "PHAR written to '".$phar->getPath()."' using alias '".$phar->getAlias()."'\n";
+echo " - stub file is : $pharstub\n";
+echo " - web stub file is : $pharwebstub\n";
+
 ?>

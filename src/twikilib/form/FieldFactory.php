@@ -4,7 +4,6 @@ namespace twikilib\form;
 
 use twikilib\nodes\FormFieldNotFoundException;
 
-use twikilib\utils\System;
 use twikilib\utils\Encoder;
 use twikilib\form\fields\ListField;
 use twikilib\form\fields\TextField;

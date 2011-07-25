@@ -4,7 +4,7 @@
 
 For those who would like to contribute to the twikilib-php project.
 
-<wiki:toc max_depth="2" />
+<wiki:toc max_depth="3" />
 
 
 = Setup Eclipse IDE =
@@ -47,3 +47,71 @@ Install [http://marketplace.eclipse.org/content/makegood MakeGood] plugin using 
 Make sure you have phpunit in the include_path of twikilib-php project.
 
 `Project->Properties->PHP Include Path->Libraries`. There are more ways how to add phpunit to the include_path. For example, you can add `External Source Folder`, on Ubuntu `/usr/share/php` (PHPUnit is located inside that directory)
+
+= Project Layout =
+
+This section describes the directory structure of our twikilib-php project.
+A similar layout is recommended (but not required) also for projects that use our library.
+
+The main idea is that a `twikilib-php` project should be divided into independent bundles. When added to the `include_path`, they will enable a given set of functions.
+
+== Encapsulation Hierarchy ==
+Here is an overview of the desired encapsulation hierarchy:
+ * Bundles
+   * Packages
+     * Classes
+       * Methods
+
+=== Bundles (PHARs)===
+Bundles are the highest level of encapsulation. A bundle corresponds to a PHAR archive that can be placed to the `include_path`. The main bundle in our project is `twikilib-php.phar`.
+Bundles are created using the `build-phar.php` script which takes all `src-*` directories in the project and for each directory it creates one bundle whose file name is composed of the project name and the bundle name.
+
+Example:
+Suppose there are two source directories in the `twikilib-php` project.
+ * `src/` : contains the main parts of the library
+ * `src-examples` : contains examples of runnable applications
+
+The `build-phar.php` script will create two PHAR files:
+{{{
+src          -> dist/twikilib-php.phar
+src-examples -> dist/twikilib-php-examples.phar
+}}}
+
+As shown above, the generated PHAR files are copied to the `dist/` directory. The `dist/` directory may also contain additional files, such as `config.ini` or `.htaccess` that are used when running the application either from CLI or from web interface.
+
+=== Packages (PHP namespaces)===
+The directory structure within a bundle directly represents the hierarchy of packages. It should be noted that *Package = PHP namespace*. During the initialization phase of the `twikilib-php`, an autoloader is set up to automatically load classes from the directory structure based on PHP namespaces.
+
+{{{
+<?php
+// This is file twikilib/examples/MyApp.php
+namespace twikilib\examples;
+class MyApp {
+  ...
+}
+?>
+}}}
+
+It is also possible to have a single package located in two bundles.
+When you place these two bundles to the `include_path` their packages will be actually merged into a single hierarchy.
+
+Example of two bundles with the same package:
+{{{
+bundle1.phar/apps/MyApp1.php
+bundle2.phar/apps/MyApp2.php
+
+set_include_path("phar://bundle1.phar:phar://bundle2.phar");
+}}}
+
+The merged hierarchy will be:
+{{{
+apps/
+  MyApp1.php
+  MyApp2.php
+}}}
+
+=== Classes (PHP Classes) ===
+This level corresponds to PHP classes.
+
+=== Methods (PHP Methods) ===
+This level corresponds to PHP methods.

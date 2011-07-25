@@ -1,13 +1,14 @@
 <?php
-namespace twikilib\utils;
+namespace twikilib\examples;
 
+use twikilib\utils\Terminal;
 use \ReflectionClass;
 
 /**
  * @runnable
  * @author Viliam Simko
  */
-class TerminalTest {
+class TerminalExample {
 	public function run() {
 		Terminal::setColor(Terminal::GREEN);
 		echo "Available colors:\n";

@@ -50,7 +50,25 @@ If you don't want to use the bundled PHAR version of the library, you can use th
   # or use {{{require_once 'path/to/init-twikilib-api.php'}}}
 
 = Runnable applications ==
-Our framework supports lightweight applications that can be launched either through CLI or through web interface. Runnable applications are classes located somewhere on the include_path that provide the {{{run()}}} method.
+Our framework supports lightweight applications that can be launched either through CLI or through web interface. Runnable applications are classes located somewhere on the include_path that provide the {{{run()}}} method. A runnable class must contain the @runnable annotation as a doc-comment. The class may provide an optional constructor with a single parameter {{{$params}}}. The framework will pass a pre-processed list of CLI/web parameters.
+
+Example HelloWorld application:
+{{{
+<?php
+namespace myproj;
+/**
+ * @runnable
+ */
+class HelloWorld {
+  public function __construct($params) {
+    // this method is optional; you can handle parameters here
+  }
+  public function run() {
+    echo "Hello World!\n";
+  }
+}
+?>
+}}}
 
 == How to launch from CLI ==
 Twikilib-php provides a script {{{runapp.php}}}. Make sure it is executable by the user who has access to the twiki files e.g. {{{chmod +x runapp.php}}}.
@@ -77,24 +95,6 @@ Listing runnable applications:
 $ ./runapp.php myproj.HelloWorld
 
 Hello World!
-}}}
-
-Example of code of the HelloWorld application:
-{{{
-<?php
-namespace myproj;
-/**
- * @runnable
- */
-class HelloWorld {
-  public function __construct($params) {
-    // this method is optional; you can handle parameters here
-  }
-  public function run() {
-    echo "Hello World!\n";
-  }
-}
-?>
 }}}
 
 == How to launch from web ==

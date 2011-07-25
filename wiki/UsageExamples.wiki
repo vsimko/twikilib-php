@@ -42,13 +42,84 @@ require_once 'init-twikilib-api.php';
 }}}
 
 
-== Using directory on include path ==
-Similar to the previous verion.
-   # using .htaccess file: {{{php_value include_path full/path/to/twikilib-php/src}}}
+== Initialize directly from wikilib-php source directory ==
 
-And again, initialize the API using:
+If you don't want to use the bundled PHAR version of the library, you can use the source folder directly. To initialize the API:
+
+  # either add the source folder to your include path and use {{{require_once 'init-twikilib-api.php'}}},
+  # or use {{{require_once 'path/to/init-twikilib-api.php'}}}
+
+= Runnable applications ==
+Our framework supports lightweight applications that can be launched either through CLI or through web interface. Runnable applications are classes located somewhere on the include_path that provide the {{{run()}}} method.
+
+== How to launch from CLI ==
+Twikilib-php provides a script {{{runapp.php}}}. Make sure it is executable by the user who has access to the twiki files e.g. {{{chmod +x runapp.php}}}.
+
+Example usage:
 {{{
-require_once 'init-twikilib-api.php';
+$ cd path/to/my/project;
+$ ./runapp.php
+
+USAGE: runapp.php <classname> [args ...]
+or     runapp.php --list
+
+$ ./runapp.php --list
+
+Searching for runnable applications in:
+ - phar:///full/path/to/my/project/myproj-apps.phar
+ - phar:///full/path/to/my/project/twikilib-php.phar
+ - ...
+Listing runnable applications:
+ - myproj.HelloWorld
+ - myproj.otherpkg.MyApp2
+ - ...
+
+$ ./runapp.php myproj.HelloWorld
+
+Hello World!
+}}}
+
+Example of code of the HelloWorld application:
+{{{
+<?php
+namespace myproj;
+/**
+ * @runnable
+ */
+class HelloWorld {
+  public function __construct($params) {
+    // this method is optional; you can handle parameters here
+  }
+  public function run() {
+    echo "Hello World!\n";
+  }
+}
+?>
+}}}
+
+== How to launch from web ==
+The {{{twikilib-php.phar}}} contains a default web stub which automatically calls the {{{init-twikilib-api.php}}} script.
+Example:
+{{{
+In browser: http://myhostname.com/path/to/my/project/twikilib-php.phar/
+
+USAGE: ...?classname[&name=value&name=value...]
+or     ...?list
+
+In browser: http://myhostname.com/path/to/my/project/twikilib-php.phar/index-web.php?list
+
+Searching for runnable applications in:
+ - phar:///full/path/to/my/project/myproj-apps.phar
+ - phar:///full/path/to/my/project/twikilib-php.phar
+ - ...
+Listing runnable applications:
+ - myproj.HelloWorld
+ - myproj.otherpkg.MyApp2
+ - ...
+
+In browser: http://myhostname.com/path/to/my/project/twikilib-php.phar/index-web.php?myproj.HelloWorld
+
+Hello World!
 }}}
 
 = Accessing form fields =

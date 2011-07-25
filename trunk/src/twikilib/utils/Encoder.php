@@ -80,7 +80,6 @@ abstract class Encoder {
 			return (object) $parsedArgs;
 		}
 		
-		// ============================================================================
 		throw new EncoderException("Unknown format of tag arguments: ".var_export($unparsedArgs, true) );
 	}
 	
@@ -94,10 +93,6 @@ abstract class Encoder {
 				return $renderableObject->toWikiString();
 			}, $arrayOfRenderableObjects ));
 	}
-	
-	// ====================================================================================
-	// Working with WIKI syntax
-	// ====================================================================================
 	
 	/**
 	 * Escapes words that would be recognized as wiki-words.

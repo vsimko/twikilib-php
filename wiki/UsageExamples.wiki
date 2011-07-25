@@ -52,10 +52,10 @@ If you don't want to use the bundled PHAR version of the library, you can use th
 = Runnable applications ==
 Our framework supports lightweight applications that can be launched either through CLI or through web interface. Runnable applications are classes located somewhere on the include_path that provide the {{{run()}}} method. A runnable class must contain the @runnable annotation as a doc-comment. The class may provide an optional constructor with a single parameter {{{$params}}}. The framework will pass a pre-processed list of CLI/web parameters.
 
-Example HelloWorld application:
+Example `HelloWorld` application:
 {{{
 <?php
-namespace myproj;
+namespace twikilib\examples;
 /**
  * @runnable
  */
@@ -88,11 +88,11 @@ Searching for runnable applications in:
  - phar:///full/path/to/my/project/twikilib-php.phar
  - ...
 Listing runnable applications:
- - myproj.HelloWorld
- - myproj.otherpkg.MyApp2
+ - myproj.MyApp
+ - twikilib.examples.HelloWorld
  - ...
 
-$ ./runapp.php myproj.HelloWorld
+$ ./runapp.php twikilib.examples.HelloWorld
 
 Hello World!
 }}}
@@ -113,11 +113,11 @@ Searching for runnable applications in:
  - phar:///full/path/to/my/project/twikilib-php.phar
  - ...
 Listing runnable applications:
- - myproj.HelloWorld
- - myproj.otherpkg.MyApp2
+ - myproj.MyApp
+ - twikilib.examples.HelloWorld
  - ...
 
-In browser: http://myhostname.com/path/to/my/project/twikilib-php.phar/index-web.php?myproj.HelloWorld
+In browser: http://myhostname.com/path/to/my/project/twikilib-php.phar/index-web.php?twikilib.examples.HelloWorld
 
 Hello World!
 }}}

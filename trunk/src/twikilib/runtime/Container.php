@@ -1,7 +1,11 @@
 <?php
 namespace twikilib\runtime;
 
+use twikilib\runtime\ContainerRuntimeException;
 use \ReflectionClass;
+use \Exception;
+
+class ContainerRuntimeException extends Exception {};
 
 /**
  * A lightweight container for PHP components.
@@ -24,7 +28,18 @@ use \ReflectionClass;
 class Container {
 
 	/**
-	 * @throws Exception
+	 * @return array
+	 */
+	static final public function getParsedIncludePath() {
+		$pharSubst = '_COLLON_';
+		$incPath = str_replace('phar://', 'phar'.$pharSubst.'//', get_include_path());
+		
+		return array_unique( str_replace($pharSubst, ':', explode(':', $incPath) ) );
+	}
+	
+	/**
+	 * @param string $componentsDir
+	 * @throws twikilib\runtime\ContainerRuntimeException
 	 */
 	final static public function init($componentsDir) {
 		//echo "COMPDIR:$componentsDir\n";
@@ -89,12 +104,12 @@ class Container {
 	/**
 	 * @param array $params
 	 * @return object
-	 * @throws \Exception
+	 * @throws twikilib\runtime\ContainerRuntimeException
 	 */
 	static final public function createRunnableApp($params) {
 		$className = preg_replace('/[.\/]/', '\\', @$params[0] );
 		if( ! self::isClassRunnable($className) )
-			throw new Exception( "Cannot run application : $className");
+			throw new ContainerRuntimeException( "Cannot run application : $className");
 
 		// setup the component
 		return new $className($params);
@@ -103,12 +118,12 @@ class Container {
 	/**
 	 * @param object $runnableApp
 	 * @return string
-	 * @throws \Exception
+	 * @throws twikilib\runtime\ContainerRuntimeException
 	 */
 	static final public function runApplication($runnableApp) {
 		if( ! self::isClassRunnable( get_class($runnableApp) ) )
-			throw new Exception( "Cannot run component : $className");
-			
+			throw new ContainerRuntimeException( "Cannot run application : $className");
+					
 		// TODO: perhaps check whether the application is really runnable
 		$runnableApp->run();
 	}
@@ -127,6 +142,16 @@ class Container {
 			}
 		}
 		return false;
+	}
+	
+	/**
+	 * A class is deprecated if it contains the @deprecated annotation.
+	 * @param string $className
+	 * @return boolean
+	 */
+	static final public function isClassDeprecated($className) {
+		$class = new ReflectionClass($className);
+		return preg_match('/\*\s*@deprecated/', $class->getDocComment());
 	}
 	
 	/**

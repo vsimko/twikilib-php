@@ -25,6 +25,21 @@ class MetaSearch {
 	private $webNameFilter;
 	
 	/**
+	 * Results will be stored here after executing the query.
+	 * @var array of string
+	 */
+	private $results;
+	
+	/**
+	 * Retrievs the results found by the executeQuery method
+	 * @return array of string
+	 */
+	final public function getResults() {
+		assert( is_array($this->results) );
+		return $this->results;
+	}	
+	
+	/**
 	 * Contains list of all filters that will be passed to the grep utility.
 	 * @var array of string
 	 */
@@ -32,11 +47,15 @@ class MetaSearch {
 	private $invertFilters = array();
 	
 	/**
-	 * Results will be stored here after executing the query.
-	 * @var array of string
+	 * Adds another filter for the grep utility.
+	 * @param string $filter
+	 * @return void
 	 */
-	private $results;
-	
+	private function addFilter($filter) {
+		assert(is_string($filter));
+		$this->grepFilters[] = $filter;
+	}
+		
 	/**
 	 * @param Config $twikiConfig
 	 */
@@ -48,24 +67,17 @@ class MetaSearch {
 	/**
 	 * The directory of the 'Main' web will be used if not specified explicitly.
 	 * @param string $webName
+	 * @return void
 	 */
 	final public function setWebNameFilter($webName) {
 		assert(is_string($webName));
 		$this->webNameFilter = $webName;
 	}
-	
-	/**
-	 * Adds another filter for the grep utility.
-	 * @param string $filter
-	 */
-	private function addFilter($filter) {
-		assert(is_string($filter));
-		$this->grepFilters[] = $filter;
-	}
-	
+		
 	/**
 	 * Limits the results to the children of the specified topic.
 	 * @param string $parentTopicName
+	 * @return void
 	 */
 	final public function setParentFilter($parentTopicName) {
 		assert(is_string($parentTopicName));
@@ -76,6 +88,7 @@ class MetaSearch {
 	/**
 	 * TODO: we need to change the way how inverting works because this filter is not a grep filter
 	 * @param string $topicNamePattern
+	 * @return void
 	 */
 	final public function setTopicNameFilter($topicNamePattern) {
 		assert( is_string($topicNamePattern) );
@@ -85,6 +98,7 @@ class MetaSearch {
 	/**
 	 * Limits the result to topics containing a particular form.
 	 * @param string $formName
+	 * @return void
 	 */
 	final public function setFormNameFilter($formName) {
 		assert(is_string($formName));
@@ -95,6 +109,7 @@ class MetaSearch {
 	 * Limits the results to topics containing a particular form-field with a given REGEXP value.
 	 * @param string $fieldName
 	 * @param string $fieldValue REGEXP
+	 * @return void
 	 */
 	final public function setFormFieldFilter($fieldName, $fieldValue) {
 		assert(is_string($fieldName));
@@ -106,6 +121,7 @@ class MetaSearch {
 	 * Limits the results to topics containing a particular preference-field with a given REGEXP value.
 	 * @param string $prefName
 	 * @param string $prefValue REGEXP
+	 * @return void
 	 */
 	final public function setPreferenceFilter($prefName, $prefValue = '[^"]*') {
 		assert(is_string($prefName));
@@ -116,6 +132,7 @@ class MetaSearch {
 	/**
 	 * Limits the results to topics that contain an attachment with a given comment.
 	 * @param string $comment REGEXP value
+	 * @return void
 	 */
 	final public function setAttachCommentFilter($comment) {
 		assert( is_string($comment) );
@@ -123,7 +140,18 @@ class MetaSearch {
 	}
 	
 	/**
+	 * Limits the results to topics that match the fiven regex pattern within the raw topic text.
+	 * @param string $grepPattern
+	 * @return void
+	 */
+	final public function setRawTextFilter($grepPattern) {
+		assert( is_string($grepPattern) );
+		$this->addFilter($grepPattern);
+	}
+	
+	/**
 	 * The last filter will be used in an inverted form inside the query.
+	 * @return void
 	 */
 	final public function invertLastFilter() {
 		$filterId = count($this->grepFilters) - 1;
@@ -169,15 +197,6 @@ class MetaSearch {
 				$this->results[] = preg_replace('/^.*\/([^\/]+)\/([^\/]+)\.txt$/','\1.\2', $item);
 			}
 		}
-	}
-	
-	/**
-	 * Retrievs the results found by the executeQuery method
-	 * @return array of string
-	 */
-	final public function getResults() {
-		assert( is_array($this->results) );
-		return $this->results;
 	}
 }
 ?>

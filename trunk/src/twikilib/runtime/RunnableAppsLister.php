@@ -14,12 +14,7 @@ class RunnableAppsLister {
 	 * @return array of string e.g. array('twikilib\core\Config', 'my\app1')
 	 */
 	final static public function listRunnableApps() {
-		$pharSubst = '_COLLON_';
-		$incPath = str_replace('phar://', 'phar'.$pharSubst.'//', get_include_path());
-		$incList = explode(':', $incPath);
-		$incList = str_replace($pharSubst, ':', $incList);
-
-		print_r($incList);
+		$incList = Container::getParsedIncludePath();
 		
 		$result = array();
 		foreach($incList as $incItem) {

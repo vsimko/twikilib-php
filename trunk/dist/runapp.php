@@ -3,6 +3,7 @@
 
 require_once 'phar://'.__DIR__.'/twikilib-php.phar';
 
+use twikilib\utils\Terminal;
 use twikilib\runtime\Container;
 use twikilib\runtime\RunnableAppsLister;
 use \Exception;
@@ -18,9 +19,12 @@ run_app_from_cli();
  * some.class	=>	[]=some.class
  */
 function run_app_from_cli() {
-	global $argv;
-	
-	$params = array();
+	global $argv, $argc;
+
+	if(empty($argc)) {
+		ob_end_clean();
+		die('Sorry, this is a CLI application');
+	}
 	
 	// prepare parameters from argv
 	for( $i=1; $i<count($argv); ++$i) {
@@ -34,15 +38,37 @@ function run_app_from_cli() {
 	
 	if( empty($params) || (count($params) == 1 && @$params['help']) ) {
 		$APPNAME = basename(__FILE__);
-		echo "USAGE: $APPNAME <classname> [args ...]\n";
+		Terminal::setColor(Terminal::YELLOW);
+		echo "USAGE: ";
+		Terminal::resetColor();
+		
+		echo "$APPNAME <classname> [args ...]\n";
 		echo "or     $APPNAME --list\n";
 		return;
 	}
 
 	if( @$params['list'] ) {
-		echo "Listing runnable components:\n";
+		
+		Terminal::setColor(Terminal::GREEN);
+		echo "Searching for runnable applications in:\n";
+		Terminal::resetColor();
+		
+		foreach(Container::getParsedIncludePath() as $incItem) {
+			echo " - ".htmlspecialchars($incItem)."\n";
+		}
+		
+		Terminal::setColor(Terminal::GREEN);
+		echo "Listing runnable applications:\n";
+		Terminal::resetColor();
+		
 		foreach( RunnableAppsLister::listRunnableApps() as $className) {
-			echo " - ".str_replace('\\', '.', $className)."\n";
+			echo " - ".str_replace('\\', '.', $className);
+			if(Container::isClassDeprecated($className)) {
+				Terminal::setColor(Terminal::LIGHT_RED);
+				echo ' (deprecated)';
+				Terminal::resetColor();
+			}
+			echo "\n";
 		}
 		return;
 	}
@@ -51,7 +77,13 @@ function run_app_from_cli() {
 		$app = Container::createRunnableApp($params);
 		Container::runApplication($app);
 	} catch (Exception $e) {
-		echo 'ERROR: '.$e->getMessage()."\n";
+		Terminal::setColor(Terminal::LIGHT_RED);
+		echo 'ERROR ('.get_class($e).'): ';
+		
+		Terminal::setColor(Terminal::WHITE);
+		echo $e->getMessage();
+		echo "\n";
+		Terminal::resetColor();
 	}
 
 }

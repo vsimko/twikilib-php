@@ -3,7 +3,7 @@
 
 require_once 'phar://'.__DIR__.'/twikilib-php.phar';
 
-use twikilib\utils\Terminal;
+use twikilib\runtime\Terminal;
 use twikilib\runtime\Container;
 use twikilib\runtime\RunnableAppsLister;
 use \Exception;

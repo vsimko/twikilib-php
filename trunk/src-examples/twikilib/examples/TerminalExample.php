@@ -1,7 +1,7 @@
 <?php
 namespace twikilib\examples;
 
-use twikilib\utils\Terminal;
+use twikilib\runtime\Terminal;
 use \ReflectionClass;
 
 /**

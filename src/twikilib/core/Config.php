@@ -225,6 +225,7 @@ class Config {
 	final public function topicNameToAttachUrl($topicName, $attachmentName = '') {
 		assert( !empty($this->twikiWebUrl) );
 		$parsedTopicName = $this->parseTopicName($topicName);
+		// TODO: add some config switch that causes coversion of 'https' to 'http'
 		return "{$this->twikiWebUrl}/pub/{$parsedTopicName->web}/{$parsedTopicName->topic}/{$attachmentName}";
 	}
 

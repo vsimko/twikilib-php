@@ -107,12 +107,16 @@ class TopicInfoNode implements IParseNode {
 	 * @throws ParseNodeException
 	 */
 	private function match_TOPICPARENT($rawArgs) {
-		if( isset($this->parentTopicArgs->name) )
-			throw new ParseNodeException("Multiple META:TOPICPARENT tags detected");
+		if( isset($this->parentTopicArgs->name) ) {
+			throw new ParseNodeException(
+				"Multiple META:TOPICPARENT tags detected in ".
+				$this->topicContext->getTopicName() );
+		}
+		
 		try {
 			$this->parentTopicArgs = Encoder::parseWikiTagArgs($rawArgs);
 		} catch(EncoderException $e) {
-			Logger::logWarning($e->getMessage());
+			Logger::logWarning($e->getMessage().' in '.$this->topicContext->getTopicName());
 		}
 	}
 	

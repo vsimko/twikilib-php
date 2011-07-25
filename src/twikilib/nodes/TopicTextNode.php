@@ -116,13 +116,25 @@ class TopicTextNode implements IRenderable {
 	}
 	
 	/**
+	 * Indicates whether the last replaceText operation changed the topic text.
+	 * You need to manually reset this value to false.
+	 * @var boolean
+	 */
+	public $isTextChanged = false;
+	
+	/**
 	 * Appends some text at the end of the existing topic text.
 	 * @param string $regexPattern
 	 * @param string $replacementText
 	 * @return void
 	 */
 	final public function replaceText($regexPattern, $replacementText) {
-		$this->text = preg_replace($regexPattern, $replacementText, $this->text);
+		$newText = preg_replace($regexPattern, $replacementText, $this->text);
+		
+		if($newText != $this->text) {
+			$this->text = $newText;
+			$this->isTextChanged = true;
+		}
 	}
 	
 	/**

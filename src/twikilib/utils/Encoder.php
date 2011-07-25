@@ -81,7 +81,7 @@ abstract class Encoder {
 		}
 		
 		// ============================================================================
-		throw new EncoderException("Unknown format of tag arguments: ".$unparsedArgs);
+		throw new EncoderException("Unknown format of tag arguments: ".var_export($unparsedArgs, true) );
 	}
 	
 	/**

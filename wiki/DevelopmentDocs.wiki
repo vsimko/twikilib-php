@@ -29,8 +29,8 @@ To run tests agains the source code:
 {{{
   #!/bin/sh
   cd path/to/your/twikilib-php
-  FULLPATH=`pwd`
-  phpunit --include-path "$FULLPATH/src" tests/
+  INC=$(find . -maxdepth 1 -name 'src*' -printf '%h/%f:')
+  phpunit --include-path "$INC" "$FULLPATH/src" tests/
 }}}
 
 To run tests agains the generated PHAR archive:

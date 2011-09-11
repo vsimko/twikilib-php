@@ -1,6 +1,7 @@
 <?php
 namespace twikilib\core;
 
+use twikilib\utils\TWikiSiteConfig;
 use twikilib\utils\Encoder;
 
 use \Exception;
@@ -94,7 +95,7 @@ class Config {
 	}
 	
 	/**
-	 * The constructor can be called with or without the config filename specification.
+	 * The constructor can be called with or without the config filename.
 	 * @param string $configFilename
 	 * @return void
 	 */
@@ -232,6 +233,7 @@ class Config {
 	/**
 	 * Loads config values from INI file.
 	 * @param string $filename
+	 * @return void
 	 */
 	final public function loadConfigFromFile($filename) {
 		$inistr = file_get_contents($filename, true);
@@ -243,6 +245,19 @@ class Config {
 				throw new UnsupportedConfigItemException($name);
 			}
 		}
+	}
+	
+	/**
+	 * Loads config values from a configuration of a running TWiki installation.
+	 * @param string $twikiRootDir
+	 * @return void
+	 */
+	final public function loadConfigFromTwikiSiteConfig($twikiRootDir) {
+		$this->twikiRootDir = $twikiRootDir;
+		$siteConfig = new TWikiSiteConfig($twikiRootDir.'lib/LoacalSite.cfg');
+		$this->twikiWebUrl = $siteConfig->getParamByName('DefaultUrlHost');
+		$this->defaultWeb = $siteConfig->getParamByName('UsersWebName');
+		$this->userName = $siteConfig->getParamByName('DefaultUserWikiName');
 	}
 	
 	/**

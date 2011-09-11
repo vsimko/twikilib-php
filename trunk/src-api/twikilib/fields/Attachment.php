@@ -6,14 +6,23 @@ use twikilib\core\ITopic;
 use twikilib\core\IRenderable;
 
 /**
+ * Represents a single attached
  * @author Viliam Simko
  */
 class Attachment implements IRenderable {
 
 	/**
+	 * We use objects instead of arrays to avoid copying the values. 
 	 * @var object
 	 */
 	private $args;
+	
+	/**
+	 * @return object
+	 */
+	public function getMetaTagArgs() {
+		return $this->args;
+	}
 	
 	/**
 	 * @var ITopic

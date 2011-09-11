@@ -20,15 +20,16 @@ class MetaSearch {
 	private $twikiConfig;
 	
 	/**
-	 * @var string
+	 * Array of web names to search for topics.
+	 * @var array of strings
 	 */
-	private $webNameFilter;
+	private $webNameFilter = array();
 	
 	/**
 	 * Results will be stored here after executing the query.
 	 * @var array of string
 	 */
-	private $results;
+	private $results = array();
 	
 	/**
 	 * Retrievs the results found by the executeQuery method
@@ -61,17 +62,36 @@ class MetaSearch {
 	 */
 	final public function __construct(Config $twikiConfig) {
 		$this->twikiConfig = $twikiConfig;
-		$this->webNameFilter = $twikiConfig->defaultWeb;
+		$this->setWebNameFilter($twikiConfig->defaultWeb);
 	}
 	
 	/**
-	 * The directory of the 'Main' web will be used if not specified explicitly.
+	 * You can specify a single web name or an array of web names where topics will be searched for.
+	 * @param string|array $webNames
+	 * @return void
+	 */
+	final public function setWebNameFilter($webNames) {
+		assert(is_string($webNames) || is_array($webNames));
+		$this->webNameFilter = (array) $webNames;
+	}
+	
+	/**
+	 * You can add another web name to the array of webs where topics will be searched for.
 	 * @param string $webName
 	 * @return void
 	 */
-	final public function setWebNameFilter($webName) {
-		assert(is_string($webName));
-		$this->webNameFilter = $webName;
+	final public function addWebNameFilter($webName) {
+		assert( is_string($webName) );
+		$this->webNameFilter[] = $webName;
+	}
+	
+	/**
+	 * The array is alphabetically sorted and duplicates are removed.
+	 * @return array of string
+	 */
+	final public function getWebNameFilter() {
+		sort($this->webNameFilter);
+		return array_unique($this->webNameFilter);
 	}
 		
 	/**
@@ -168,10 +188,13 @@ class MetaSearch {
 	final public function executeQuery() {
 
 		// the grep should run inside this directory
-		$searchDir = $this->twikiConfig->getWebDataDir( $this->webNameFilter );
+		$config = $this->twikiConfig;
+		$searchDirEscaped = array_map(function($webName) use ($config) {
+			return escapeshellarg( $config->getWebDataDir($webName) );
+		}, $this->getWebNameFilter() );
 		
 		// take only topics without template topics
-		$shellCommand = 'find '.escapeshellarg( $searchDir ).
+		$shellCommand = 'find -- '.implode(' ', $searchDirEscaped).
 			' -name \'*.txt\' -and -not -name \'*Template.txt\'';
 		
 		// now add the grep filters
@@ -192,7 +215,7 @@ class MetaSearch {
 		$this->results = array();
 		
 		// output contains array of matching file names
-		if($returnCode == 0) {
+		if($returnCode == 0 || $returnCode == 123) {
 			foreach($output as $item) {
 				$this->results[] = preg_replace('/^.*\/([^\/]+)\/([^\/]+)\.txt$/','\1.\2', $item);
 			}

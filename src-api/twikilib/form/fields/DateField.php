@@ -40,5 +40,21 @@ class DateField extends TextField {
 		$dateValue = date('j M Y', strtotime($newValue));
 		parent::setFieldValue( $dateValue );
 	}
+	
+	/**
+	 * Check whether the given date is within a date interval.
+	 * @param string $lowerBoundDate Unbound if empty
+	 * @param string $upperBoundDate Unbound if empty
+	 */
+	public function isWithinInterval($lowerBoundDate, $upperBoundDate) {
+		
+		$minday = $minday = date('Y-m-d', strtotime($lowerBoundDate));
+		$maxday = date('Y-m-d', strtotime($upperBoundDate));
+		
+		$thisday = $this->getFormattedValue('Y-m-d');
+		
+		return ( empty($lowerBoundDate) || $thisday >= $minday)
+			&& ( empty($upperBoundDate) || $thisday <= $maxday);
+	}
 }
 ?>

@@ -52,6 +52,15 @@ class Config {
 	 * @var integer
 	 */
 	public $cacheLifetimeSeconds = 300;
+
+	/**
+	 * Helper function that disables caching mechanism.
+	 * @see twikilib\core\ResultCache
+	 * @return void
+	 */
+	final public function disableCaching() {
+		$this->cacheLifetimeSeconds = 0;
+	}
 	
 	/**
 	 * Restricts the API to fields with the 'P' attribute.

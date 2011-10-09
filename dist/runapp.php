@@ -47,6 +47,7 @@ function run_app_from_cli() {
 		return;
 	}
 
+	// a special case, when user requested a list of all runnable applications
 	if( @$params['list'] ) {
 		
 		Terminal::setColor(Terminal::GREEN);

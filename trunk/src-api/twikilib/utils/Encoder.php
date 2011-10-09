@@ -132,11 +132,11 @@ abstract class Encoder {
 	 * @return string
 	 */
 	static final public function filterStringLength($text, $maxLength, $padString='..') {
-		return  (strlen($text) > $maxLength)
-			? substr($text, 0, $maxLength - strlen($padString)).$padString
+		return  $maxLength > 0 && (mb_strlen($text) > $maxLength)
+			? mb_substr($text, 0, $maxLength - mb_strlen($padString)).$padString
 			: $text;
 	}
-	
+		
 	/**
 	 * @param string $textToShow
 	 * @param string $valueToStore

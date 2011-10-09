@@ -23,6 +23,7 @@ function run_app_from_web() {
 		return;
 	}
 	
+	// a special case, when user requested a list of all runnable applications
 	if( isset($_REQUEST['list']) ) {
 		echo "<style type='text/css' media='all'>li {font-family:monospace}</style>\n";
 		echo "<h3>Searching for runnable applications in:</h3>\n";
@@ -36,7 +37,12 @@ function run_app_from_web() {
 		echo "<ul>\n";
 		foreach( RunnableAppsLister::listRunnableApps() as $className) {
 			$appName = str_replace('\\', '.', $className);
-			echo "\t<li><a href='".$_SERVER['PHP_SELF']."?$appName'>$appName</a></li>\n";
+			echo "\t<li>";
+			echo "<a href='".$_SERVER['PHP_SELF']."?$appName'>$appName</a>";
+			if(Container::isClassDeprecated($className)) {
+				echo ' (deprecated)';
+			}
+			echo "</li>\n";
 		}
 		echo "</ul>\n";
 		return;

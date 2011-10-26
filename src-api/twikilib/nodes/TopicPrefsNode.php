@@ -55,7 +55,7 @@ class TopicPrefsNode implements IParseNode {
 	/**
 	 * First preference matching the name or null.
 	 * @param string $prefName
-	 * @return Preference
+	 * @return Preference or null
 	 */
 	final public function getFirstPreferenceByName($prefName) {
 		$result = array();

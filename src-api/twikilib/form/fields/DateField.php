@@ -33,6 +33,13 @@ class DateField extends TextField {
 	}
 	
 	/**
+	 * @return string
+	 */
+	final public function getISOFormat() {
+		return $this->getFormattedValue('Y-m-d', '0000-00-00');
+	}
+	
+	/**
 	 * (non-PHPdoc)
 	 * @see twikilib\form\fields.TextField::setFieldValue()
 	 */
@@ -51,7 +58,7 @@ class DateField extends TextField {
 		$minday = $minday = date('Y-m-d', strtotime($lowerBoundDate));
 		$maxday = date('Y-m-d', strtotime($upperBoundDate));
 		
-		$thisday = $this->getFormattedValue('Y-m-d');
+		$thisday = $this->getISOFormat();
 		
 		return ( empty($lowerBoundDate) || $thisday >= $minday)
 			&& ( empty($upperBoundDate) || $thisday <= $maxday);

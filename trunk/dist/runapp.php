@@ -1,6 +1,7 @@
 #!/usr/bin/php
 <?php
 
+// This initializes the minimal runtime environment
 require_once 'phar://'.__DIR__.'/twikilib-php.phar';
 
 use twikilib\runtime\Terminal;
@@ -8,6 +9,7 @@ use twikilib\runtime\Container;
 use twikilib\runtime\RunnableAppsLister;
 use \Exception;
 
+// In PHP, you can call a function before it is declared
 run_app_from_cli();
 
 /**

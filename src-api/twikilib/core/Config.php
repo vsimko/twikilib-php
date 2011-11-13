@@ -7,6 +7,7 @@ use twikilib\utils\Encoder;
 use \Exception;
 class WrongTopicNameExcption extends Exception {}
 class UnsupportedConfigItemException extends Exception {}
+class ConfigurationException extends Exception {}
 
 /**
  * Instance of this class is shared among most of the other classes.
@@ -15,6 +16,19 @@ class UnsupportedConfigItemException extends Exception {}
  * @author Viliam Simko
  */
 class Config {
+	
+	/**
+	 * For debugging purposes.
+	 */
+	final public function __toString() {
+		return "TWiki configuration loaded from ".$this->lastConfigFile;
+	}
+	
+	/**
+	 * Filename of the loaded configuration.
+	 * @var string
+	 */
+	private $lastConfigFile;
 	
 	/**
 	 * e.g. /var/www/twiki42/
@@ -244,9 +258,14 @@ class Config {
 	 * @param string $filename
 	 * @return void
 	 */
-	final public function loadConfigFromFile($filename) {
-		$inistr = file_get_contents($filename, true);
+	final public function loadConfigFromFile($configFilename) {
+		
+		$inistr = @file_get_contents($configFilename, true);
 		$parsedConfig = parse_ini_string($inistr);
+		
+		if( empty($parsedConfig) )
+			throw new ConfigurationException($configFilename);
+		
 		foreach($parsedConfig as $name => $value) {
 			if( property_exists($this, $name) ) {
 				$this->$name = $value;
@@ -254,6 +273,9 @@ class Config {
 				throw new UnsupportedConfigItemException($name);
 			}
 		}
+
+		// this value is stored mainly for debugging purposes
+		$this->lastConfigFile = $configFilename;
 	}
 	
 	/**

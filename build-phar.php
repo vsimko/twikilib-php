@@ -19,8 +19,8 @@ if( ! empty($argv[1])) {
 }
 
 $PKGBASE = basename( getcwd() );
-$SRCPREFIX = 'src';
-$DISTDIR = 'dist';
+$SRCPREFIX = 'src'; // Directories with this prefix are regarded as containing source code of an application
+$DISTDIR = 'dist';  // The generated PHAR files will be saved into this directory (one PHAR per source folder)
 
 foreach(glob($SRCPREFIX.'*') as $SRCNAME) {
 

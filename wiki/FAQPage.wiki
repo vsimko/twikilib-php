@@ -11,6 +11,7 @@ After checking out the twikilib-php project from SVN, my Eclipse IDE shows an er
    * Click on the newly added phpunit entry and "Add External folder..." (navigate to the directory where PHPUnit is installed, on Ubuntu it is `/usr/share/php`)
 
 = Q: Problem with xdebug =
+ * Make sure you installed xdebug: `sudo apt-get install php5-xdebug`
  * Navigate into Window->Preferences->PHP->PHP Executables
  * Click "Add..."
  * Fill the form fields as follows (tested on Ubuntu 10.04.3 LTS):

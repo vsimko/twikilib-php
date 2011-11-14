@@ -42,7 +42,7 @@ require_once 'init-twikilib-api.php';
 }}}
 
 
-== Initialize directly from wikilib-php source directory ==
+== Initialize directly from twikilib-php source directory ==
 
 If you don't want to use the bundled PHAR version of the library, you can use the source folder directly. To initialize the API:
 

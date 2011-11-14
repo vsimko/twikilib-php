@@ -20,7 +20,7 @@ All tests are located inside the *tests/* directory. The directory also contains
 
 
 == How to setup PHPUnit ==
-On Ubuntu, just install the version from repository using `sudo apt-get install phpuni`.
+On Ubuntu, just install the version from repository using `sudo apt-get install phpunit`.
 On other platforms, please refer to the [http://www.phpunit.de/manual/3.4/en/installation.html PHPUnit manual]
 
 

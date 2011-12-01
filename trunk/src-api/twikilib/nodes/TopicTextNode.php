@@ -227,5 +227,21 @@ class TopicTextNode implements IRenderable {
 			: '$1'.$valueOrCallable.'$3'
 		);
 	}
+
+	/**
+	 * @param string $slotId
+	 * @return void
+	 */
+	final public function removeSlot($slotId) {
+		assert(is_string($slotId));
+		assert(!empty($slotId));
+
+		$hash = $this->hashSlotId($slotId);
+
+		$this->replaceText(
+			"/<!--$hash-->(.*?)<!--$hash-->/Ds", // (.*?) = non-greedy
+			'$1' // just remove the surrounding hashes
+		);
+	}
 }
 ?>

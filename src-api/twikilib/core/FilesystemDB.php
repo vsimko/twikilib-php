@@ -1,5 +1,6 @@
 <?php
 namespace twikilib\core;
+use twikilib\core\ITopicFactory;
 
 /**
  * Loading and saving of topics from the TWiki database stored in the filesystem.

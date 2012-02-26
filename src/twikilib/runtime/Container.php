@@ -33,17 +33,17 @@ class Container {
 	static final public function getParsedIncludePath() {
 		$pharSubst = '_COLLON_';
 		$incPath = str_replace('phar://', 'phar'.$pharSubst.'//', get_include_path());
-		
+
 		return array_unique( str_replace($pharSubst, ':', explode(':', $incPath) ) );
 	}
-	
+
 	/**
 	 * @param string $componentsDir
 	 * @throws twikilib\runtime\ContainerRuntimeException
 	 */
 	final static public function init($componentsDir) {
 		//echo "COMPDIR:$componentsDir\n";
-		
+
 		$incList = glob($componentsDir.'/*.phar');
 		$incList = preg_replace('/^/', 'phar://', $incList);
 		$incList[] = $componentsDir;
@@ -54,7 +54,7 @@ class Container {
 			PATH_SEPARATOR.'.'.PATH_SEPARATOR,
 			PATH_SEPARATOR,
 			'.'.PATH_SEPARATOR.implode(PATH_SEPARATOR, $incList) );
-			
+
 		set_include_path( $newIncludePath );
 
 		ini_set('display_errors', '1');
@@ -67,25 +67,25 @@ class Container {
 				echo "-----------------------------------------\n";
 				foreach (debug_backtrace() as $idx => $bt ) {
 					echo "#$idx -";
-					
+
 					if(isset($bt['class']))
 						echo " $bt[class]::";
-						
+
 					echo " $bt[function]";
-						
+
 					if(isset($bt['line']))
 						echo " line $bt[line]";
-					
+
 					if(isset($bt['file']))
 						echo " in file $bt[file]";
-					
+
 					echo "\n";
 				}
 				//debug_print_backtrace();
 				echo "</pre>\n";
 			}
 		});
-		
+
 		// TODO: the default autoloader does not work for some reason
 		// ================================
 		// http://www.php.net/manual/en/function.spl-autoload-register.php#92514
@@ -94,13 +94,13 @@ class Container {
 		// ================================
 		// Therefore use use custom autoloader
 		spl_autoload_register( function ($class) {
-			// convert namespace to path and use include_path	
+			// convert namespace to path and use include_path
 			@include_once str_replace('\\', '/', $class) . '.php';
 		});
-		
+
 		Logger::initLogger();
 	}
-	
+
 	/**
 	 * @param array $params
 	 * @return object
@@ -114,7 +114,7 @@ class Container {
 		// setup the component
 		return new $className($params);
 	}
-	
+
 	/**
 	 * @param object $runnableApp
 	 * @return string
@@ -123,11 +123,11 @@ class Container {
 	static final public function runApplication($runnableApp) {
 		if( ! self::isClassRunnable( get_class($runnableApp) ) )
 			throw new ContainerRuntimeException( "Cannot run application : $className");
-					
+
 		// TODO: perhaps check whether the application is really runnable
 		$runnableApp->run();
 	}
-	
+
 	/**
 	 * Try to autoload the class and check if it is runnable.
 	 * @return boolean
@@ -143,7 +143,7 @@ class Container {
 		}
 		return false;
 	}
-	
+
 	/**
 	 * A class is deprecated if it contains the @deprecated annotation.
 	 * @param string $className
@@ -153,7 +153,7 @@ class Container {
 		$class = new ReflectionClass($className);
 		return preg_match('/\*\s*@deprecated/', $class->getDocComment());
 	}
-	
+
 	/**
 	 * Measures execution time between two points in a script.
 	 * Uses a stack for nested measures.
@@ -162,20 +162,51 @@ class Container {
 	 */
 	static final public function measureTime($measureId = null) {
 		static $timeStart = array();
-		
+
 		$timestamp = time() + microtime();
-		
+
 		if ($measureId === null) {
 			list($start, $measureId) = array_pop($timeStart);
-			
+
 			$taken = round($timestamp - $start, 4);
 			Logger::log( round($timestamp, 0) . " TIME TAKEN [$measureId] : $taken second(s), memused:".memory_get_usage() );
 		} else {
 			$timeStart[] = array($timestamp, $measureId);
 			$taken = null;
 		}
-		
+
 		return $taken;
+	}
+
+	/**
+	 * Renders a template using given parameters.
+	 * Template name should be relative to include_path.
+	 *
+	 * Example: echo Container::getTemplate('mytpl', 'PARAM1', 'VALUE1', 'PARAM2', 'VALUE2');
+	 * Example: echo Container::getTemplate('mytpl', array('PARAM1' => 'VALUE1', 'PARAM2' => 'VALUE2') );
+	 *
+	 * @param string $tplName
+	 * @param mixed $_ either array of parameters or variable arguments
+	 */
+	static final function getTemplate($tplName, $_ = null) {
+		$_ = func_get_args();
+		array_shift($_); // removing $tplName from parameters
+
+		while( count($_) ) {
+			$p  = array_shift($_); // next parameter
+
+			if(is_string($p)) { // param name
+				$$p = array_shift($_); // param value
+			} elseif(is_array($p)) {
+				foreach ($p as $paramName => $paramValue) {
+					$$paramName = $paramValue;
+				}
+			}
+		}
+
+		ob_start();
+		require $tplName;
+		return ob_get_clean();
 	}
 }
 ?>

@@ -12,18 +12,18 @@ class TopicAlreadyExistsException extends Exception {}
  * Although the default implementation will be the access to the
  * TWiki filesystem structure it is also possible to use some
  * relational database as well.
- * 
+ *
  * @author Viliam Simko
  */
 interface ITopicFactory {
-	
+
 	/**
 	 * Derives topic name from the given topic object instance.
 	 * @param ITopic $topicObject
 	 * @return string
 	 */
 	function objectToTopicName(ITopic $topicObject);
-	
+
 	/**
 	 * Creates an empty topic object.
 	 * @param string $topicName
@@ -31,17 +31,17 @@ interface ITopicFactory {
 	 * @throws TopicAlreadyExistsException
 	 */
 	function createEmptyTopic($topicName);
-	
+
 	/**
 	 * Creates a topic object by the given topic name.
 	 * The actual loading depend on the class implementation.
-	 * 
+	 *
 	 * @param string $topicName "TOPIC" or "WEB.TOPIC"
 	 * @return ITopic
 	 * @throws TopicNotFoundException
 	 */
 	function loadTopicByName($topicName);
-	
+
 	/**
 	 * @param ITopic $topic
 	 * @param string $newWebName

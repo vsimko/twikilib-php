@@ -98,22 +98,79 @@ class TopicTextNode implements IRenderable {
 	}
 
 	/**
-	 * TODO: tree structure of sections instead of a list
+	 * Helper recursive function.
+	 * Builds a tree of sections depending on their nesting level.
+	 *
+	 * @param integer $mylevel
+	 * @param string $myname
+	 * @param string $mytext
+	 * @param array $list list to be reduced
+	 *
+	 * @return array root node of the tree
+	 */
+	private function buildTree($mylevel, $myname, $mytext, &$list) {
+		$children = array();
+
+		while( !empty($list) ) {
+			list($level, $name, $text) = reset($list); // first element of the list
+
+			if($mylevel < $level) {
+				array_shift($list);
+				$children[] = $this->buildTree($level, $name, $text, $list);
+			} else
+				break;
+		}
+
+		return array($mylevel, $myname, $mytext, $children);
+	}
+
+	/**
+	 * Helper recursive function
+	 * @param array $node root of a tree
+	 * @param array $collectedSections the list built during the recursion
+	 */
+	private function resolveNode(&$node, &$collectedSections) {
+		$level = &$node[0];
+		$name = &$node[1];
+		$text = &$node[2];
+		$children = &$node[3];
+
+		$section = new TextSection($name, '');
+		$collectedSections[] = $section;
+
+		for($i=0; $i<count($children); ++$i) {
+			$text .= "\n".$this->resolveNode($children[$i], $collectedSections);
+		}
+
+		$section->setText($text);
+
+		return '---'.str_repeat('+', $level)." $name\n$text\n";
+	}
+
+	/**
 	 * TODO: after updating a section, the changes are not propagated to the topic text
 	 * @return array of TextSection
 	 */
 	final public function getTextSections() {
 		$possibleSections = preg_split(
-			'/\n---([\+]{1,6})(.*)\n/', "\n".$this->text, -1, PREG_SPLIT_DELIM_CAPTURE);
+			'/\n---([\+]{1,10})(.*)\n/', "\n".$this->text, -1, PREG_SPLIT_DELIM_CAPTURE);
 
-		$sections = array();
+		// flat view
+		$list = array();
 		for($i=1; $i<count($possibleSections); $i+=3) {
-			//$sectionLevel = strlen( $possibleSections[$i] );
+			$sectionLevel = strlen( $possibleSections[$i] );
 			$sectionName = trim($possibleSections[$i+1]);
 			$sectionText = $possibleSections[$i+2];
-			$sections[] = new TextSection($sectionName, $sectionText);
+
+			$list[] = array($sectionLevel, $sectionName, $sectionText);
 		}
-		return $sections;
+
+		$tree = $this->buildTree(0, '', '', $list);
+
+		$collectedSections = array();
+		$this->resolveNode($tree, $collectedSections);
+		return $collectedSections;
+
 	}
 
 	/**
@@ -159,7 +216,7 @@ class TopicTextNode implements IRenderable {
 
 	/**
 	 * @param string $sectionName
-	 * @return twikilib\fields\TextSection
+	 * @return twikilib\fields\TextSection or null if the section does not exist
 	 */
 	final public function getSectionByName($sectionName) {
 		foreach($this->getTextSections() as $section) {

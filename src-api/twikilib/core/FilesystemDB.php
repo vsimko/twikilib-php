@@ -94,8 +94,8 @@ class FilesystemDB implements ITopicFactory {
 		$rawText = file_get_contents($filename);
 		$topic->parseRawTopicText( $rawText );
 
-		// store modification time
-		$mtime = filemtime($filename);
+		// store modification time (overrides the value stored in TOPICINFO->date field)
+ 		$mtime = filemtime($filename);
 		$topic->getTopicInfoNode()->setTopicDate($mtime);
 
 		return $topic;
@@ -107,8 +107,16 @@ class FilesystemDB implements ITopicFactory {
 	 */
 	final public function saveTopic(ITopic $topic) {
 
+		// increase version number only if the topic is older than 1 hour
+		// this is just an educated guess, the current API does not propertly support versioning
+		//echo "DIFTIME:".(time() - $topic->getTopicInfoNode()->getTopicDate())."\n";
+		if( time() - $topic->getTopicInfoNode()->getTopicDate() > 3600) {
+			$topic->getTopicInfoNode()->increaseVersionNumber();
+		}
+
 		// we should update the modification time first
 		$modificationTime = $topic->getTopicInfoNode()->updateTopicDate();
+
 
 		$filename = $this->topicObjectToFilename($topic);
 

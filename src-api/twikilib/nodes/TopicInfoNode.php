@@ -19,46 +19,46 @@ class TopicInfoNode implements IParseNode {
 	 * @var object
 	 */
 	private $topicInfoArgs;
-	
+
 	/**
 	 * Arguments extracted from the META:TOPICPARENT tag.
 	 * - name
 	 * @var object
 	 */
 	private $parentTopicArgs;
-	
+
 	/**
 	 * Used internally to ensure there is only one META:TOPICINFO tag inside the raw text.
 	 * @var boolean
 	 */
 	private $occured_TOPICINFO;
-	
+
 	/**
 	 * @var ITopic
 	 */
 	private $topicContext;
-		
+
 	/**
 	 * @param ITopic $topicContext
 	 */
 	final public function __construct(ITopic $topicContext) {
 		$this->topicContext = $topicContext;
-		
+
 		$this->topicInfoArgs = (object) array(
 			'author'	=> $this->topicContext->getConfig()->userName,
 			'date'		=> time(),
 			'format'	=> '1.1',
 			'version'	=> '1.1' );
-		
+
 		$this->parentTopicArgs = (object) array();
 		$this->occured_TOPICINFO = false;
 	}
-	
+
 	/**
 	 * Cloning not allowed for this class.
 	 */
 	final private function __clone() {}
-	
+
 	/**
 	 * (non-PHPdoc)
 	 * @see twikilib\core.IRenderable::toWikiString()
@@ -68,10 +68,10 @@ class TopicInfoNode implements IParseNode {
 		$result .= isset($this->parentTopicArgs->name)
 			? Encoder::createWikiTag('META:TOPICPARENT', $this->parentTopicArgs)."\n"
 			: '';
-			
+
 		return $result;
 	}
-	
+
 	/**
 	 * (non-PHPdoc)
 	 * @see twikilib\core.IParseNode::getPattern()
@@ -79,7 +79,7 @@ class TopicInfoNode implements IParseNode {
 	final public function getPattern() {
 		return '/%META:(TOPICINFO|TOPICPARENT)\{(.*)\}%\n/';
 	}
-	
+
 	/**
 	 * (non-PHPdoc)
 	 * @see twikilib\core.IParseNode::onPatternMatch()
@@ -87,7 +87,7 @@ class TopicInfoNode implements IParseNode {
 	final public function onPatternMatch(array $match) {
 		$this->{"match_$match[1]"}($match[2]);
 	}
-	
+
 	/**
 	 * Handler for the META:TOPICINFO tag.
 	 * @param string $rawArgs Arguments to be parsed
@@ -96,14 +96,14 @@ class TopicInfoNode implements IParseNode {
 	private function match_TOPICINFO($rawArgs) {
 		if( $this->occured_TOPICINFO )
 			throw new ParseNodeException("Multiple META:TOPICINFO tags detected");
-		
+
 		$this->topicInfoArgs = Encoder::parseWikiTagArgs( $rawArgs );
 		$this->occured_TOPICINFO = true;
 	}
-	
+
 	/**
 	 * Handler for the META:TOPICPARENT tag.
-	 * @param string $rawArgs Arguments to be parsed 
+	 * @param string $rawArgs Arguments to be parsed
 	 * @throws ParseNodeException
 	 */
 	private function match_TOPICPARENT($rawArgs) {
@@ -112,14 +112,14 @@ class TopicInfoNode implements IParseNode {
 				"Multiple META:TOPICPARENT tags detected in ".
 				$this->topicContext->getTopicName() );
 		}
-		
+
 		try {
 			$this->parentTopicArgs = Encoder::parseWikiTagArgs($rawArgs);
 		} catch(EncoderException $e) {
 			Logger::logWarning($e->getMessage().' in '.$this->topicContext->getTopicName());
 		}
 	}
-	
+
 	/**
 	 * This date represents the 'date' argument from the META:TOPICINFO tag.
 	 * @return integer UNIX timestamp
@@ -127,7 +127,7 @@ class TopicInfoNode implements IParseNode {
 	final public function getTopicDate() {
 		return $this->topicInfoArgs->date;
 	}
-	
+
 	/**
 	 * @param integer $topicDate UNIX timestamp
 	 * @return void
@@ -136,7 +136,7 @@ class TopicInfoNode implements IParseNode {
 		assert( is_integer($topicDate) );
 		$this->topicInfoArgs->date = $topicDate;
 	}
-	
+
 	/**
 	 * Sets the topic date to the current date.
 	 * This can be used when updating a topic.
@@ -146,7 +146,7 @@ class TopicInfoNode implements IParseNode {
 		$this->topicInfoArgs->date = time();
 		return $this->topicInfoArgs->date;
 	}
-	
+
 	/**
 	 * The "author" attribute from the META:TOPICINFO tag.
 	 * @return string
@@ -154,7 +154,7 @@ class TopicInfoNode implements IParseNode {
 	final public function getTopicAuthor() {
 		return $this->topicInfoArgs->author;
 	}
-	
+
 	/**
 	 * @param string $topicAuthor
 	 */
@@ -168,13 +168,24 @@ class TopicInfoNode implements IParseNode {
 	final public function getParentName() {
 		return @ $this->parentTopicArgs->name;
 	}
-	
+
 	/**
 	 * @param string $parentName
 	 */
 	final public function setParentName($parentName) {
 		$this->parentTopicArgs->name = $parentName;
 	}
-}
 
-?>
+	/**
+	 * Increases the last segment of a topic version number.
+	 * Example: version=1.105, after calling this function version=1.106
+	 * @return void
+	 */
+	final public function increaseVersionNumber() {
+		$versionParts = explode('.', $this->topicInfoArgs->version);
+ 		$lastIdx = count($versionParts) - 1;
+ 		$versionParts[$lastIdx]++;
+		$this->topicInfoArgs->version = implode('.', $versionParts);
+		$this->topicInfoArgs->reprev = $this->topicInfoArgs->version;
+	}
+}

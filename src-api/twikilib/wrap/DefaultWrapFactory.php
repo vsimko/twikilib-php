@@ -15,11 +15,11 @@ class DefaultWrapFactory {
 	final static public function getWrappedTopic(ITopic $topic) {
 
 		assert($topic instanceof ITopic);
-		
+
 		$topicName = $topic->getTopicName();
 		$formName = $topic->getTopicFormNode()->getFormName();
 
-		
+
 		if($formName == 'UserForm') {
 			return new UserTopic($topic);
 		}
@@ -27,9 +27,8 @@ class DefaultWrapFactory {
 		elseif( preg_match('/[a-z]+Group$/', $topicName)) {
 			return new Group($topic);
 		}
-		
+
 		// could not wrap the topic
 		throw new UnknowTopicType($topicName);
 	}
 }
-?>

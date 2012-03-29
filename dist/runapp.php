@@ -27,7 +27,7 @@ function run_app_from_cli() {
 		ob_end_clean();
 		die('Sorry, this is a CLI application');
 	}
-	
+
 	// prepare parameters from argv
 	for( $i=1; $i<count($argv); ++$i) {
 		if( preg_match('/^(-?-?)([a-zA-Z0-9_\-\.]+)(=(.*))?$/', $argv[$i], $match) ) {
@@ -37,13 +37,13 @@ function run_app_from_cli() {
 				$params[ $match[2] ] = empty($match[3]) ? true : $match[4];
 		}
 	}
-	
+
 	if( empty($params) || (count($params) == 1 && @$params['help']) ) {
 		$APPNAME = basename(__FILE__);
 		Terminal::setColor(Terminal::YELLOW);
 		echo "USAGE: ";
 		Terminal::resetColor();
-		
+
 		echo "$APPNAME <classname> [args ...]\n";
 		echo "or     $APPNAME --list\n";
 		return;
@@ -51,19 +51,19 @@ function run_app_from_cli() {
 
 	// a special case, when user requested a list of all runnable applications
 	if( @$params['list'] ) {
-		
+
 		Terminal::setColor(Terminal::GREEN);
 		echo "Searching for runnable applications in:\n";
 		Terminal::resetColor();
-		
+
 		foreach(Container::getParsedIncludePath() as $incItem) {
 			echo " - ".htmlspecialchars($incItem)."\n";
 		}
-		
+
 		Terminal::setColor(Terminal::GREEN);
 		echo "Listing runnable applications:\n";
 		Terminal::resetColor();
-		
+
 		foreach( RunnableAppsLister::listRunnableApps() as $className) {
 			echo " - ".str_replace('\\', '.', $className);
 			if(Container::isClassDeprecated($className)) {
@@ -75,19 +75,17 @@ function run_app_from_cli() {
 		}
 		return;
 	}
-	
+
 	try {
 		$app = Container::createRunnableApp($params);
 		Container::runApplication($app);
 	} catch (Exception $e) {
 		Terminal::setColor(Terminal::LIGHT_RED);
 		echo 'ERROR ('.get_class($e).'): ';
-		
+
 		Terminal::setColor(Terminal::WHITE);
 		echo $e->getMessage();
 		echo "\n";
 		Terminal::resetColor();
 	}
-
 }
-?>

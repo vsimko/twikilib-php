@@ -5,7 +5,7 @@ namespace twikilib\runtime;
  * @author Viliam Simko
  */
 class Terminal {
-	
+
 	const UNDERSCORE	= "[4m";
 	const BLACK			= "[0;30m";
 	const REVERSE		= "[7m";
@@ -23,13 +23,12 @@ class Terminal {
 	const BROWN			= "[0;33m";
 	const BLUE			= "[0;34m";
 	const CYAN			= "[0;36m";
-	
+
 	static final public function setColor($colorCode) {
 		echo chr(27).$colorCode;
 	}
-	
+
 	static final public function resetColor() {
 		echo self::setColor(self::NORMAL);
 	}
 }
-?>

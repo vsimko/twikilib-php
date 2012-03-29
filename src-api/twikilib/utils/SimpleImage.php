@@ -72,7 +72,7 @@ class SimpleImage {
 			imagepng($this->image);
 		}
 	}
-	
+
 	final public function getImageData($imageType = IMAGETYPE_PNG) {
 		ob_start();
 		$this->output($imageType);
@@ -116,7 +116,7 @@ class SimpleImage {
 		imagecopyresampled($new_image, $this->image,
 		0, 0, 0, 0,
 		$width, $height, $this->getWidth(), $this->getHeight());
-			
+
 		$this->image = $new_image;
 	}
 
@@ -162,7 +162,7 @@ class SimpleImage {
 		// crop the image from the center
 		$new_image = imagecreatetruecolor( $desiredImageWidth, $desiredImageHeight );
 		imagecopy($new_image, $this->image, 0, 0, $cropX, $cropY, $desiredImageWidth, $desiredImageHeight );
-			
+
 		$this->image = $new_image;
 	}
 
@@ -215,36 +215,36 @@ class SimpleImage {
 	const RED		= 0xff0000;
 	const YELLOW	= 0xffff00;
 	const NAVYBLUE	= 0x37677a;
-	
+
 	/**
 	 * Creates an image from given text.
 	 * The background will be transparent and the font color can be set as a second optional parameter.
-	 * 
+	 *
 	 * @param string $text
 	 * @param int $textColor 0x(RED)(GREEN)(BLUE) e.g. 0xff8800 is orange
 	 */
 	final public function createFromText($text, $textColor = self::NAVYBLUE) {
 		assert( is_string($text) );
-		
+
 		$fontid = 5;
-		
+
 		$width = strlen($text) * imagefontwidth($fontid);
 		$height = imagefontheight($fontid);
-		
+
 		$this->image = imagecreatetruecolor($width, $height);
-				
+
 		$red	= ($textColor >> 16) & 0xff;
 		$green	= ($textColor >> 8 ) & 0xff;
 		$blue	= ($textColor >> 0 ) & 0xff;
-		
+
 		// make the image transparent (compute different color than the font color)
 		$bgcolor = imagecolorallocate($this->image, ($red + 1) & 0xff, $green, $blue);
 		imagefilledrectangle($this->image, 0, 0, $this->getWidth(), $this->getWidth(), $bgcolor);
 		imagecolortransparent( $this->image, $bgcolor );
-		
+
 		// set the font color
 		$imgTextColor = imagecolorallocate($this->image, $red, $green, $blue);
-		
+
 		imagestring($this->image, $fontid, 0, 0, $text, $imgTextColor);
 	}
-} ?>
+}

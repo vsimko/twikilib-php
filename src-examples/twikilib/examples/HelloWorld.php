@@ -11,4 +11,3 @@ class HelloWorld {
     echo "Hello World!\n";
   }
 }
-?>

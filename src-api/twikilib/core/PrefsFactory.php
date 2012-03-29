@@ -10,7 +10,7 @@ class PrefsFactory {
 
 	const PTYPE_LOCAL = 'Local';
 	const PTYPE_SET = 'Set';
-	
+
 	const PREF_VIEW_TEMPLATE = 'VIEW_TEMPLATE';
 	const PREF_ALLOWTOPICVIEW = 'ALLOWTOPICVIEW';
 	const PREF_ALLOWTOPICCHANGE = 'ALLOWTOPICCHANGE';
@@ -18,7 +18,7 @@ class PrefsFactory {
 	/**
 	 * Creates an instance of Preference that represents
 	 * a VIEW_TEMPLATE with a given template name.
-	 * 
+	 *
 	 * @param string $templateName
 	 * @return Preference
 	 */
@@ -30,11 +30,11 @@ class PrefsFactory {
 			'value'	=> $templateName
 		));
 	}
-	
+
 	/**
 	 * Creates an instance of Preference that represents
 	 * an ALLOWTOPICVIEW preference.
-	 * 
+	 *
 	 * @param array $listOfTopicNames
 	 * @return Preference
 	 */
@@ -50,7 +50,7 @@ class PrefsFactory {
 	/**
 	 * Creates an instance of Preference that represents
 	 * an ALLOWTOPICCHANGE preference.
-	 * 
+	 *
 	 * @param array $listOfTopicNames
 	 * @return Preference
 	 */
@@ -63,4 +63,3 @@ class PrefsFactory {
 		));
 	}
 }
-?>

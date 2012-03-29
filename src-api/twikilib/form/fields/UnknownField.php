@@ -6,6 +6,5 @@ namespace twikilib\form\fields;
  * @author Viliam Simko
  */
 class UnknownField extends TextField {
-	
+
 }
-?>

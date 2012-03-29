@@ -13,7 +13,7 @@ class TerminalExample {
 		Terminal::setColor(Terminal::GREEN);
 		echo "Available colors:\n";
 		Terminal::resetColor();
-		
+
 		$class = new ReflectionClass('twikilib\runtime\Terminal');
 		foreach($class->getConstants() as $constName => $constValue) {
 			echo " - ".str_pad($constName, 20);
@@ -24,4 +24,3 @@ class TerminalExample {
 		}
 	}
 }
-?>

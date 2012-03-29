@@ -19,13 +19,13 @@ class TopicFormNodeTest extends PHPUnit_Framework_TestCase {
 		$db = new FilesystemDB( $config );
 		$this->testUserTopic = $db->loadTopicByName('TestUser');
 	}
-	
+
 	public function testReadPublishedFieldInStrictMode() {
 		$this->assertTrue( $this->testUserTopic->getConfig()->isStrictMode() );
 		$firstName = $this->testUserTopic->getTopicFormNode()->getFormField('FirstName');
 		$this->assertEquals('Test', $firstName->getFieldValue() );
-	}		
-	
+	}
+
 	public function testReadNonPublishedFieldInStrictMode() {
 		$this->assertTrue( $this->testUserTopic->getConfig()->isStrictMode() );
 		try {
@@ -34,15 +34,15 @@ class TopicFormNodeTest extends PHPUnit_Framework_TestCase {
 		} catch (FormFieldNotPublishedException $e) {
 			$this->assertTrue( empty($backAccountInfo) );
 		}
-	}	
-	
+	}
+
 	public function testReadPublishedFieldInAdminMode() {
 		$this->testUserTopic->getConfig()->pushStrictMode(false);
 			$firstName = $this->testUserTopic->getTopicFormNode()->getFormField('FirstName');
 			$this->assertEquals('Test', $firstName->getFieldValue() );
 		$this->testUserTopic->getConfig()->popStrictMode();
 	}
-	
+
 	public function testReadNonPublishedFieldInAdminMode() {
 		$this->testUserTopic->getConfig()->pushStrictMode(false);
 			$backAccountInfo = $this->testUserTopic->getTopicFormNode()->getFormField('BankAccountInfo');
@@ -50,4 +50,3 @@ class TopicFormNodeTest extends PHPUnit_Framework_TestCase {
 		$this->testUserTopic->getConfig()->popStrictMode();
 	}
 }
-?>

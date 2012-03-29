@@ -19,4 +19,3 @@ if( preg_match('/^phar:\/\/(.*)$/', __DIR__, $match) ) {
 	// if the script is located in a directory we can use that directory
 	Container::init( __DIR__ );
 }
-?>

@@ -153,4 +153,3 @@ class TopicAttachmentsNode implements IParseNode {
 		return $dirName;
 	}
 }
-?>

@@ -2,8 +2,8 @@
 namespace twikilib\utils;
 
 use twikilib\core\IRenderable;
-
 use \Exception;
+
 class EncoderException extends Exception {}
 
 /**
@@ -11,47 +11,47 @@ class EncoderException extends Exception {}
  * @author Viliam Simko
  */
 abstract class Encoder {
-	
+
 	/**
 	 * List of characters that need to be encoded inside TWiki TAG arguments
 	 * @var array
 	 */
 	static private $META_VAL_CHARS = array( '%' /* must go first */, '"', '{', '}', "\r", "\n" );
-	
+
 	/**
 	 * List of corresponding encoded values from TWiki TAG arguments
 	 * @var array
 	 */
 	static private $META_VAL_ENCODED = array( '%25' /* must go first */, '%22', '%7b', '%7d', '%0d', '%0a' );
-	
+
 	/**
 	 * @param string $x the referenced value will be modified
 	 */
 	final static public function decodeWikiArg(&$x) {
 		$x = str_replace(self::$META_VAL_ENCODED, self::$META_VAL_CHARS, $x);
 	}
-	
+
 	/**
 	 * @param string $x the referenced value will be modified
 	 */
 	final static public function encodeWikiArg(&$x) {
 		$x = str_replace(self::$META_VAL_CHARS, self::$META_VAL_ENCODED, $x);
 	}
-	
+
 	/**
 	 * Helper method creates a single %TAG%.
 	 * Pairs of paramName+paramValue as variable arguments.
-	 * 
+	 *
 	 * @param string $tagName written in UPPERCASE
 	 * @param array|object $args (use NULL if you want to avoid empty brackets "{}")
 	 * @return string
 	 */
 	final static public function createWikiTag($tagName, $tagArgs = null ) {
-		
+
 		if($tagArgs === null) {
 			return '%'.$tagName.'%';
 		}
-		
+
 		assert( is_array($tagArgs) || is_object($tagArgs) );
 
 		$result = array();
@@ -61,10 +61,10 @@ abstract class Encoder {
 			Encoder::encodeWikiArg($argValue);
 			$result[] = "$argName=\"$argValue\"";
 		}
-		
+
 		return '%'.$tagName.'{'.implode(" ", $result).'}%';
 	}
-	
+
 	/**
 	 * NOTE: the most CPU intensive method, should be optimized as much as possible
 `	 * @param string $unparsedArgs
@@ -79,10 +79,10 @@ abstract class Encoder {
 			}
 			return (object) $parsedArgs;
 		}
-		
+
 		throw new EncoderException("Unknown format of tag arguments: ".var_export($unparsedArgs, true) );
 	}
-	
+
 	/**
 	 * For every element of a given array calls the toWikiString() function.
 	 * @param array $arrayOfRenderableObjects
@@ -93,7 +93,7 @@ abstract class Encoder {
 				return $renderableObject->toWikiString();
 			}, $arrayOfRenderableObjects ));
 	}
-	
+
 	/**
 	 * Escapes words that would be recognized as wiki-words.
 	 * @param string $text
@@ -102,7 +102,7 @@ abstract class Encoder {
 	static final public function escapeWikiWords($text) {
 		return preg_replace('/([A-Z][a-z0-9]+[A-Z][^\s]*|:)/', '<nop>$1', $text);
 	}
-	
+
 	static final public function createVerbatimText($text) {
 		return Encoder::escapeWikiWords(htmlspecialchars($text));
 	}
@@ -116,14 +116,14 @@ abstract class Encoder {
 	{
 		// remove weird sequences of characters
 		$string = preg_replace('/[^a-zA-Z0-9]+/',' ', $string);
-				
+
 		// uppercase first characer in a word
 		return trim(preg_replace_callback(
 			array('/ ([^ ])/', '/(^.)/'),
 			create_function('$match', 'return strtoupper($match[1]);'),
 			$string ));
 	}
-	
+
 	/**
 	 * Filteres entered text to desired length.
 	 * @param string $text
@@ -136,7 +136,7 @@ abstract class Encoder {
 			? mb_substr($text, 0, $maxLength - mb_strlen($padString)).$padString
 			: $text;
 	}
-		
+
 	/**
 	 * @param string $textToShow
 	 * @param string $valueToStore
@@ -147,7 +147,7 @@ abstract class Encoder {
 		assert(is_string($valueToStore));
 		return preg_replace('/[,=|]/', '', $textToShow).'='.preg_replace('/[,=|]/', '', $valueToStore);
 	}
-	
+
 	/**
 	 * @param string $string
 	 * @return string
@@ -166,7 +166,7 @@ abstract class Encoder {
 			'A','A','A','A','A', 'C', 'E','E','E','E', 'I','I','I','I', 'N', 'O','O','O','O','O', 'U','U','U','U', 'Y'),
 		$string );
 	}
-	
+
 	/**
 	 * Useful for converting text that should be used inside a form field or table cell.
 	 * @param string $text
@@ -175,7 +175,7 @@ abstract class Encoder {
 	static final public function createSingleLineText($text) {
 		return preg_replace('/\s+/', ' ', $text);
 	}
-	
+
 	/**
 	 * This method extracts potential wiki topic names (camel-case) from an arbitrary text.
 	 * Rest of the text will be ignored.
@@ -186,10 +186,8 @@ abstract class Encoder {
 		if(preg_match_all('/([A-Z][a-z]+\.)?([A-Z][a-z0-9_]+[A-Z][^[:punct:]\s]*)/', $text, $matches)) {
 			return $matches[0];
 		}
-		
+
 		return array();
 	}
-	
-}
 
-?>
+}

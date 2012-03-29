@@ -18,32 +18,32 @@ use twikilib\core\ITopicFactory;
  * @author Viliam Simko
  */
 class FormModel implements IRenderable {
-	
+
 	/**
 	 * @var twikilib\core\ITopic
 	 */
 	private $formTopic;
-	
+
 	/**
 	 * @var array of twikilib\form\FieldTypeDef
 	 */
 	private $fieldTypes;
-		
+
 	/**
 	 * @param string $formName
 	 * @param ITopicFactory $topicFactory
 	 */
 	public function __construct($formName, ITopicFactory $topicFactory) {
-		
+
 		// find the topic representing the form
 		$this->formTopic = $topicFactory->loadTopicByName( $formName );
 		assert($this->formTopic instanceof ITopic);
-		
+
 		// now extract field-definitions from the table inside the topic representing the form
 		$tables = $this->formTopic->getTopicTextNode()->getTablesFromText();
 		$formTable = $tables[0]; // it is always the first table in the topic
 		assert($formTable instanceof Table);
-		
+
 		for ($i = 0; $i < $formTable->getNumRows(); $i++) {
 			$fieldType = new FieldTypeDef();
 			list(	$fieldType->name,
@@ -52,12 +52,12 @@ class FormModel implements IRenderable {
 					$fieldType->default,
 					$fieldType->tooltip,
 					$fieldType->attributes ) = $formTable->getRow($i);
-			
+
 			$hash = TopicFormNode::getFieldHash( $fieldType->name );
 			$this->fieldTypes[$hash] = $fieldType;
 		}
 	}
-	
+
 	/**
 	 * (non-PHPdoc)
 	 * @see twikilib\core.IRenderable::toWikiString()
@@ -67,22 +67,22 @@ class FormModel implements IRenderable {
 		$args = array( 'name' => $this->getFormName() );
 		return Encoder::createWikiTag('META:FORM', $args )."\n";
 	}
-	
+
 	/**
 	 * Returns just the form name (without web name)
 	 * @return string
 	 */
 	final public function getFormName() {
-		
+
 		// contains web.topic
 		$topicName = $this->formTopic->getTopicName();
-		
+
 		// converted to an object with (web,topic) fields
 		$parsedTopicName = $this->formTopic->getConfig()->parseTopicName($topicName);
-		
+
 		return $parsedTopicName->topic;
 	}
-	
+
 	/**
 	 * @param string $fieldName
 	 * @return boolean
@@ -91,7 +91,7 @@ class FormModel implements IRenderable {
 		$hash = TopicFormNode::getFieldHash($fieldName);
 		return $this->fieldTypes;
 	}
-		
+
 	/**
 	 * @param string $fieldName
 	 * @return twikilib\form\FieldTypeDef
@@ -101,10 +101,10 @@ class FormModel implements IRenderable {
 		$hash = TopicFormNode::getFieldHash($fieldName);
 		if( ! isset($this->fieldTypes[$hash]) )
 			throw new FormFieldNotFoundException("Field type '$fieldName' not defined in the form model");
-			
+
 		return $this->fieldTypes[$hash];
 	}
-	
+
 	/**
 	 * @param string $fieldName
 	 * @return twikilib\form\IFormField
@@ -114,8 +114,7 @@ class FormModel implements IRenderable {
 			'name'			=> $fieldName, //TODO: should be hashed for wiki to understand
 			'value'			=> '',
 		));
-		
+
 		return FieldFactory::createField($fieldTag, $this);
 	}
 }
-?>

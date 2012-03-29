@@ -6,20 +6,21 @@ use twikilib\utils\Encoder;
 use twikilib\core\IParseNode;
 
 /**
+ * Represents a set of META:REVCOMMENT items in the topic text.
  * @author Viliam Simko
  */
 class RevCommentsNode implements IParseNode {
-		
+
 	/**
 	 * @var array
 	 */
 	private $revComments = array();
-	
+
 	/**
 	 * Cloning not allowed for this class.
 	 */
 	final private function __clone() {}
-	
+
 	/**
 	 * (non-PHPdoc)
 	 * @see twikilib\core.IParseNode::getPattern()
@@ -27,7 +28,7 @@ class RevCommentsNode implements IParseNode {
 	public function getPattern() {
 		return '/%META:REVCOMMENT\{(.*)\}%\n/';
 	}
-	
+
 	/**
 	 * (non-PHPdoc)
 	 * @see twikilib\core.IParseNode::onPatternMatch()
@@ -36,7 +37,7 @@ class RevCommentsNode implements IParseNode {
 		$parsedArgs = Encoder::parseWikiTagArgs($match[1]);
 		$this->revComments[] = new RevComment($parsedArgs);
 	}
-	
+
 	/**
 	 * (non-PHPdoc)
 	 * @see twikilib\core.IRenderable::toWikiString()
@@ -45,5 +46,3 @@ class RevCommentsNode implements IParseNode {
 		return Encoder::arrayToWikiString($this->revComments);
 	}
 }
-
-?>

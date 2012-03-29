@@ -10,13 +10,12 @@ interface IInjectedAfterUnserialization {
 	 * get dependencies injected automatically after
 	 * unserialization.
 	 * The implementation should look like this:
-	 * 
+	 *
 	 * function __wakeup() {
 	 *   Serializer::wakeupHandler($this);
 	 * }
-	 * 
+	 *
 	 * @return void
 	 */
 	function __wakeup();
 }
-?>

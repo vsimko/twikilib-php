@@ -9,7 +9,7 @@ use \ReflectionProperty;
  * @author Viliam Simko
  */
 class Serializer {
-	
+
 	/**
 	 * This method should always be called from the __wakeup()
 	 * of an object that needs dependency injection when unserialized.
@@ -19,18 +19,18 @@ class Serializer {
 	static final public function wakeupHandler(IInjectedAfterUnserialization $obj) {
 		self::$currentSerializer->injectDependencies($obj);
 	}
-	
+
 	/**
 	 * This static variable always contains the current Serializer
 	 * instance performing the unserialization.
-	 * 
+	 *
 	 * It is set at the beginning of the $this->unserialize() method
 	 * and then used in Serializer::wakeupHandler()
-	 * 
+	 *
 	 * @var Serializer
 	 */
 	static private $currentSerializer;
-	
+
 	/**
 	 * Serialization directly to a file.
 	 * @param string $filename
@@ -49,7 +49,7 @@ class Serializer {
 	final public function unserializeFromFile($filename) {
 		return $this->unserialize( file_get_contents($filename) );
 	}
-	
+
 	/**
 	 * @param mixed $value
 	 * @return string
@@ -57,24 +57,24 @@ class Serializer {
 	final public function serialize($value) {
 		return @serialize($value);
 	}
-	
+
 	/**
 	 * @param string $data
 	 * @return mixed
 	 */
 	final public function unserialize($data) {
 		Container::measureTime("Unserialization with dependency injection");
-			self::$currentSerializer = $this;			
+			self::$currentSerializer = $this;
 			$unserialized = @unserialize($data);
-			
+
 			// use the raw data if not unserializable
 			if( $unserialized === false && $data !== 'b:0;')
 				$unserialized = $data;
-				
+
 		Container::measureTime();
 		return $unserialized;
 	}
-	
+
 	/**
 	 * Instantiates an object and injects dependencies.
 	 * @param string $className
@@ -84,9 +84,9 @@ class Serializer {
 	final public function createObject($className, $_ = null) {
 		assert('/* TODO: not implemented yet */');
 	}
-	
+
 //	private $processed;
-//	
+//
 //	/**
 //	 * @deprecated
 //	 * Helper recursive method.
@@ -98,14 +98,14 @@ class Serializer {
 //				$this->injectRecursive($item);
 //			}
 //		} elseif( is_object($obj) ) {
-//			
+//
 //			// preventing loops
 //			$objhash = spl_object_hash($obj);
 //			if( isset($this->processed[$objhash]) ) {
 //				return;
 //			}
 //			$this->processed[$objhash] = true;
-//			
+//
 //			$ro = new ReflectionObject($obj);
 //			foreach($ro->getProperties() as $rp) {
 //				assert($rp instanceof ReflectionProperty);
@@ -126,7 +126,7 @@ class Serializer {
      * @var array of mixed
 	 */
 	private $properties = array();
-	
+
 	/**
 	 * Setting properties used for dependency injection when objects are unserialized.
 	 * @param string $name
@@ -136,7 +136,7 @@ class Serializer {
 	final public function __set($name, $value) {
 		$this->properties[$name] = $value;
 	}
-	
+
 	/**
 	 * Injects dependencies to an object.
 	 * @param object $obj
@@ -154,4 +154,3 @@ class Serializer {
 			});
 	}
 }
-?>

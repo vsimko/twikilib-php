@@ -21,12 +21,12 @@ class TextField implements IFormField {
 	 * @var twikilib\form\FieldTag
 	 */
 	private $fieldTag;
-	
+
 	/**
 	 * @var twikilib\form\FormModel
 	 */
 	private $formModel;
-	
+
 	/**
 	 * (non-PHPdoc)
 	 * @see twikilib\form.IFormField::getFormModel()
@@ -34,7 +34,7 @@ class TextField implements IFormField {
 	final public function getFormModel() {
 		return $this->formModel;
 	}
-	
+
 	/**
 	 * @param FieldTag $fieldTag
 	 * @param FormModel $formModel
@@ -43,7 +43,7 @@ class TextField implements IFormField {
 		$this->fieldTag = $fieldTag;
 		$this->formModel = $formModel;
 	}
-	
+
 	/**
 	 * (non-PHPdoc)
 	 * @see twikilib\form.IFormField::__toString()
@@ -51,7 +51,7 @@ class TextField implements IFormField {
 	final public function __toString() {
 		return $this->getFieldValue();
 	}
-	
+
 	/**
 	 * (non-PHPdoc)
 	 * @see twikilib\core.IRenderable::toWikiString()
@@ -59,7 +59,7 @@ class TextField implements IFormField {
 	final public function toWikiString() {
 		return $this->fieldTag->toWikiString();
 	}
-	
+
 	/**
 	 * (non-PHPdoc)
 	 * @see twikilib\form.IFormField::getFieldValue()
@@ -67,7 +67,7 @@ class TextField implements IFormField {
 	final public function getFieldValue() {
 		return $this->fieldTag->value;
 	}
-	
+
 	/**
 	 * (non-PHPdoc)
 	 * @see twikilib\form.IFormField::isEmpty()
@@ -75,7 +75,7 @@ class TextField implements IFormField {
 	final public function isEmpty() {
 		return empty($this->fieldTag->value);
 	}
-	
+
 	/**
 	 * (non-PHPdoc)
 	 * @see twikilib\form.IFormField::setFieldValue()
@@ -84,7 +84,7 @@ class TextField implements IFormField {
 		assert( is_string($newValue) );
 		$this->fieldTag->value = $newValue;
 	}
-	
+
 	/**
 	 * (non-PHPdoc)
 	 * @see twikilib\form.IFormField::getFieldName()
@@ -92,7 +92,7 @@ class TextField implements IFormField {
 	final public function getFieldName() {
 		return $this->fieldTag->name;
 	}
-	
+
 	/**
 	 * (non-PHPdoc)
 	 * @see twikilib\form.IFormField::hasFieldAttr()
@@ -103,4 +103,3 @@ class TextField implements IFormField {
 		return $this->formModel->getTypeByFieldName( $this->getFieldName() )->hasAttribute($attrSpec);
 	}
 }
-?>

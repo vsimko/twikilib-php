@@ -209,4 +209,3 @@ class Container {
 		return ob_get_clean();
 	}
 }
-?>

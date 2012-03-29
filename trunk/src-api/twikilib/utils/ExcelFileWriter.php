@@ -4,7 +4,7 @@ namespace twikilib\utils;
 /**
  * Simple tool for writing Execl files (XLS).
  * @author Viliam Simko
- * 
+ *
  * Example:
  *   $xls = new ExcelFileWriter;
  *   $xls->writeLabel(1,0,"Student Register");
@@ -16,7 +16,7 @@ namespace twikilib\utils;
 class ExcelFileWriter {
 
 	private $buffer = array();
-	
+
 	function writeNumber($Row, $Col, $Value) {
 		$this->buffer[] = pack("sssss", 0x203, 14, $Row, $Col, 0x0);
 		$this->buffer[] = pack("d", $Value);
@@ -37,12 +37,11 @@ class ExcelFileWriter {
 		header("Content-Type: application/download");;
 		header("Content-Disposition: attachment;filename=".$filename);
 		header("Content-Transfer-Encoding: binary ");
-		
+
 		echo pack("ssssss", 0x809, 0x8, 0x0, 0x10, 0x0, 0x0); // BOF
 		echo implode('', $this->buffer); // CONTENT
 		echo pack("ss", 0x0A, 0x00); // EOF
-		
+
 		exit();
 	}
 }
-?>

@@ -301,4 +301,3 @@ class TopicTextNode implements IRenderable {
 		);
 	}
 }
-?>

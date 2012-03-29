@@ -6,4 +6,3 @@ namespace twikilib\form\fields;
  */
 class ListField extends TextField {
 }
-?>

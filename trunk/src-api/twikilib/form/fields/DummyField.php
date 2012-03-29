@@ -11,21 +11,21 @@ class DummyFieldException extends Exception {}
  * It can be used as a placeholder for a field inaccessible for a user.
  * Singleton - only one instnace for everyone. However, multiple instances
  * may exists after an object has been unserialized.
- * 
+ *
  * @author Viliam Simko
  */
 class DummyField implements IFormField {
-	
+
 	/**
 	 * Private constructor due to the Singleton design pattern.
 	 */
 	private function __construct() {}
-	
+
 	/**
 	 * Cloning not allowed for this class.
 	 */
 	final private function __clone() {}
-	
+
 	/**
 	 * (non-PHPdoc)
 	 * @see twikilib\form.IFormField::__toString()
@@ -33,12 +33,12 @@ class DummyField implements IFormField {
 	final public function __toString() {
 		return '';
 	}
-	
-	
+
+
 	final public function toWikiString() {
 		return '';
 	}
-	
+
 	/**
 	 * Creates a singleton instance of an empty field.
 	 * @return DummyField
@@ -50,8 +50,8 @@ class DummyField implements IFormField {
 		}
 		return $instance;
 	}
-	
-	
+
+
 	/**
 	 * (non-PHPdoc)
 	 * @see twikilib\form.IFormField::isEmpty()
@@ -59,7 +59,7 @@ class DummyField implements IFormField {
 	final public function isEmpty() {
 		return true;
 	}
-	
+
 	/**
 	 * (non-PHPdoc)
 	 * @see twikilib\form.IFormField::getFieldName()
@@ -67,7 +67,7 @@ class DummyField implements IFormField {
 	final public function getFieldName() {
 		return '';
 	}
-	
+
 	/**
 	 * (non-PHPdoc)
 	 * @see twikilib\form.IFormField::getFieldValue()
@@ -75,7 +75,7 @@ class DummyField implements IFormField {
 	final public function getFieldValue() {
 		return null;
 	}
-	
+
 	/**
 	 * (non-PHPdoc)
 	 * @see twikilib\form.IFormField::setFieldValue()
@@ -83,7 +83,7 @@ class DummyField implements IFormField {
 	final public function setFieldValue($newValue) {
 		throw new DummyFieldException(__METHOD__);
 	}
-	
+
 	/**
 	 * (non-PHPdoc)
 	 * @see twikilib\form.IFormField::hasFieldAttr()
@@ -91,7 +91,7 @@ class DummyField implements IFormField {
 	final public function hasFieldAttr($attrSpec) {
 		return false;
 	}
-	
+
 	/**
 	 * (non-PHPdoc)
 	 * @see twikilib\form.IFormField::getFormModel()
@@ -100,4 +100,3 @@ class DummyField implements IFormField {
 		return null;
 	}
 }
-?>

@@ -50,4 +50,3 @@ class UsageTest extends PHPUnit_Framework_TestCase {
     	$this->assertFileExists(__DIR__.'/../dist/twikilib-php.phar');
     }
 }
-?>

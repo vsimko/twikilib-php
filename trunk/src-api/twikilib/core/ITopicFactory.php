@@ -56,4 +56,3 @@ interface ITopicFactory {
 	 */
 	function saveTopic(ITopic $topic);
 }
-?>

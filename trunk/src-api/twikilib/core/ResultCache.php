@@ -10,7 +10,7 @@ use \ReflectionObject;
 /**
  * This class encapsulates caching API.
  * Cached data are stored in the CACHE_SUBDIR directory of the TWiki installation.
- * 
+ *
  * @author Viliam Simko
  */
 class ResultCache {
@@ -25,12 +25,12 @@ class ResultCache {
 	 * @var Config
 	 */
 	private $twikiConfig;
-	
+
 	/**
 	 * @var ITopicFactory
 	 */
 	private $topicFactory;
-	
+
 	/**
 	 * @param Config $twikiConfig
 	 * @param ITopicFactory $topicFactory
@@ -39,7 +39,7 @@ class ResultCache {
 		$this->twikiConfig = $twikiConfig;
 		$this->topicFactory = $topicFactory;
 	}
-		
+
 	/**
 	 * Depending on the arguments either the cached value is returned or
 	 * the callback is executed to generate the cached value.
@@ -50,13 +50,13 @@ class ResultCache {
 		$params = func_get_args();
 		$cachedId = $this->recacheIfNeeded($params);
 		$cachedFileName = $this->idToFileName($cachedId);
-		
+
 		$serializer = new Serializer();
 		$serializer->twikiConfig = $this->twikiConfig;
 		$serializer->topicFactory = $this->topicFactory;
 		return $serializer->unserializeFromFile($cachedFileName);
 	}
-	
+
 	/**
 	 * Depending on the arguments either a publicly accessible URL
 	 * of the cached value is returned or the callback is executed
@@ -69,11 +69,11 @@ class ResultCache {
 		$cachedId = $this->recacheIfNeeded($params);
 		return $this->idToFileUrl($cachedId);
 	}
-	
+
 	// --------------------------------------------------
 	// Helper methods below this line
 	// --------------------------------------------------
-		
+
 	/**
 	 * This is the most important method of the caching mechanism.
 	 * It is used to generate a unique cache ID depending on a set of parameters.
@@ -87,18 +87,18 @@ class ResultCache {
 					return (string) new ReflectionFunction($p);
 				elseif(is_object($p))
 					return (string) new ReflectionObject($p);
-				
+
 				assert( empty($p) || is_scalar($p) );
 				return $p;
-				
+
 			}, $params);
-			
+
 		Logger::log("CACHE-SIGNATURE:");
 		Logger::log($signature);
-		
+
 		return md5( implode(':', $signature) );
 	}
-	
+
 	/**
 	 * Helper method that creates a full path to a cached file.
 	 * @param string $id
@@ -109,7 +109,7 @@ class ResultCache {
 			DIRECTORY_SEPARATOR.self::CACHE_SUBDIR.
 			DIRECTORY_SEPARATOR.$id;
 	}
-	
+
 	/**
 	 * Helper method that creates a public URL of a cached file.
 	 * This is useful e.g. when caching images that have to be downloaded from a browser.
@@ -121,7 +121,7 @@ class ResultCache {
 			DIRECTORY_SEPARATOR.self::CACHE_SUBDIR.
 			DIRECTORY_SEPARATOR.$id;
 	}
-	
+
 	/**
 	 * @param array $params
 	 * @return string ID
@@ -129,20 +129,20 @@ class ResultCache {
 	private function recacheIfNeeded(array & $params) {
 		$cachedId = $this->createId($params);
 		$cachedFileName = $this->idToFileName($cachedId);
-				
+
 		if(	!file_exists($cachedFileName) ||
 			filemtime($cachedFileName) + $this->twikiConfig->cacheLifetimeSeconds < time() )
 		{
 			Container::measureTime("Generating new cache item: $cachedFileName");
-			
+
 			$callback = array_shift($params);
 			$data = call_user_func_array($callback, $params);
-			
+
 			// create the cache directory if needed
 			$dir = dirname($cachedFileName);
 			if( ! is_dir($dir))
 				mkdir( $dir, 0755, true );
-			
+
 			if(is_array($data) || is_object($data)) {
 				$serializer = new Serializer();
 				$serializer->twikiConfig = $this->twikiConfig;
@@ -155,8 +155,7 @@ class ResultCache {
 			Container::measureTime();
 		} else
 			Logger::log("Loaded from cache $cachedFileName");
-		
+
 		return $cachedId;
 	}
 }
-?>

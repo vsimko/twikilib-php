@@ -9,7 +9,7 @@ use twikilib\core\IRenderable;
  * @author Viliam Simko
  */
 class FieldTag implements IRenderable {
-		
+
 	/**
 	 * @var string
 	 */
@@ -19,19 +19,19 @@ class FieldTag implements IRenderable {
 	 * @var string
 	 */
 	public $attributes;
-	
+
 	/**
 	 * @var string
 	 */
 	public $title;
-	
+
 	/**
 	 * @var string
 	 */
 	public $value;
 
 	//... + dynamically created properties
-	
+
 	/**
 	 * Fills properties using the extracted arguments.
 	 * @param array $args
@@ -41,7 +41,7 @@ class FieldTag implements IRenderable {
 			$this->$argName = $argValue;
 		}
 	}
-	
+
 	/**
 	 * (non-PHPdoc)
 	 * @see twikilib\core.IRenderable::toWikiString()
@@ -50,4 +50,3 @@ class FieldTag implements IRenderable {
 		return Encoder::createWikiTag('META:FIELD', $this )."\n";
 	}
 }
-?>

@@ -39,4 +39,3 @@ class ConfigTest extends PHPUnit_Framework_TestCase {
 		$this->assertTrue( $siteConfig->getParamByName('Htpasswd-FileName') == '/var/www/twiki42/data/.htpasswd');
 	}
 }
-?>

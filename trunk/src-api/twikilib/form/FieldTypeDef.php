@@ -8,7 +8,7 @@ class FieldTypeDef {
 	public $default;
 	public $tooltip;
 	public $attributes;
-	
+
 	/**
 	 * @param string $attrSpec
 	 * @return boolean
@@ -18,4 +18,3 @@ class FieldTypeDef {
 		return strpos($this->attributes, $attrSpec) !== false;
 	}
 }
-?>

@@ -6,9 +6,9 @@ namespace twikilib\core;
  * @author Viliam Simko
  */
 class Session {
-	
+
 	private $sessionData;
-	
+
 	/**
 	 * @var Config
 	 */
@@ -19,7 +19,7 @@ class Session {
 	 * @param array $cookies
 	 */
 	public function __construct(Config $twikiConfig, array $cookies) {
-		
+
 		if( empty($cookies['TWIKISID']) )
 			return;
 
@@ -34,18 +34,18 @@ class Session {
 	 */
 	private function loadSessionDataFromFile($filename) {
 		assert( is_file($filename) );
-		
+
 		$content = file_get_contents($filename);
 		preg_match_all('/\'([^\']+)\'\s*=>\s*([0-9]+|\'([^\']*)\')/', $content, $match);
-		
+
 		$result = array();
 		foreach($match[1] as $idx => $key) {
 			$result[$key] = $match[2][$idx][0]=="'" ? $match[3][$idx] : $match[2][$idx];
 		}
-	
+
 		return $result;
 	}
-	
+
 	/**
 	 * @return boolean
 	 */
@@ -53,4 +53,3 @@ class Session {
 		return (boolean) ! empty( $this->sessionData['AUTHUSER'] );
 	}
 }
-?>

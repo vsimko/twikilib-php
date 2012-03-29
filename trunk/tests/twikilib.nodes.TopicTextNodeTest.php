@@ -38,4 +38,3 @@ class TopicTextNodeTest extends \PHPUnit_Framework_TestCase {
 		$this->assertNotRegExp('/<!--[0-9a-f]+-->TESTVAL<!--[0-9a-f]+-->/', $textNode->toWikiString());
 	}
 }
-?>

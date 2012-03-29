@@ -19,7 +19,7 @@ class UserTopic implements ITopicWrapper {
 	 * @var twikilib\core\ITopic
 	 */
 	private $wrappedTopic;
-		
+
 	/**
 	 * (non-PHPdoc)
 	 * @see ciant\wrap.ITopicWrapper::getWrappedTopic()
@@ -27,14 +27,14 @@ class UserTopic implements ITopicWrapper {
 	public function getWrappedTopic() {
 		return $this->wrappedTopic;
 	}
-	
+
 	/**
 	 * @param ITopic $topic
 	 */
 	public function __construct(ITopic $topic) {
 		$this->wrappedTopic = $topic;
 	}
-	
+
 	/**
 	 * @return string
 	 */
@@ -44,7 +44,7 @@ class UserTopic implements ITopicWrapper {
 				' '.
 				$formNode->getFormField('LastName');
 	}
-	
+
 	/**
 	 * @return twikilib\form\IFormField
 	 */
@@ -52,7 +52,7 @@ class UserTopic implements ITopicWrapper {
 		$formNode = $this->wrappedTopic->getTopicFormNode();
 		return $formNode->getFormField('Profession');
 	}
-	
+
 	/**
 	 * @return twikilib\form\IFormField
 	 */
@@ -70,13 +70,13 @@ class UserTopic implements ITopicWrapper {
 		$cache = new ResultCache(
 			$this->wrappedTopic->getConfig(),
 			$this->wrappedTopic->getTopicFactory() );
-			
+
 		return $cache->getCachedUrl(
 			function($email) {
 				return ImageUtils::emailToImage($email);
 			}, $this->getPublicEmail()->getFieldValue() );
 	}
-		
+
 	/**
 	 * Collects email addresses of a user defined in the UserForm and also in the .htpasswd file.
 	 * @param int $maxEmails
@@ -86,7 +86,7 @@ class UserTopic implements ITopicWrapper {
 	public function getAllEmails($maxEmails=null, $includePublicEmail = true) {
 		return implode(', ', $this->getAllEmailsAsArray($maxEmails, $includePublicEmail) );
 	}
-	
+
 	/**
 	 * Collects email addresses of a user defined in the UserForm and also in the .htpasswd file.
 	 * @param int $maxEmails
@@ -106,10 +106,10 @@ class UserTopic implements ITopicWrapper {
 		}
 
 		$twikiConfig = $this->wrappedTopic->getConfig();
-		
+
 		$parsedTopicName =
 			$twikiConfig->parseTopicName( $this->wrappedTopic->getTopicName() );
-		
+
 		if(preg_match('/'.$parsedTopicName->topic.':[^:]*:(.*)/', $twikiConfig->getHtpasswd(), $match)) {
 			$allEmails[] = strtolower( $match[1] );
 		}
@@ -120,10 +120,10 @@ class UserTopic implements ITopicWrapper {
 		if($maxEmails > 0) {
 			$allEmails = array_slice($allEmails, 0, $maxEmails);
 		}
-		
+
 		return $allEmails;
 	}
-	
+
 	/**
 	 * @return twikilib\form\IFormField
 	 */
@@ -131,7 +131,7 @@ class UserTopic implements ITopicWrapper {
 		$formNode = $this->wrappedTopic->getTopicFormNode();
 		return $formNode->getFormField('Homepage');
 	}
-	
+
 	/**
 	 * URL of the original photo image will be returned.
 	 * If you want to generate smaller thumbnail image, use the getThumbnailUrl() method.
@@ -142,7 +142,7 @@ class UserTopic implements ITopicWrapper {
 		$firstAttach = $this->getFirstPhotoAttachment();
 		return empty($firstAttach) ? null : $firstAttach->getPublicUrl();
 	}
-	
+
 	/**
 	 * A thumbnail will be generated using the crop-to-fit algorithm.
 	 * Note: Only the first image will be used.
@@ -159,39 +159,38 @@ class UserTopic implements ITopicWrapper {
 		$cache = new ResultCache(
 			$this->getWrappedTopic()->getConfig(),
 			$this->getWrappedTopic()->getTopicFactory() );
-			
+
 		return $cache->getCachedUrl(function($imgSrcFile, $width, $height) {
 			return ImageUtils::createImageThumbnail($imgSrcFile, $width, $height);
 		}, $firstAttach->getFileLocation(), $cropToFitWidth, $cropToFitHeight);
 	}
-	
+
 	/**
 	 * @return array of Attachment
 	 */
 	public function getAllPhotoAttachments() {
 		$attachNode = $this->wrappedTopic->getTopicAttachmentsNode();
-		
+
 		return array_merge(
 			$attachNode->getAttachmentsByComment('photo'),
 			$attachNode->getAttachmentsByName('photo_') );
 	}
-	
+
 	/**
 	 * @return Attachment
 	 */
 	private function getFirstPhotoAttachment() {
 		$attachNode = $this->wrappedTopic->getTopicAttachmentsNode();
-		
+
 		$list = array_merge(
 			$attachNode->getAttachmentsByComment('photo'),
 			$attachNode->getAttachmentsByName('photo_') );
-		
+
 		if(empty($list))
 			return null;
-		
+
 		$firstAttach = $list[0];
 		assert($firstAttach instanceof Attachment);
 		return $firstAttach;
 	}
 }
-?>

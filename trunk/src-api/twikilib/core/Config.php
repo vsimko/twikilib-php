@@ -12,55 +12,55 @@ class ConfigurationException extends Exception {}
 /**
  * Instance of this class is shared among most of the other classes.
  * TODO: use ParsedTopicName instead of stdClass
- * 
+ *
  * @author Viliam Simko
  */
 class Config {
-	
+
 	/**
 	 * For debugging purposes.
 	 */
 	final public function __toString() {
 		return "TWiki configuration loaded from ".$this->lastConfigFile;
 	}
-	
+
 	/**
 	 * Filename of the loaded configuration.
 	 * @var string
 	 */
 	private $lastConfigFile;
-	
+
 	/**
 	 * e.g. /var/www/twiki42/
 	 * @var string
 	 */
 	public $twikiRootDir;
-	
+
 	/**
 	 * e.g. http://research.ciant.cz/twiki42/
 	 * @var string
 	 */
 	public $twikiWebUrl;
-	
+
 	/**
 	 * Name of the user that accesses the content.
 	 * The username will appear inside the topic text when the topic is saved.
 	 * @var string
 	 */
 	public $userName = 'UnknownUser';
-	
+
 	/**
 	 * This web will be used when no web has been specified for a topic.
 	 * @var string
 	 */
 	public $defaultWeb = 'Main';
-	
+
 	/**
 	 * Affects the form values.
 	 * @var string
 	 */
 	public $language = null;
-	
+
 	/**
 	 * When the cached values should expire.
 	 * @var integer
@@ -75,20 +75,20 @@ class Config {
 	final public function disableCaching() {
 		$this->cacheLifetimeSeconds = 0;
 	}
-	
+
 	/**
 	 * Restricts the API to fields with the 'P' attribute.
 	 * TODO: make this variable private and introduce isStrictMode() method. Make sure all code uses the push/pop methods
 	 * @var boolean
 	 */
-	public $useStrictPublishedMode = true; 
+	public $useStrictPublishedMode = true;
 
 	/**
 	 * Stack used by the push/pop functions.
 	 * @var array of boolean
 	 */
 	private $strictModeStack = array();
-	
+
 	/**
 	 * Sets a new value for useStrictPublishedMode flag
 	 * and pushes the old value to the stack.
@@ -99,7 +99,7 @@ class Config {
 		array_push($this->strictModeStack, $this->useStrictPublishedMode);
 		$this->useStrictPublishedMode = $strictMode;
 	}
-	
+
 	/**
 	 * Restores the last value from stack.
 	 * @return void
@@ -107,7 +107,7 @@ class Config {
 	final public function popStrictMode() {
 		$this->useStrictPublishedMode = array_pop($this->strictModeStack);
 	}
-	
+
 	/**
 	 * Whether the strict mode is active or not.
 	 * Active strict mode causes exceptions to be thrown when accessing non-published form fields.
@@ -116,7 +116,7 @@ class Config {
 	final public function isStrictMode() {
 		return $this->useStrictPublishedMode;
 	}
-	
+
 	/**
 	 * The constructor can be called with or without the config filename.
 	 * @param string $configFilename
@@ -127,13 +127,13 @@ class Config {
 			$this->loadConfigFromFile($configFilename);
 		}
 	}
-	
+
 	/**
 	 * Cloning not allowed for this class.
 	 * @return void
 	 */
 	final private function __clone() {}
-	
+
 	/**
 	 * Serialization not allowed for this class.
 	 * @return void
@@ -149,7 +149,7 @@ class Config {
 	final public function getWebDataDir($webName) {
 		return $this->twikiRootDir.'/data/'.$webName;
 	}
-	
+
 	/**
 	 * Creates a filesystem path to the directory containing
 	 * attachments of topics for a given web.
@@ -159,7 +159,7 @@ class Config {
 	final public function getWebPubDir($webName) {
 		return $this->twikiRootDir.'/pub/'.$webName;
 	}
-	
+
 	/**
 	 * Empty web part is replaced by default web name.
 	 * @param string $topicName required format is "TOPIC" or "WEB.TOPIC"
@@ -168,20 +168,20 @@ class Config {
 	 */
 	final public function parseTopicName($topicName) {
 		if(	preg_match('/(([^\.\s]+)\.)?([^\s]+)$/', $topicName, $match) ) {
-			
+
 			$webPart = $match[2];
 			$topicPart = $match[3];
-			
+
 			return (object) array(
 				'web'	=> (empty($webPart) ? $this->defaultWeb : $webPart),
 				'topic'	=> trim($topicPart) );
 		}
-		
+
 		throw new WrongTopicNameExcption($topicName);
 	}
-	
+
 	/**
-	 * - string containing either "TOPIC" or "WEB.TOPIC" 
+	 * - string containing either "TOPIC" or "WEB.TOPIC"
 	 * - an array with 'web' and 'topic' fields
 	 * - an object (stdClass) with 'web' and 'topic' fields
 	 * @param mixed $topicName string, array or object
@@ -189,7 +189,7 @@ class Config {
 	 */
 	final public function normalizeTopicName($topicName) {
 		assert( !empty($topicName) );
-		
+
 		if( is_string($topicName) ) {
 			$parsedTopicName = $this->parseTopicName($topicName);
 		} elseif( is_array($topicName) ) {
@@ -202,10 +202,10 @@ class Config {
 			$parsedTopicName = $topicName;
 		} else
 			assert(/* should not reach this statement */);
-		
+
 		return trim($parsedTopicName->web).'.'.trim($parsedTopicName->topic);
 	}
-	
+
 	/**
 	 * Helper method.
 	 * @param string $topicName required format is "TOPIC" or "WEB.TOPIC"
@@ -216,7 +216,7 @@ class Config {
 		$parsedTopicName = $this->parseTopicName($topicName);
 		return "{$this->twikiRootDir}/data/{$parsedTopicName->web}/{$parsedTopicName->topic}.txt";
 	}
-	
+
 	/**
 	 * Helper method.
 	 * @param string $topicName required format is "TOPIC" or "WEB.TOPIC"
@@ -228,7 +228,7 @@ class Config {
 		$parsedTopicName = $this->parseTopicName($topicName);
 		return "{$this->twikiRootDir}/pub/{$parsedTopicName->web}/{$parsedTopicName->topic}/{$attachmentName}";
 	}
-	
+
 	/**
 	 * Helper method.
 	 * @param string $topicName required format is "TOPIC" or "WEB.TOPIC"
@@ -239,7 +239,7 @@ class Config {
 		$parsedTopicName = $this->parseTopicName($topicName);
 		return "{$this->twikiWebUrl}/bin/view/{$parsedTopicName->web}/{$parsedTopicName->topic}";
 	}
-	
+
 	/**
 	 * Helper method.
 	 * @param string $topicName required format is "TOPIC" or "WEB.TOPIC"
@@ -259,13 +259,13 @@ class Config {
 	 * @return void
 	 */
 	final public function loadConfigFromFile($configFilename) {
-		
+
 		$inistr = @file_get_contents($configFilename, true);
 		$parsedConfig = parse_ini_string($inistr);
-		
+
 		if( empty($parsedConfig) )
 			throw new ConfigurationException($configFilename);
-		
+
 		foreach($parsedConfig as $name => $value) {
 			if( property_exists($this, $name) ) {
 				$this->$name = $value;
@@ -277,7 +277,7 @@ class Config {
 		// this value is stored mainly for debugging purposes
 		$this->lastConfigFile = $configFilename;
 	}
-	
+
 	/**
 	 * Loads config values from a configuration of a running TWiki installation.
 	 * @param string $twikiRootDir
@@ -290,14 +290,14 @@ class Config {
 		$this->defaultWeb = $siteConfig->getParamByName('UsersWebName');
 		$this->userName = $siteConfig->getParamByName('DefaultUserWikiName');
 	}
-	
+
 	/**
 	 * Content of the .htpasswd file will be cached here.
 	 * Note: The value is cached throughout the whole request.
 	 * @var string
 	 */
 	private $htpasswdData;
-	
+
 	/**
 	 * Returns content of the TWIKIROOT/data/.htpasswd file.
 	 * Note: The value is cached throughout the whole request.
@@ -310,4 +310,3 @@ class Config {
 		return $this->htpasswdData;
 	}
 }
-?>

@@ -15,7 +15,7 @@ use twikilib\form\fields\DummyField;
  * @author Viliam Simko
  */
 class FieldFactory {
-	
+
 	/**
 	 * Creates a singleton instance of an empty field
 	 * @return DummyField
@@ -23,7 +23,7 @@ class FieldFactory {
 	static final public function getDummyField() {
 		return DummyField::getSingletonInstance();
 	}
-	
+
 	/**
 	 * @param FieldTag $fieldTag
 	 * @param FormModel $formModel
@@ -33,7 +33,7 @@ class FieldFactory {
 		try {
 			$fieldTypeDef = $formModel->getTypeByFieldName( $fieldTag->name );
 			assert($fieldTypeDef instanceof  FieldTypeDef);
-			
+
 			// some information should be copied from the form model
 			// regardless of those stored in the META:FIELD tag
 			// when the topic is saved, these correct model definition will replace
@@ -50,10 +50,10 @@ class FieldFactory {
 				case 'select+multi':
 				case 'select+values':
 					return new ListField($fieldTag, $formModel);
-									
+
 				case 'date':
 					return new DateField($fieldTag, $formModel);
-					
+
 				case 'label':
 				case 'text':
 				case 'textarea':
@@ -63,10 +63,10 @@ class FieldFactory {
 		} catch (FormFieldNotFoundException $e) {
 			return new UnknownField($fieldTag, $formModel);
 		}
-		
+
 		assert(/* could not reach this line */);
 	}
-	
+
 	/**
 	 * @param string $rawArgs
 	 * @param FormModel $formModel
@@ -77,4 +77,3 @@ class FieldFactory {
 		return self::createField( new FieldTag($parsedArg), $formModel );
 	}
 }
-?>

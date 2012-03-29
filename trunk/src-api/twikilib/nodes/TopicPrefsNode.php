@@ -14,12 +14,12 @@ class TopicPrefsNode implements IParseNode {
 	 * Cloning not allowed for this class.
 	 */
 	final private function __clone() {}
-	
+
 	/**
 	 * @var array
 	 */
 	private $preferences = array();
-	
+
 	/**
 	 * (non-PHPdoc)
 	 * @see twikilib\core.IParseNode::getPattern()
@@ -27,7 +27,7 @@ class TopicPrefsNode implements IParseNode {
 	final public function getPattern() {
 		return '/%META:PREFERENCE\{(.*)\}%\n/';
 	}
-	
+
 	/**
 	 * (non-PHPdoc)
 	 * @see twikilib\core.IParseNode::onPatternMatch()
@@ -44,14 +44,14 @@ class TopicPrefsNode implements IParseNode {
 	final public function toWikiString() {
 		return Encoder::arrayToWikiString($this->preferences);
 	}
-	
+
 	/**
 	 * @return array An array of Preference objects
 	 */
 	final public function getAllPreferences() {
 		return $this->preferences;
 	}
-	
+
 	/**
 	 * First preference matching the name or null.
 	 * @param string $prefName
@@ -65,7 +65,7 @@ class TopicPrefsNode implements IParseNode {
 				return $pref;
 		}
 	}
-	
+
 	/**
 	 * Deletes all preferences matching the given name.
 	 * @param string $prefNameToDelete
@@ -73,7 +73,7 @@ class TopicPrefsNode implements IParseNode {
 	final public function deletePreferencesByName($prefNameToDelete) {
 		assert( !empty($prefNameToDelete) );
 		assert( is_string($prefNameToDelete) );
-		
+
 		foreach($this->preferences as $index => $pref) {
 			assert($pref instanceof Preference);
 			if($pref->getName() == $prefNameToDelete) {
@@ -81,7 +81,7 @@ class TopicPrefsNode implements IParseNode {
 			}
 		}
 	}
-	
+
 	/**
 	 * Add a preference to the list of preferences for the given topic.
 	 * @param Preference $pref
@@ -89,7 +89,7 @@ class TopicPrefsNode implements IParseNode {
 	final public function addPreference(Preference $pref) {
 		$this->preferences[] = $pref;
 	}
-	
+
 //	final public function getPreferencesByNameRegex($nameRegex) {
 //		$result = array();
 //		foreach ($this->preferences as $pref) {
@@ -98,8 +98,6 @@ class TopicPrefsNode implements IParseNode {
 //				$result[] = $pref;
 //			}
 //		}
-//		return $result; 
+//		return $result;
 //	}
 }
-
-?>

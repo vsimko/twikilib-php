@@ -10,4 +10,3 @@ interface IRenderable {
 	 */
 	function toWikiString();
 }
-?>

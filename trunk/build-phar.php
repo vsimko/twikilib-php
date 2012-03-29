@@ -28,10 +28,10 @@ foreach(glob($SRCPREFIX.'*') as $SRCNAME) {
 	$parts = array_filter($parts); // remove empty parts
 	array_shift($parts);
 	array_unshift($parts, $PKGBASE);
-	
+
 	$PKGNAME = implode('-', $parts);
 	$DISTNAME = $DISTDIR.DIRECTORY_SEPARATOR.$PKGNAME.'.phar';
-	
+
 	@unlink($DISTNAME);
 	$phar = new Phar( $DISTNAME );
 	$phar->setAlias($PKGNAME);
@@ -43,27 +43,26 @@ foreach(glob($SRCPREFIX.'*') as $SRCNAME) {
 		if( preg_match('/^[^\n]*@pharstub[^\n]*\n/', $filecontent) ) {
 			$pharstub = basename($entry);
 		}
-		
+
 		if( preg_match('/^[^\n]*@pharwebstub[^\n]*\n/', $filecontent) ) {
 			$pharwebstub = basename($entry);
 		}
 	}
-	
+
 	if( empty($pharstub) ) {
 		$pharstub = 'index.php';
 	}
-	
+
 	if( empty($pharwebstub) ) {
 		$pharwebstub = 'index.php';
 	}
-	
+
 	$phar->setStub( $phar->createDefaultStub($pharstub, $pharwebstub) );
-	
+
 	// Uncomment this if you want to explore the content of a PHAR using ZIP tools
 	//$phar->convertToExecutable(Phar::ZIP);
-	
+
 	echo "PHAR written to '".$phar->getPath()."' using alias '".$phar->getAlias()."'\n";
 	echo " - stub file is : $pharstub\n";
-	echo " - web stub file is : $pharwebstub\n";	
+	echo " - web stub file is : $pharwebstub\n";
 }
-?>

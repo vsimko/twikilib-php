@@ -39,6 +39,14 @@ class TopicTextNode implements IRenderable {
 	}
 
 	/**
+	 * Returns TRUE if the text is empty or contains only whitespace characters.
+	 * @return boolean
+	 */
+	final public function isEmpty() {
+		return preg_match('/^\s*$/', $this->text);
+	}
+
+	/**
 	 * Extracts all variables set inside the topic text.
 	 * In TWiki, local variables can using: '   * Set VARNAME = value' notation.
 	 * @return array
@@ -153,7 +161,7 @@ class TopicTextNode implements IRenderable {
 	 */
 	final public function getTextSections() {
 		$possibleSections = preg_split(
-			'/\n---([\+]{1,10})(.*)\n/', "\n".$this->text, -1, PREG_SPLIT_DELIM_CAPTURE);
+			'/\n---([\+]{1,10})(.*)/', "\n".$this->text, -1, PREG_SPLIT_DELIM_CAPTURE);
 
 		// flat view
 		$list = array();

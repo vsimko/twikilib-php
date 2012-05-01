@@ -12,13 +12,18 @@ class TopicTextNodeTest extends \PHPUnit_Framework_TestCase {
 	 */
 	private $topic;
 
+	/**
+	 * @var twikilib\core\ITopicFactory
+	 */
+	private $topicFactory;
+
 	protected function setUp() {
 		chdir(__DIR__);
 		require_once 'init-twikilib-api.php';
 		$twikiConfig = new Config('dummy-twikilib-config.ini');
-		$topicFactory = new FilesystemDB($twikiConfig);
+		$this->topicFactory = new FilesystemDB($twikiConfig);
 
-		$this->topic = $topicFactory->loadTopicByName('Main.TestUser');
+		$this->topic = $this->topicFactory->loadTopicByName('Main.TestUser');
 	}
 
 	public function testSlots() {
@@ -36,5 +41,22 @@ class TopicTextNodeTest extends \PHPUnit_Framework_TestCase {
 		$textNode->removeSlot('slot1');
 		$this->assertRegExp('/TESTVAL/', $textNode->toWikiString());
 		$this->assertNotRegExp('/<!--[0-9a-f]+-->TESTVAL<!--[0-9a-f]+-->/', $textNode->toWikiString());
+	}
+
+	public function testTableIterator() {
+		$topic = $this->topicFactory->loadTopicByName('Main.UserForm');
+		$this->assertTrue($topic instanceof ITopic);
+
+		$allTables = $topic->getTopicTextNode()->getTablesFromText();
+		$this->assertArrayHasKey(0, $allTables);
+
+		$firstTable = $allTables[0];
+
+		$allRows = array();
+		foreach($firstTable as $rowIdx => $row) {
+			$allRows[$rowIdx] = $row;
+		}
+
+		$this->assertEquals(16, count($allRows) ); // actual number of rows in the table
 	}
 }

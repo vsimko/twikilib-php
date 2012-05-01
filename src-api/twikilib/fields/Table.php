@@ -4,14 +4,16 @@ namespace twikilib\fields;
 use twikilib\core\IRenderable;
 
 /**
+ * Provides API for accessing TWiki tables.
+ * Since the class implements the Iterator interface, it can be also used in foreach statements.
+ * <code>foreach($table as $rowid => $row) {...}</code>
  * @author Viliam Simko
  */
-class Table implements IRenderable {
+class Table implements IRenderable, \Iterator {
 
 	private $header = array();
 	private $columnNameToIdx = array();
 	private $data = array();
-	private $numColumns;
 
 	/**
 	 * TODO: use string instead of an array
@@ -28,7 +30,6 @@ class Table implements IRenderable {
 			$this->header = explode('|', substr($header, 1, -2));
 			self::trimArray($this->header);
 
-			$this->numColumns = count($this->header);
 		}
 
 		// use the header to create mapping from columnName to columnIdx
@@ -37,10 +38,6 @@ class Table implements IRenderable {
 		foreach($tableData as $row) {
 			$row = explode('|', substr($row, 1, -1));
 			self::trimArray($row);
-
-			// set the maximum
-			$this->numColumns = max($this->numColumns, count($row));
-
 			$this->data[] = $row;
 		}
 	}
@@ -83,24 +80,32 @@ class Table implements IRenderable {
 		}
 	}
 
-	final public function getNumRows() {
-		return count($this->data);
+	// ======================================================
+	// implementing Iterator methods
+	// ======================================================
+
+	/**
+	 * @var integer
+	 */
+	private $currentRow;
+
+	final public function rewind() {
+		$this->currentRow = 0;
 	}
 
-	final public function getNumColumns() {
-		return $this->numColumns;
+	final public function current() {
+		return $this->data[ $this->currentRow ];
 	}
 
-	final public function getRow($rowIdx) {
-		return $this->data[$rowIdx];
+	final public function next() {
+		$this->currentRow++;
 	}
 
-	final public function getCell($rowIdx, $columnName) {
-		$columnIdx = $this->getColumnIdxByName($columnName);
-		return $this->data[$rowIdx][$columnIdx];
+	final public function key() {
+		return $this->currentRow;
 	}
 
-	final public function getColumnIdxByName($columnName) {
-		return $this->columnNameToIdx[$columnName];
+	final public function valid() {
+		return $this->currentRow < count($this->data);
 	}
 }

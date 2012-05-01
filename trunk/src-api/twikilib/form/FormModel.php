@@ -1,14 +1,11 @@
 <?php
 namespace twikilib\form;
+
 use twikilib\nodes\FormFieldNotFoundException;
-
 use twikilib\form\fields\TextField;
-
 use twikilib\form\FieldTypeDef;
 use twikilib\fields\Table;
-
 use twikilib\nodes\TopicFormNode;
-
 use twikilib\core\ITopic;
 use twikilib\utils\Encoder;
 use twikilib\core\IRenderable;
@@ -44,15 +41,14 @@ class FormModel implements IRenderable {
 		$formTable = $tables[0]; // it is always the first table in the topic
 		assert($formTable instanceof Table);
 
-		for ($i = 0; $i < $formTable->getNumRows(); $i++) {
+		foreach($formTable as $row) {
 			$fieldType = new FieldTypeDef();
 			list(	$fieldType->name,
 					$fieldType->datatype,
 					$fieldType->size,
 					$fieldType->default,
 					$fieldType->tooltip,
-					$fieldType->attributes ) = $formTable->getRow($i);
-
+					$fieldType->attributes ) = $row;
 			$hash = TopicFormNode::getFieldHash( $fieldType->name );
 			$this->fieldTypes[$hash] = $fieldType;
 		}
@@ -89,7 +85,7 @@ class FormModel implements IRenderable {
 	 */
 	final public function isFieldDefined($fieldName) {
 		$hash = TopicFormNode::getFieldHash($fieldName);
-		return $this->fieldTypes;
+		return isset( $this->fieldTypes[$hash] );
 	}
 
 	/**

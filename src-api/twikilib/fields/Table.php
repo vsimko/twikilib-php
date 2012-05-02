@@ -12,7 +12,6 @@ use twikilib\core\IRenderable;
 class Table implements IRenderable, \Iterator {
 
 	private $header = array();
-	private $columnNameToIdx = array();
 	private $data = array();
 
 	/**
@@ -32,11 +31,14 @@ class Table implements IRenderable, \Iterator {
 
 		}
 
-		// use the header to create mapping from columnName to columnIdx
-		$this->columnNameToIdx = array_flip($this->header);
-
 		foreach($tableData as $row) {
 			$row = explode('|', substr($row, 1, -1));
+
+			// this should be optimizes e.g. by creating a class TableRow implementing the ArrayAccess interface
+			foreach($this->header as $colId => $colName) {
+				$row[$colName] = $row[$colId];
+			}
+
 			self::trimArray($row);
 			$this->data[] = $row;
 		}

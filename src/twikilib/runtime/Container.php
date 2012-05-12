@@ -94,8 +94,15 @@ class Container {
 		// ================================
 		// Therefore use use custom autoloader
 		spl_autoload_register( function ($class) {
+
 			// convert namespace to path and use include_path
-			@include_once str_replace('\\', '/', $class) . '.php';
+			$fname = str_replace('\\', '/', $class) . '.php';
+
+			// ignore non-existing classes but show errors
+			// such as extending an interface instead of implementing it
+			if( @fopen($fname, 'r', true /* use include path */ ) ) {
+				include_once $fname;
+			}
 		});
 
 		Logger::initLogger();

@@ -1,10 +1,12 @@
 <?php
-namespace twikilib\tests;
+namespace tests\twikilib\nodes;
 
-use twikilib\core\ITopic;
 use twikilib\core\FilesystemDB;
 use twikilib\core\Config;
 
+/**
+ * @author Viliam Simko
+ */
 class TopicTextNodeTest extends \PHPUnit_Framework_TestCase {
 
 	/**
@@ -18,8 +20,6 @@ class TopicTextNodeTest extends \PHPUnit_Framework_TestCase {
 	private $topicFactory;
 
 	protected function setUp() {
-		chdir(__DIR__);
-		require_once 'init-twikilib-api.php';
 		$twikiConfig = new Config('dummy-twikilib-config.ini');
 		$this->topicFactory = new FilesystemDB($twikiConfig);
 
@@ -45,7 +45,7 @@ class TopicTextNodeTest extends \PHPUnit_Framework_TestCase {
 
 	public function testTableIterator() {
 		$topic = $this->topicFactory->loadTopicByName('Main.UserForm');
-		$this->assertTrue($topic instanceof ITopic);
+		$this->assertType('twikilib\core\ITopic', $topic);
 
 		$allTables = $topic->getTopicTextNode()->getTablesFromText();
 		$this->assertArrayHasKey(0, $allTables);

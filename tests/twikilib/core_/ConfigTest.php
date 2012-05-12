@@ -1,20 +1,20 @@
 <?php
+namespace tests\twikilib\core;
+
 use twikilib\utils\TWikiSiteConfig;
 use twikilib\core\Config;
 
-class ConfigTest extends PHPUnit_Framework_TestCase {
+/**
+ * @author Viliam Simko
+ */
+class ConfigTest extends \PHPUnit_Framework_TestCase {
 
 	/**
-	 * @var twikilib\core\Config
+	 * @var Config
 	 */
 	private $twikiConfig;
 
 	protected function setUp() {
-		chdir(__DIR__);
-
-		// we presume that the API is on include path
-		require_once 'init-twikilib-api.php';
-
 		$this->twikiConfig = new Config( 'dummy-twikilib-config.ini' );
 	}
 

@@ -1,11 +1,14 @@
 <?php
-namespace twikilib\tests;
+namespace tests\twikilib\form;
 
 use twikilib\form\FormModel;
 use twikilib\core\ITopic;
 use twikilib\core\Config;
 use twikilib\core\FilesystemDB;
 
+/**
+ * @author Viliam Simko
+ */
 class FormModelTest extends \PHPUnit_Framework_TestCase {
 
 	/**
@@ -14,8 +17,6 @@ class FormModelTest extends \PHPUnit_Framework_TestCase {
 	private $topicFactory;
 
 	protected function setUp() {
-		chdir(__DIR__);
-		require_once 'init-twikilib-api.php';
 		$twikiConfig = new Config('dummy-twikilib-config.ini');
 		$this->topicFactory = new FilesystemDB($twikiConfig);
 	}

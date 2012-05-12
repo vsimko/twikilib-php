@@ -1,0 +1,9 @@
+%META:TOPICINFO{author="ViliamSimko" date="1335976050" format="1.1" reprev="1.113" version="1.113"}%
+%META:TOPICPARENT{name="TWikiUsers"}%
+---++ My Staff Calendar
+%PHPSCRIPT{"ciant.apps.calendar.StaffCalendarForm"}%
+%META:FORM{name="UserForm"}%
+%META:FIELD{name="FirstName" attributes="MP" title="First Name" value="Someone"}%
+%META:FIELD{name="LastName" attributes="MP" title="Last Name" value="Photo"}%
+%META:FILEATTACHMENT{name="photo_Test.png" attachment="photo_Test.png" attr="" comment="featured photo" date="1258036803" path="photo_Test.png" stream="photo_Test.png" user="UserWithPhoto" version="1"}%
+%META:PREFERENCE{name="VIEW_TEMPLATE" title="VIEW_TEMPLATE" type="Local" value="UserView"}%

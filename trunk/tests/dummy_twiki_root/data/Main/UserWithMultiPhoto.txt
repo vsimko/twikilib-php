@@ -1,0 +1,6 @@
+%META:TOPICINFO{author="ViliamSimko" date="1335976050" format="1.1" reprev="1.113" version="1.113"}%
+%META:TOPICPARENT{name="TWikiUsers"}%
+%META:FORM{name="UserForm"}%
+%META:FILEATTACHMENT{name="photo_Test1.png" attachment="photo_Test1.png" comment="featured photo" path="photo_Test1.png" stream="photo_Test1.png" user="UserWithPhoto" version="1"}%
+%META:FILEATTACHMENT{name="photo_Test2.png" attachment="photo_Test2.png" comment="featured photo" path="photo_Test2.png" stream="photo_Test2.png" user="UserWithPhoto" version="1"}%
+%META:PREFERENCE{name="VIEW_TEMPLATE" title="VIEW_TEMPLATE" type="Local" value="UserView"}%

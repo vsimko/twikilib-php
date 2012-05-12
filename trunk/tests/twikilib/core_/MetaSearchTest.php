@@ -1,9 +1,13 @@
 <?php
+namespace tests\twikilib\core;
 
 use twikilib\core\Config;
 use twikilib\core\MetaSearch;
 
-class SearchTest extends PHPUnit_Framework_TestCase {
+/**
+ * @author Viliam Simko
+ */
+class MetaSearchTest extends \PHPUnit_Framework_TestCase {
 
 	/**
 	 * @var twikilib\core\Config
@@ -11,8 +15,6 @@ class SearchTest extends PHPUnit_Framework_TestCase {
 	private $twikiConfig;
 
 	protected function setUp() {
-		chdir(__DIR__);
-		require_once 'init-twikilib-api.php';
 		$this->twikiConfig = new Config('dummy-twikilib-config.ini');
 	}
 

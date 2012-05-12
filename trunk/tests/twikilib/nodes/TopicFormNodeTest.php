@@ -1,12 +1,16 @@
 <?php
+namespace tests\twikilib\nodes;
+
 use twikilib\form\fields\DummyField;
 use twikilib\nodes\FormFieldNotFoundException;
 use twikilib\nodes\FormFieldNotPublishedException;
 use twikilib\core\FilesystemDB;
 use twikilib\core\Config;
-require_once 'init-twikilib-api.php';
 
-class TopicFormNodeTest extends PHPUnit_Framework_TestCase {
+/**
+ * @author Viliam Simko
+ */
+class TopicFormNodeTest extends \PHPUnit_Framework_TestCase {
 
 	/**
 	 * @var twikilib\core\ITopic
@@ -14,7 +18,6 @@ class TopicFormNodeTest extends PHPUnit_Framework_TestCase {
 	private $testUserTopic;
 
 	protected function setUp() {
-		chdir(__DIR__);
 		$config = new Config( 'dummy-twikilib-config.ini' );
 		$db = new FilesystemDB( $config );
 		$this->testUserTopic = $db->loadTopicByName('TestUser');

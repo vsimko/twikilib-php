@@ -1,0 +1,10 @@
+#Sat May 12 14:26:40 CEST 2012
+cakephp_app_path=
+cakephp_core_path=
+ciunit_config_file=
+ciunit_path=
+eclipse.preferences.version=1
+phpunit_config_file=
+preload_script=/twikilib-php/tests/preload-script.php
+test_folders=/twikilib-php/tests
+testing_framework=PHPUnit

@@ -14,5 +14,5 @@ interface ITopicWrapper {
 	/**
 	 * @return twikilib\core\ITopic
 	 */
-	public function getWrappedTopic();
+	function getWrappedTopic();
 }

@@ -1,6 +1,7 @@
 <?php
 namespace twikilib\nodes;
 
+use twikilib\fields\IAttachment;
 use twikilib\fields\Attachment;
 use twikilib\utils\Encoder;
 use twikilib\core\ITopic;
@@ -20,10 +21,13 @@ class TopicAttachmentsNode implements IParseNode {
 	private $topicContext;
 
 	/**
-	 * @var array
+	 * @var array of IAttachment
 	 */
 	private $attachments = array();
 
+	/**
+	 * @param ITopic $topicContext
+	 */
 	final public function __construct(ITopic $topicContext) {
 		$this->topicContext = $topicContext;
 	}
@@ -94,29 +98,32 @@ class TopicAttachmentsNode implements IParseNode {
 	/**
 	 * @param string $commentPattern regex pattern
 	 * @param string $methodName name of the method from Attachment class used for the matching function.
-	 * @return array of Attachment
+	 * @return array of IAttachment
 	 */
 	private function getAttachmentsByPattern($regexPattern, $methodName) {
+
 		assert( is_string($regexPattern) );
 		assert( is_string($methodName) );
-		assert( method_exists('twikilib\fields\Attachment', $methodName) );
 
-		if($regexPattern[0] != '/')
+		if($regexPattern[0] != '/') {
 			$regexPattern = "/$regexPattern/i";
+		}
 
 		$result = array();
 		foreach($this->attachments as $attach) {
-			assert($attach instanceof Attachment);
+			assert($attach instanceof IAttachment);
 			if( preg_match($regexPattern, $attach->$methodName()) ) {
 				$result[] = $attach;
 			}
 		}
+
+		assert( is_array($result) );
 		return $result;
 	}
 
 	/**
 	 * @param string $regexPattern REGEXP
-	 * @return array of Attachment
+	 * @return array of IAttachment
 	 */
 	final public function getAttachmentsByComment($regexPattern) {
 		return $this->getAttachmentsByPattern($regexPattern, 'getComment');
@@ -124,15 +131,15 @@ class TopicAttachmentsNode implements IParseNode {
 
 	/**
 	 * @param string $regexPattern REGEXP
-	 * @return array of Attachment
+	 * @return array of IAttachment
 	 */
 	final public function getAttachmentsByName($regexPattern) {
-		return $this->getAttachmentsByPattern($regexPattern, 'getFileLocation');
+		return $this->getAttachmentsByPattern($regexPattern, 'getFileName');
 	}
 
 	/**
 	 * @param string $regexPattern REGEXP
-	 * @return array of Attachment
+	 * @return array of IAttachment
 	 */
 	final public function getAttachmentsByUser($regexPattern) {
 		return $this->getAttachmentsByPattern($regexPattern, 'getUser');

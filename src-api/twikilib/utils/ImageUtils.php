@@ -2,7 +2,7 @@
 namespace twikilib\utils;
 
 /**
- * Higher-level operations involving image manipulations.
+ * Encapsulates higher-level operations involving image manipulations.
  * @author Viliam Simko
  */
 class ImageUtils {

@@ -1,10 +1,12 @@
 <?php
 namespace twikilib\wrap;
 
+use twikilib\utils\FeaturedImage;
+
+use twikilib\fields\IAttachment;
 use twikilib\core\ResultCache;
 use twikilib\core\ITopic;
 use twikilib\wrap\ITopicWrapper;
-use twikilib\fields\Attachment;
 use twikilib\form\IFormField;
 use twikilib\utils\ImageUtils;
 
@@ -12,6 +14,7 @@ use twikilib\utils\ImageUtils;
  * Extracts information about users.
  * Data are stored within the UserForm attached to the topic.
  * The image is stored as attachment, where the lexicographically first filename is selected.
+ * @author Viliam Simko
  */
 class UserTopic implements ITopicWrapper {
 
@@ -22,7 +25,7 @@ class UserTopic implements ITopicWrapper {
 
 	/**
 	 * (non-PHPdoc)
-	 * @see ciant\wrap.ITopicWrapper::getWrappedTopic()
+	 * @see twikilib\wrap.ITopicWrapper::getWrappedTopic()
 	 */
 	public function getWrappedTopic() {
 		return $this->wrappedTopic;
@@ -31,14 +34,14 @@ class UserTopic implements ITopicWrapper {
 	/**
 	 * @param ITopic $topic
 	 */
-	public function __construct(ITopic $topic) {
+	final public function __construct(ITopic $topic) {
 		$this->wrappedTopic = $topic;
 	}
 
 	/**
 	 * @return string
 	 */
-	public function getName() {
+	final public function getName() {
 		$formNode = $this->wrappedTopic->getTopicFormNode();
 		return	(string) $formNode->getFormField('FirstName').
 				' '.
@@ -48,7 +51,7 @@ class UserTopic implements ITopicWrapper {
 	/**
 	 * @return twikilib\form\IFormField
 	 */
-	public function getProfession() {
+	final public function getProfession() {
 		$formNode = $this->wrappedTopic->getTopicFormNode();
 		return $formNode->getFormField('Profession');
 	}
@@ -56,7 +59,7 @@ class UserTopic implements ITopicWrapper {
 	/**
 	 * @return twikilib\form\IFormField
 	 */
-	public function getPublicEmail() {
+	final public function getPublicEmail() {
 		$formNode = $this->wrappedTopic->getTopicFormNode();
 		return $formNode->getFormField('PublicEmail');
 	}
@@ -66,7 +69,7 @@ class UserTopic implements ITopicWrapper {
 	 * The image is stored in the cache similar to the photo and logo thumbnails.
 	 * @return string URL to the image
 	 */
-	public function getPublicEmailAsImageUrl() {
+	final public function getPublicEmailAsImageUrl() {
 		$cache = new ResultCache(
 			$this->wrappedTopic->getConfig(),
 			$this->wrappedTopic->getTopicFactory() );
@@ -83,7 +86,7 @@ class UserTopic implements ITopicWrapper {
 	 * @param boolean $includePublicEmail
 	 * @return string This method returns a user-readable string of email addresses delimited by comma
 	 */
-	public function getAllEmails($maxEmails=null, $includePublicEmail = true) {
+	final public function getAllEmails($maxEmails=null, $includePublicEmail = true) {
 		return implode(', ', $this->getAllEmailsAsArray($maxEmails, $includePublicEmail) );
 	}
 
@@ -93,7 +96,7 @@ class UserTopic implements ITopicWrapper {
 	 * @param boolean $includePublicEmail
 	 * @return array This method returns an array of unique email addresses
 	 */
-	public function getAllEmailsAsArray($maxEmails=null, $includePublicEmail = true) {
+	final public function getAllEmailsAsArray($maxEmails=null, $includePublicEmail = true) {
 		$allEmails = array();
 
 		if($includePublicEmail) {
@@ -127,70 +130,39 @@ class UserTopic implements ITopicWrapper {
 	/**
 	 * @return twikilib\form\IFormField
 	 */
-	public function getHomepage() {
+	final public function getHomepage() {
 		$formNode = $this->wrappedTopic->getTopicFormNode();
 		return $formNode->getFormField('Homepage');
 	}
 
+	// =========================================================================
+	// Methods mapped to FeaturedImage class
+	// =========================================================================
+
 	/**
-	 * URL of the original photo image will be returned.
-	 * If you want to generate smaller thumbnail image, use the getThumbnailUrl() method.
-	 * Node: Only the first image will be used.
+	 * @see twikilib\utils.FeaturedImage::getImageUrl()
 	 * @return string
 	 */
-	public function getPhotoUrl() {
-		$firstAttach = $this->getFirstPhotoAttachment();
-		return empty($firstAttach) ? null : $firstAttach->getPublicUrl();
+	final public function getPhotoUrl() {
+		$featuredImage = new FeaturedImage($this->wrappedTopic, 'photo');
+		return $featuredImage->getImageUrl();
 	}
 
 	/**
-	 * A thumbnail will be generated using the crop-to-fit algorithm.
-	 * Note: Only the first image will be used.
-	 * @param int $width max. width
-	 * @param int $height max. height
+	 * @see twikilib\utils.FeaturedImage::getThumbnailUrl()
 	 * @return string
 	 */
-	public function getThumbnailUrl($cropToFitWidth, $cropToFitHeight=0) {
-		$firstAttach = $this->getFirstPhotoAttachment();
-
-		if(empty($firstAttach))
-			return null;
-
-		$cache = new ResultCache(
-			$this->getWrappedTopic()->getConfig(),
-			$this->getWrappedTopic()->getTopicFactory() );
-
-		return $cache->getCachedUrl(function($imgSrcFile, $width, $height) {
-			return ImageUtils::createImageThumbnail($imgSrcFile, $width, $height);
-		}, $firstAttach->getFileLocation(), $cropToFitWidth, $cropToFitHeight);
+	final public function getThumbnailUrl($cropToFitWidth, $cropToFitHeight=0) {
+		$featuredImage = new FeaturedImage($this->wrappedTopic, 'photo');
+		return $featuredImage->getThumbnailUrl($cropToFitWidth, $cropToFitHeight);
 	}
 
 	/**
-	 * @return array of Attachment
+	 * @see twikilib\utils.FeaturedImage::getAllAttachments()
+	 * @return array of IAttachment
 	 */
-	public function getAllPhotoAttachments() {
-		$attachNode = $this->wrappedTopic->getTopicAttachmentsNode();
-
-		return array_merge(
-			$attachNode->getAttachmentsByComment('photo'),
-			$attachNode->getAttachmentsByName('photo_') );
-	}
-
-	/**
-	 * @return Attachment
-	 */
-	private function getFirstPhotoAttachment() {
-		$attachNode = $this->wrappedTopic->getTopicAttachmentsNode();
-
-		$list = array_merge(
-			$attachNode->getAttachmentsByComment('photo'),
-			$attachNode->getAttachmentsByName('photo_') );
-
-		if(empty($list))
-			return null;
-
-		$firstAttach = $list[0];
-		assert($firstAttach instanceof Attachment);
-		return $firstAttach;
+	final public function getAllPhotoAttachments() {
+		$featuredImage = new FeaturedImage($this->wrappedTopic, 'photo');
+		return $featuredImage->getAllAttachments();
 	}
 }

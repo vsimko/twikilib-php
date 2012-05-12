@@ -93,8 +93,8 @@ class ResultCache {
 
 			}, $params);
 
-		Logger::log("CACHE-SIGNATURE:");
-		Logger::log($signature);
+		//Logger::log("CACHE-SIGNATURE:");
+		//Logger::log($signature);
 
 		return md5( implode(':', $signature) );
 	}

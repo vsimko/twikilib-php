@@ -11,9 +11,11 @@ interface IInjectedAfterUnserialization {
 	 * unserialization.
 	 * The implementation should look like this:
 	 *
+	 * <pre>
 	 * function __wakeup() {
 	 *   Serializer::wakeupHandler($this);
 	 * }
+	 * </pre>
 	 *
 	 * @return void
 	 */

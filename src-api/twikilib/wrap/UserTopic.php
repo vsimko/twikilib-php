@@ -140,6 +140,16 @@ class UserTopic implements ITopicWrapper {
 	// =========================================================================
 
 	/**
+	 * Provides the featured image of the topic which represents the user's photo.
+	 * @since 2012-05-14 this method replaces several photo-related methods.
+	 * @return FeaturedImage
+	 */
+	final public function getUserPhoto() {
+		return new FeaturedImage($this->wrappedTopic, 'photo');
+	}
+
+	/**
+	 * @deprecated use getUserPhoto() instead
 	 * @see twikilib\utils.FeaturedImage::getImageUrl()
 	 * @return string
 	 */
@@ -149,6 +159,7 @@ class UserTopic implements ITopicWrapper {
 	}
 
 	/**
+	 * @deprecated use getUserPhoto() instead
 	 * @see twikilib\utils.FeaturedImage::getThumbnailUrl()
 	 * @return string
 	 */
@@ -158,6 +169,7 @@ class UserTopic implements ITopicWrapper {
 	}
 
 	/**
+	 * @deprecated use getUserPhoto() instead
 	 * @see twikilib\utils.FeaturedImage::getAllAttachments()
 	 * @return array of IAttachment
 	 */

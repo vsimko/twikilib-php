@@ -36,19 +36,13 @@ interface IAttachment extends IRenderable {
 	function getPublicUrl();
 
 	/**
-	 * Getter method.
+	 * Useful when searching for attachments by comment.
 	 * @return string
 	 */
 	function getComment();
 
 	/**
-	 * Setter method.
-	 * @param string $comment
-	 * @return void
-	 */
-	function setComment($comment);
-
-	/**
+	 * Useful when searching for attachments by creator.
 	 * @return ITopic
 	 */
 	function getUser();

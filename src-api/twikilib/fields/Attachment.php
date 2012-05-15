@@ -99,15 +99,6 @@ class Attachment implements IAttachment {
 	}
 
 	/**
-	 * (non-PHPdoc)
-	 * @see twikilib\fields.IAttachment::setComment()
-	 */
-	final public function setComment($comment) {
-		assert( is_string($comment) );
-		$this->args->comment = $comment;
-	}
-
-	/**
 	 * Instances of user topics are loaded on-demand.
 	 * TODO: this should be later reimplemented using a central topic-caching mechanism inside the ITopicFactory.php
 	 * @var ITopic

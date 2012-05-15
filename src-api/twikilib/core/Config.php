@@ -4,10 +4,9 @@ namespace twikilib\core;
 use twikilib\utils\TWikiSiteConfig;
 use twikilib\utils\Encoder;
 
-use \Exception;
-class WrongTopicNameExcption extends Exception {}
-class UnsupportedConfigItemException extends Exception {}
-class ConfigurationException extends Exception {}
+class WrongTopicNameExcption extends \Exception {}
+class UnsupportedConfigItemException extends \Exception {}
+class ConfigurationException extends \Exception {}
 
 /**
  * Instance of this class is shared among most of the other classes.

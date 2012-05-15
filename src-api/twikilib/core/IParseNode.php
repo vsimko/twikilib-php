@@ -1,8 +1,7 @@
 <?php
 namespace twikilib\core;
 
-use \Exception;
-class ParseNodeException extends Exception {}
+class ParseNodeException extends \Exception {}
 
 /**
  * @author Viliam Simko

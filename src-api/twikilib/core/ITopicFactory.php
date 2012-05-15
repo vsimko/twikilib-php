@@ -1,10 +1,9 @@
 <?php
 namespace twikilib\core;
 
-use \Exception;
-class TopicNotFoundException extends Exception {}
-class TopicNotSavedException extends Exception {}
-class TopicAlreadyExistsException extends Exception {}
+class TopicNotFoundException extends \Exception {}
+class TopicNotSavedException extends \Exception {}
+class TopicAlreadyExistsException extends \Exception {}
 
 /**
  * Interface for creating, loading and saving TWiki topics.

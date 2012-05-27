@@ -1,10 +1,10 @@
 <?php
-namespace twikilib\utils\datetime;
+namespace twikilib\utils\timespan;
 
 /**
  * @author Viliam Simko
  */
-interface IDateTimeInterval {
+interface ITimeSpan {
 
 	/**
 	 * @return integer UNIX time
@@ -17,14 +17,50 @@ interface IDateTimeInterval {
 	function getEndUTIME();
 
 	/**
-	 * @param IDateTimeInterval $otherInterval
-	 * @return IDateTimeInterval
+	 * @return integer
 	 */
-	function getIntersection(IDateTimeInterval $other);
+	function getTotalSeconds();
+
+	/**
+	 * @return integer
+	 */
+	function getTotalMinutes();
+
+	/**
+	 * @return integer
+	 */
+	function getTotalHours();
+
+	/**
+	 * @return integer
+	 */
+	function getTotalDays();
+
+	/**
+	 * @return integer
+	 */
+	function getTotalWeeks();
+
+	/**
+	 * @return integer
+	 */
+	function getTotalMonths();
+
+	/**
+	 * @return integer
+	 */
+	function getTotalYears();
+
+
+	/**
+	 * @param ITimeSpan $otherInterval
+	 * @return ITimeSpan
+	 */
+	function getIntersection(ITimeSpan $other);
 
 	/**
 	 * Whether this interval (a,b) has an intersection with $other interval (c,d).
-	 * @param IDateTimeInterval $otherInterval
+	 * @param ITimeSpan $otherInterval
 	 * @return boolean <pre>
 	 * |   c======d       |
 	 * |     a===b        | true
@@ -33,11 +69,11 @@ interface IDateTimeInterval {
 	 * |            a===b | false
 	 * </pre>
 	 */
-	function isIntersectingWith(IDateTimeInterval $other);
+	function isIntersectingWith(ITimeSpan $other);
 
 	/**
 	 * Whether this interval (a,b) ends within $other interval (c,d).
-	 * @param IDateTimeInterval $otherInterval
+	 * @param ITimeSpan $otherInterval
 	 * @return boolean <pre>
 	 * |   c======d       |
 	 * |     a===b        | true
@@ -46,11 +82,11 @@ interface IDateTimeInterval {
 	 * |            a===b | false
 	 * </pre>
 	 */
-	function isEndingWithin(IDateTimeInterval $other);
+	function isEndingWithin(ITimeSpan $other);
 
 	/**
 	 * Whether this interval (a,b) starts within $other interval (c,d).
-	 * @param IDateTimeInterval $otherInterval
+	 * @param ITimeSpan $otherInterval
 	 * @return boolean <pre>
 	 * |   c======d       |
 	 * |     a===b        | true
@@ -59,11 +95,11 @@ interface IDateTimeInterval {
 	 * | a=======b        | false
 	 * </pre>
 	 */
-	function isStartingWithin(IDateTimeInterval $other);
+	function isStartingWithin(ITimeSpan $other);
 
 	/**
 	 * Whether this interval (a,b) is fully contained within $other interval (c,d)
-	 * @param IDateTimeInterval $otherInterval
+	 * @param ITimeSpan $otherInterval
 	 * @return boolean <pre>
 	 * |   c=========d       |
 	 * |     a====b          | true
@@ -71,5 +107,5 @@ interface IDateTimeInterval {
 	 * |               a===b | false
 	 * </pre>
 	 */
-	function isSubsetOf(IDateTimeInterval $other);
+	function isSubsetOf(ITimeSpan $other);
 }

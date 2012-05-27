@@ -10,6 +10,7 @@ class TimeSpan implements ITimeSpan {
 	const SECONDS_IN_DAY = 86400;
 	const SECONDS_IN_HOUR = 3600;
 	const SECONDS_IN_MINUTE = 60;
+	const MONTHS_IN_YEAR = 12;
 
 	/**
 	 * @var \DateTime
@@ -171,7 +172,7 @@ class TimeSpan implements ITimeSpan {
 	 */
 	final public function getTotalMonths() {
 		$diff = $this->beginDateTime->diff($this->endDateTime);
-		return $diff->y * 12 + $diff->m;
+		return $diff->y * self::MONTHS_IN_YEAR + $diff->m;
 	}
 
 	/**

@@ -2,26 +2,25 @@
 namespace twikilib\runtime;
 
 use twikilib\runtime\ContainerRuntimeException;
-use \ReflectionClass;
-use \Exception;
 
-class ContainerRuntimeException extends Exception {};
+class ContainerRuntimeException extends \Exception {};
 
 /**
  * A lightweight container for PHP components.
  *
- * Responsibilities:
- * - a component can be either PHAR archive or a directory
- * - container sets include path automatically for all components
- * - autoloading of classes based on namespaces
- * - can execute applications marked as @runnable
- *
- * Examples:
- * 1. from command line: path/to/container.php namespace.of.my.class [args]
- * 2. from web browser: http://myhost.com/path/to/container.php?namespace.of.my.class&args
- * 3. from your app: require_once "path/to/container.php";
+ * <b>Responsibilities of this class:</b>
+ * <ul>
+ *  <li>a component can be either PHAR archive or a directory</li>
+ *  <li>container sets include_path automatically for all components</li>
+ *  <li>autoloading of classes based on namespaces</li>
+ *  <li>can execute applications marked as @runnable</li>
+ * </ul>
  *
  * Note: you can use "namespace\of\my\class", "namespace.of.my.class" or "namespace/of/my/class"
+ *
+ * @example <b>From command line:</b> path/to/container.php namespace.of.my.class [args]
+ * @example <b>From web browser:</b> http://myhost.com/path/to/container.php?namespace.of.my.class&args
+ * @example <b>From your app:</b> require_once "path/to/container.php";
  *
  * @author Viliam Simko
  */
@@ -143,7 +142,7 @@ class Container {
 		// does the class exist ?
 		if( class_exists($className, true) ) {
 			// is the class runnable ?
-			$class = new ReflectionClass($className);
+			$class = new \ReflectionClass($className);
 			if( preg_match('/\*\s*@runnable/', $class->getDocComment()) ) {
 				return true;
 			}
@@ -157,7 +156,7 @@ class Container {
 	 * @return boolean
 	 */
 	static final public function isClassDeprecated($className) {
-		$class = new ReflectionClass($className);
+		$class = new \ReflectionClass($className);
 		return preg_match('/\*\s*@deprecated/', $class->getDocComment());
 	}
 

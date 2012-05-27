@@ -28,9 +28,8 @@ use twikilib\core\ITopic;
  * as a featured image.
  *
  * @since 2012-05-12
- *   Historically, the TWiki API contained several methods in classes such as
- *   CiantUser, CiantOrg, CiantProject which provided similar functionality.
- *   These methods should now be replaced or mapped to FeaturedImage.
+ *   Historically, the TWiki API contained similar methods spread across several
+ *   classes that are now either removed or mapped to method of the FeaturedImage class.
  *
  * @example
  * URL of a thumbnail cropped to 100x200 pixels (width x height)
@@ -111,6 +110,9 @@ class FeaturedImage {
 
 	/**
 	 * A thumbnail will be generated using the crop-to-fit algorithm.
+	 * The thumbnail image will be cached and this function returns an URL
+	 * which points to the generated file stored in cache.
+	 *
 	 * <b>Note:</b> Only the first image matching the criteria will be used.
 	 *
 	 * @param int $width max. width
@@ -132,6 +134,14 @@ class FeaturedImage {
 		return $cache->getCachedUrl( function($imgSrcFile, $width, $height) {
 			return ImageUtils::createImageThumbnail($imgSrcFile, $width, $height);
 		}, $firstAttach->getFileLocation(), $cropToFitWidth, $cropToFitHeight);
+	}
+
+	/**
+	 * Syntactic sugar for checking whether the given topic contains a featured image.
+	 * @return boolean
+	 */
+	final public function isTopicWithFeaturedImage() {
+		return ( $this->getImageUrl() != null );
 	}
 
 	/**

@@ -151,6 +151,20 @@ class TimeSpanTest extends \PHPUnit_Framework_TestCase {
 		$this->assertEquals(1, $span->getTotalDays());
 	}
 
+	function testEmptyEndDateShouldNotEvaluateToCurrentTime() {
+		$span =  new TimeSpan('1.1.2012', '');
+		$this->assertEquals(1, $span->getTotalDays());
+	}
+
+	function testEmptyBeginNotAllowed() {
+		try {
+			$span =  new TimeSpan('', '1.1.2012');
+		} catch(\Exception $e) {
+			return;
+		}
+		$this->fail("Begin time cannot be empty");
+	}
+
 	/**
 	 * @dataProvider valuesForDateTimeDiff
 	 */

@@ -182,4 +182,11 @@ class TimeSpan implements ITimeSpan {
 	final public function getTotalYears() {
 		return $this->beginDateTime->diff($this->endDateTime)->y;
 	}
+
+	final public function __toString() {
+		return "TimeSpan: "
+				.$this->beginDateTime->format("Y-m-d H:i:s")
+				.' .. '
+				.$this->endDateTime->format("Y-m-d H:i:s");
+	}
 }

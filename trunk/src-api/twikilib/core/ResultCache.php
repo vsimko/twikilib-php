@@ -78,7 +78,14 @@ class ResultCache {
 	 * This is the most important method of the caching mechanism.
 	 * It is used to generate a unique cache ID depending on a set of parameters.
 	 * There might be callbacks (lambda-functions) among the parameters as well.
+	 *
+	 * <b>IMPORTANT NOTE:</b> Also the line numbers are used when computing the ID.
+	 * This means that if you add few lines to your code, the ID will be different
+	 * for all calls of lambda functions that are located below the affected part
+	 * of the text.
+	 *
 	 * @param array $params
+	 * @return string
 	 */
 	private function createId(array & $params) {
 		$signature = array_map(

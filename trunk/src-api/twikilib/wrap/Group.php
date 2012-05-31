@@ -20,7 +20,7 @@ class Group implements ITopicWrapper {
 
 	/**
 	 * (non-PHPdoc)
-	 * @see ciant\wrap.ITopicWrapper::getWrappedTopic()
+	 * @see twikilib\wrap.ITopicWrapper::getWrappedTopic()
 	 */
 	public function getWrappedTopic() {
 		return $this->wrappedTopic;

@@ -1,6 +1,8 @@
 <?php
 namespace twikilib\wrap;
 
+use twikilib\core\ITopic;
+
 /**
  * This interface just marks classes that provide
  * higher-level API to the different types of topics.

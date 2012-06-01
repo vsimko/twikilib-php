@@ -184,11 +184,8 @@ class TimeSpan implements ITimeSpan {
 	}
 
 	/**
-	 * @param string $intervalSpec which is same as the parameter of DateInterval
-	 * @return \DatePeriod
-	 *
-	 * @see \DateInterval
-	 * @see \DatePeriod
+	 * (non-PHPdoc)
+	 * @see twikilib\utils\timespan.ITimeSpan::splitIntoDatePeriod()
 	 */
 	final public function splitIntoDatePeriod($intervalSpec) {
 		return new \DatePeriod(

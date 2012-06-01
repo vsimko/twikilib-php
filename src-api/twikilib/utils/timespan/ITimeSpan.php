@@ -108,4 +108,13 @@ interface ITimeSpan {
 	 * </pre>
 	 */
 	function isSubsetOf(ITimeSpan $other);
+
+	/**
+	 * @param string $intervalSpec which is same as the parameter of DateInterval
+	 * @return \DatePeriod
+	 *
+	 * @see \DateInterval
+	 * @see \DatePeriod
+	 */
+	function splitIntoDatePeriod($intervalSpec);
 }

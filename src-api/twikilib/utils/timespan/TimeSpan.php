@@ -72,8 +72,10 @@ class TimeSpan implements ITimeSpan {
 			return $dateTimeSpec;
 
 		// integers are considered to be UNIX timestamps
+		// we need to use GMT timezone otherwise the computed intersection of TimeSpans would be incorrect
 		return new \DateTime(
-				is_integer($dateTimeSpec) ? "@$dateTimeSpec" : $dateTimeSpec);
+				is_integer($dateTimeSpec) ? "@$dateTimeSpec" : $dateTimeSpec,
+				new \DateTimeZone("UTC") );
 	}
 
 	/**
@@ -180,6 +182,7 @@ class TimeSpan implements ITimeSpan {
 	 * @see twikilib\utils\timespan.ITimeSpan::getTotalYears()
 	 */
 	final public function getTotalYears() {
+		print_r($this->beginDateTime->diff($this->endDateTime));
 		return $this->beginDateTime->diff($this->endDateTime)->y;
 	}
 

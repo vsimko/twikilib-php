@@ -117,4 +117,12 @@ class EmptyTimeSpan implements ITimeSpan {
 	final public function getTotalYears() {
 		return 0;
 	}
+
+	/**
+	 * (non-PHPdoc)
+	 * @see twikilib\utils\timespan.ITimeSpan::splitIntoDatePeriod()
+	 */
+	final public function splitIntoDatePeriod($intervalSpec) {
+		return array();
+	}
 }

@@ -183,6 +183,17 @@ class TimeSpan implements ITimeSpan {
 		return $this->beginDateTime->diff($this->endDateTime)->y;
 	}
 
+	/**
+	 * @see \DateInterval
+	 * @see \DatePeriod
+	 *
+	 * @param string $intervalSpec
+	 * @return \DatePeriod
+	 */
+	final public function splitIntoDatePeriod($intervalSpec) {
+		return new \DatePeriod($this->beginDateTime, new \DateInterval($chunkInterval), $this->endDateTime);
+	}
+
 	final public function __toString() {
 		return "TimeSpan: "
 				.$this->beginDateTime->format("Y-m-d H:i:s")

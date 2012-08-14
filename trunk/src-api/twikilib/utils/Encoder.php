@@ -69,7 +69,7 @@ abstract class Encoder {
 	 * NOTE: the most CPU intensive method, should be optimized as much as possible
 `	 * @param string $unparsedArgs
 	 * @return object
-	 * @throws Exception
+	 * @throws EncoderException
 	 */
 	final static public function parseWikiTagArgs( $unparsedArgs ) {
 		if(preg_match_all('/([_a-zA-Z0-9]+)="([^"]*)"/', $unparsedArgs, $match)) {

@@ -64,6 +64,7 @@ class TopicPrefsNode implements IParseNode {
 			if( $pref->getName() == $prefName )
 				return $pref;
 		}
+		return null;
 	}
 
 	/**

@@ -1,5 +1,5 @@
 <?php
-namespace tests\twikilib\utils\timespan;
+namespace tests\twikilib\utils\datetime\timespan;
 
 use twikilib\utils\timespan\TimeSpan;
 
@@ -130,8 +130,7 @@ class TimeSpanTest extends \PHPUnit_Framework_TestCase {
 		$x = new TimeSpan("1.1.2000", "1.2.2000");
 		$y = new TimeSpan("1.1.1999", "1.2.1999");
 
-		$this->assertType(	'twikilib\utils\timespan\EmptyTimeSpan',
-							$x->getIntersection($y) );
+		$this->assertInstanceOf('twikilib\utils\timespan\EmptyTimeSpan', $x->getIntersection($y));
 
 		$y = new TimeSpan("5.1.2000", "1.7.2000");
 		$z = $x->getIntersection($y);
@@ -193,23 +192,4 @@ class TimeSpanTest extends \PHPUnit_Framework_TestCase {
 // 			array(	'1.1.2012', '1.1.2013',	1,		12,		52,		366,	8784,	527040,		31622400),
 // 		);
 // 	}
-
-	//TODO
-	function testTimezone() {
-		$ts = new TimeSpan("6.6.2012", "8.6.2012 +1day");
-		$mts = new TimeSpan("1.6.2012", null, "+1month");
-		$int = $mts->getIntersection($ts);
-
-// 		echo "$ts\n";
-// 		echo "$mts\n";
-// 		echo "$int\n";
-
-		$p = $int->splitIntoDatePeriod("P1D");
-
-		foreach($p as $d) {
-			assert($d instanceof \DateTime);
-			print_r($d);
-		}
-	}
-
 }

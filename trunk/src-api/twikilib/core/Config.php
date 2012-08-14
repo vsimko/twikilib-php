@@ -30,13 +30,13 @@ class Config {
 	private $lastConfigFile;
 
 	/**
-	 * e.g. /var/www/twiki42/
+	 * e.g. /var/www/wiki/
 	 * @var string
 	 */
 	public $twikiRootDir;
 
 	/**
-	 * e.g. http://research.ciant.cz/twiki42/
+	 * e.g. http://wiki.ciant.cz/
 	 * @var string
 	 */
 	public $twikiWebUrl;

@@ -36,6 +36,6 @@ class ConfigTest extends \PHPUnit_Framework_TestCase {
 
 		$this->assertTrue( $siteConfig->getParamByName('DefaultUrlHost') == 'http://localhost' );
 		$this->assertTrue( $siteConfig->getParamByName('DefaultUserWikiName') == 'TWikiGuest');
-		$this->assertTrue( $siteConfig->getParamByName('Htpasswd-FileName') == '/var/www/twiki42/data/.htpasswd');
+		$this->assertTrue( $siteConfig->getParamByName('Htpasswd-FileName') == '/var/www/wiki/data/.htpasswd');
 	}
 }

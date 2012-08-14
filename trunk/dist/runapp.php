@@ -44,7 +44,7 @@ function run_app_from_cli() {
 		echo "USAGE: ";
 		Terminal::resetColor();
 
-		echo "$APPNAME <classname> [args ...]\n";
+		echo "$APPNAME [classname] [args ...]\n";
 		echo "or     $APPNAME --list\n";
 		return;
 	}

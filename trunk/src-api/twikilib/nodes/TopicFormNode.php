@@ -103,6 +103,13 @@ class TopicFormNode implements IParseNode {
 	 * @return void
 	 */
 	final public function setFormName($formName) {
+
+		// use the web name of the topic to which this form is attached
+		if( strpos('.', $formName) === false ) {
+			list($webOfTopic) = explode('.', $this->topicContext->getTopicName());
+			$formName = $webOfTopic.'.'.$formName;
+		}
+
 		if( ! empty($this->formModel) )
 			throw new Exception("Replacing FormModel not supported");
 

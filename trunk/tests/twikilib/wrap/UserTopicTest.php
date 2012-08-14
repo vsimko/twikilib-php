@@ -29,7 +29,7 @@ class UserTopicTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	final public function testWrappedUserTopic() {
-		$this->assertType('twikilib\wrap\UserTopic', $this->userTopic);
+		$this->assertInstanceOf('twikilib\wrap\UserTopic', $this->userTopic);
 		$this->assertSame(
 				$this->originalTopic,
 				$this->userTopic->getWrappedTopic() );
@@ -43,7 +43,7 @@ class UserTopicTest extends \PHPUnit_Framework_TestCase {
 		$this->assertEquals(2, count($list));
 
 		list($a1, $a2) = $list;
-		$this->assertType('twikilib\fields\IAttachment', $a1);
-		$this->assertType('twikilib\fields\IAttachment', $a2);
+		$this->assertInstanceOf('twikilib\fields\IAttachment', $a1);
+		$this->assertInstanceOf('twikilib\fields\IAttachment', $a2);
 	}
 }

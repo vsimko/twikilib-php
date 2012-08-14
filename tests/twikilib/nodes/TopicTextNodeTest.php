@@ -45,7 +45,7 @@ class TopicTextNodeTest extends \PHPUnit_Framework_TestCase {
 
 	public function testTableIterator() {
 		$topic = $this->topicFactory->loadTopicByName('Main.UserForm');
-		$this->assertType('twikilib\core\ITopic', $topic);
+		$this->assertInstanceOf('twikilib\core\ITopic', $topic);
 
 		$allTables = $topic->getTopicTextNode()->getTablesFromText();
 		$this->assertArrayHasKey(0, $allTables);

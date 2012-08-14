@@ -6,7 +6,33 @@ use \ReflectionObject;
 use \ReflectionProperty;
 
 /**
+ * This class implements serialization / unserialization of objects that need
+ * to be injected after unserialization.
+ * The serializer can be configured to inject specific properties (private/public) within objects
+ * that contain a definition of such a property.
+ *
  * @author Viliam Simko
+
+ * @example <pre>
+ * class X {
+ *   final public function __wakeup() {Serializer::wakeupHandler($this);}
+ * }
+ * class Y extends X {
+ *   public $attrToInject;
+ * }
+ *
+ * $s = new Serializer;
+ * $s->attrToInject = 'myvalue';
+ * $data = $s->serialize( array(new X, new Y) );
+ * $list = $s->unserialize($data);
+ *
+ * assert( is_array($list) );
+ * assert( $list[0] instanceof X );
+ * assert( $list[1] instanceof Y );
+ * assert( empty($list[0]->attrToInject) );
+ * assert( $list[1]->attrToInject == 'myvalue' );
+ * </pre>
+ *
  */
 class Serializer {
 
@@ -38,7 +64,10 @@ class Serializer {
 	 * @return void
 	 */
 	final public function serializeToFile($filename, $value) {
-		file_put_contents($filename, $this->serialize($value));
+		assert(!empty($filename));
+		if( !empty($filename) ) {
+			file_put_contents($filename, $this->serialize($value));
+		}
 	}
 
 	/**
@@ -73,16 +102,6 @@ class Serializer {
 
 		Container::measureTime();
 		return $unserialized;
-	}
-
-	/**
-	 * Instantiates an object and injects dependencies.
-	 * @param string $className
-	 * @param mixed $_ variable arguments
-	 * @return object
-	 */
-	final public function createObject($className, $_ = null) {
-		assert('/* TODO: not implemented yet */');
 	}
 
 //	private $processed;

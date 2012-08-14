@@ -63,6 +63,7 @@ class TimeSpan implements ITimeSpan {
 	/**
 	 * @param mixed $dateTimeSpec strings are parsed, integers are considered as UNIX timestamps
 	 * @return \DateTime
+	 * @throws \Exception
 	 */
 	static final public function parseDateTime($dateTimeSpec) {
 		if( $dateTimeSpec === null || $dateTimeSpec === '')
@@ -182,7 +183,6 @@ class TimeSpan implements ITimeSpan {
 	 * @see twikilib\utils\timespan.ITimeSpan::getTotalYears()
 	 */
 	final public function getTotalYears() {
-		print_r($this->beginDateTime->diff($this->endDateTime));
 		return $this->beginDateTime->diff($this->endDateTime)->y;
 	}
 

@@ -22,7 +22,7 @@ function run_app_from_web() {
 		echo "</pre>";
 		return;
 	}
-	
+
 	// a special case, when user requested a list of all runnable applications
 	if( isset($_REQUEST['list']) ) {
 		echo "<style type='text/css' media='all'>li {font-family:monospace}</style>\n";
@@ -32,7 +32,7 @@ function run_app_from_web() {
 			echo "\t<li>".htmlspecialchars($incItem)."</li>\n";
 		}
 		echo "</ul>\n";
-		
+
 		echo "<h3>Listing runnable applications:</h3>\n";
 		echo "<ul>\n";
 		foreach( RunnableAppsLister::listRunnableApps() as $className) {
@@ -47,7 +47,7 @@ function run_app_from_web() {
 		echo "</ul>\n";
 		return;
 	}
-	
+
 	try {
 		$app = Container::createRunnableApp($_REQUEST);
 		Container::runApplication($app);
@@ -55,4 +55,3 @@ function run_app_from_web() {
 		echo '<pre>ERROR ('.get_class($e).'): '.$e->getMessage()."</pre>\n";
 	}
 }
-?>

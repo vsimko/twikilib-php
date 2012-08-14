@@ -51,7 +51,7 @@ class ResultCache {
 		$cachedId = $this->recacheIfNeeded($params);
 		$cachedFileName = $this->idToFileName($cachedId);
 
-		$serializer = new Serializer();
+		$serializer = new Serializer;
 		$serializer->twikiConfig = $this->twikiConfig;
 		$serializer->topicFactory = $this->topicFactory;
 		return $serializer->unserializeFromFile($cachedFileName);
@@ -151,9 +151,9 @@ class ResultCache {
 				mkdir( $dir, 0755, true );
 
 			if(is_array($data) || is_object($data)) {
-				$serializer = new Serializer();
-				$serializer->twikiConfig = $this->twikiConfig;
-				$serializer->topicFactory = $this->topicFactory;
+				$serializer = new Serializer;
+				// here we don't need to set the dependencies to be injected
+				// because they are not needed during serialization
 				$serializer->serializeToFile($cachedFileName, $data);
 			} else {
 				file_put_contents($cachedFileName, $data);

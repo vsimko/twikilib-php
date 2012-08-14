@@ -90,7 +90,7 @@ class FeaturedImageTest extends \PHPUnit_Framework_TestCase {
 
 		// first element of the array should be an attachment
 		$firstAttachment = $list[0];
-		$this->assertType('twikilib\fields\IAttachment', $firstAttachment);
+		$this->assertInstanceOf('twikilib\fields\IAttachment', $firstAttachment);
 	}
 
 	final public function testGetAllAttachemtnsMultiPhoto() {
@@ -102,8 +102,8 @@ class FeaturedImageTest extends \PHPUnit_Framework_TestCase {
 
 		// first element of the array should be an attachment
 		list($a1, $a2) = $list;
-		$this->assertType('twikilib\fields\IAttachment', $a1);
-		$this->assertType('twikilib\fields\IAttachment', $a2);
+		$this->assertInstanceOf('twikilib\fields\IAttachment', $a1);
+		$this->assertInstanceOf('twikilib\fields\IAttachment', $a2);
 		$this->assertNotSame($a1, $a2);
 	}
 }

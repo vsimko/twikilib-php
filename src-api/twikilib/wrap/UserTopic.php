@@ -145,7 +145,7 @@ class UserTopic implements ITopicWrapper {
 	 * @return FeaturedImage
 	 */
 	final public function getUserPhoto() {
-		return new FeaturedImage($this->wrappedTopic, 'photo');
+		return new FeaturedImage($this->wrappedTopic, 'photo|featured');
 	}
 
 	/**
@@ -154,8 +154,7 @@ class UserTopic implements ITopicWrapper {
 	 * @return string
 	 */
 	final public function getPhotoUrl() {
-		$featuredImage = new FeaturedImage($this->wrappedTopic, 'photo');
-		return $featuredImage->getImageUrl();
+		return $this->getUserPhoto()->getImageUrl();
 	}
 
 	/**
@@ -164,8 +163,7 @@ class UserTopic implements ITopicWrapper {
 	 * @return string
 	 */
 	final public function getThumbnailUrl($cropToFitWidth, $cropToFitHeight=0) {
-		$featuredImage = new FeaturedImage($this->wrappedTopic, 'photo');
-		return $featuredImage->getThumbnailUrl($cropToFitWidth, $cropToFitHeight);
+		return $this->getUserPhoto()->getThumbnailUrl($cropToFitWidth, $cropToFitHeight);
 	}
 
 	/**
@@ -174,7 +172,6 @@ class UserTopic implements ITopicWrapper {
 	 * @return array of IAttachment
 	 */
 	final public function getAllPhotoAttachments() {
-		$featuredImage = new FeaturedImage($this->wrappedTopic, 'photo');
-		return $featuredImage->getAllAttachments();
+		return $this->getUserPhoto()->getAllAttachments();
 	}
 }

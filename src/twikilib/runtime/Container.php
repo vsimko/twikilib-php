@@ -43,12 +43,22 @@ class Container {
 	final static public function init($componentsDir) {
 		//echo "COMPDIR:$componentsDir\n";
 
+		// use all phars in the componentsDir
 		$incList = glob($componentsDir.'/*.phar');
+		if(count($incList) < 1) {
+			throw new ContainerRuntimeException("No phars detected in directory " + $componentsDir);
+		}
 		$incList = preg_replace('/^/', 'phar://', $incList);
+
 		$incList[] = $componentsDir;
 		$incList[] = get_include_path();
 
-		// we need '.' always at the beginning of the include path
+// 		// also use all subdirs in componentsDir
+// 		foreach(glob($componentsDir.'/*', GLOB_ONLYDIR) as $dirName) {
+// 			$incList[] = $dirName;
+// 		}
+
+		// we always need the path '.' at the beginning of the include path
 		$newIncludePath = str_replace(
 			PATH_SEPARATOR.'.'.PATH_SEPARATOR,
 			PATH_SEPARATOR,
@@ -91,7 +101,7 @@ class Container {
 		// spl_autoload_extensions(".php");
 		// spl_autoload_register();
 		// ================================
-		// Therefore use use custom autoloader
+		// Therefore use our custom autoloader
 		spl_autoload_register( function ($class) {
 
 			// convert namespace to path and use include_path

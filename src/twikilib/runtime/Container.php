@@ -71,27 +71,50 @@ class Container {
 
 		set_error_handler( function($errno, $errstr, $errfile, $errline) {
 			if(error_reporting()) {
-				echo "<pre>\n";
-				echo "ERROR: $errstr\n";
-				echo "-----------------------------------------\n";
+				Logger::log("<pre>");
+				Logger::log("ERROR: $errstr");
+				Logger::log("-----------------------------------------");
 				foreach (debug_backtrace() as $idx => $bt ) {
-					echo "#$idx -";
+					$out = "#$idx -";
 
 					if(isset($bt['class']))
-						echo " $bt[class]::";
+						$out .= " $bt[class]::";
 
-					echo " $bt[function]";
+					$out .= " $bt[function]";
 
 					if(isset($bt['line']))
-						echo " line $bt[line]";
+						$out .= " line $bt[line]";
 
 					if(isset($bt['file']))
-						echo " in file $bt[file]";
+						$out .= " in file $bt[file]";
 
-					echo "\n";
+					Logger::log($out);
 				}
-				//debug_print_backtrace();
-				echo "</pre>\n";
+				Logger::log("</pre>");
+
+// In the older version we printed errors directly to the standard output
+// Now, we use the Logger class instead, so that errors can be hidden or redirected to the log
+// 				echo "<pre>\n";
+// 				echo "ERROR: $errstr\n";
+// 				echo "-----------------------------------------\n";
+// 				foreach (debug_backtrace() as $idx => $bt ) {
+// 					echo "#$idx -";
+
+// 					if(isset($bt['class']))
+// 						echo " $bt[class]::";
+
+// 					echo " $bt[function]";
+
+// 					if(isset($bt['line']))
+// 						echo " line $bt[line]";
+
+// 					if(isset($bt['file']))
+// 						echo " in file $bt[file]";
+
+// 					echo "\n";
+// 				}
+// 				//debug_print_backtrace();
+// 				echo "</pre>\n";
 			}
 		});
 
@@ -113,7 +136,6 @@ class Container {
 				include_once $fname;
 			}
 		});
-
 		Logger::initLogger();
 	}
 

@@ -25,7 +25,7 @@ On other platforms, please refer to the [http://www.phpunit.de/manual/3.4/en/ins
 
 
 == How to run tests ==
-To run tests agains the source code:
+To run tests against the source code:
 {{{
   #!/bin/sh
   cd path/to/your/twikilib-php
@@ -33,7 +33,7 @@ To run tests agains the source code:
   phpunit --include-path "$INC" "$FULLPATH/src" tests/
 }}}
 
-To run tests agains the generated PHAR archive:
+To run tests against the generated PHAR archive:
 {{{
   #!/bin/sh
   cd path/to/your/twikilib-php

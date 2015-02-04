@@ -32,7 +32,7 @@ interface IFormField extends IRenderable {
 	 * @return string
 	 */
 	function getFieldValue();
-
+	
 	/**
 	 * @param string $newValue
 	 * @return void

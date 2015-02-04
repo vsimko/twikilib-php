@@ -45,9 +45,10 @@ class Container {
 
 		// use all phars in the componentsDir
 		$incList = glob($componentsDir.'/*.phar');
-		if(count($incList) < 1) {
-			throw new ContainerRuntimeException("No phars detected in directory " + $componentsDir);
-		}
+		
+		// warninig will be printed if there are no PHARS in $componentsDir
+		$foundPhars = count($incList) > 0; // see below
+		
 		$incList = preg_replace('/^/', 'phar://', $incList);
 
 		$incList[] = $componentsDir;
@@ -137,6 +138,10 @@ class Container {
 			}
 		});
 		Logger::initLogger();
+		
+		if( ! $foundPhars ) {
+			Logger::logWarning("No phars detected in directory ".$componentsDir);
+		}
 	}
 
 	/**
@@ -145,9 +150,12 @@ class Container {
 	 * @throws twikilib\runtime\ContainerRuntimeException
 	 */
 	static final public function createRunnableApp($params) {
+		
 		$className = preg_replace('/[.\/]/', '\\', @$params[0] );
-		if( ! self::isClassRunnable($className) )
+		
+		if( ! self::isClassRunnable($className) ) {
 			throw new ContainerRuntimeException( "Cannot run application : $className");
+		}
 
 		// setup the component
 		return new $className($params);
@@ -159,8 +167,9 @@ class Container {
 	 * @throws twikilib\runtime\ContainerRuntimeException
 	 */
 	static final public function runApplication($runnableApp) {
-		if( ! self::isClassRunnable( get_class($runnableApp) ) )
+		if( ! self::isClassRunnable( get_class($runnableApp) ) ) {
 			throw new ContainerRuntimeException( "Cannot run application : $className");
+		}
 
 		// TODO: perhaps check whether the application is really runnable
 		$runnableApp->run();

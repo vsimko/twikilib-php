@@ -166,7 +166,10 @@ class TopicFormNode implements IParseNode {
 				// but it is defined in the FormModel and we will now create the tag
 				$field = $this->formModel->createFieldFromModel($fieldName);
 				$this->formFields[ self::getFieldHash($fieldName) ] = $field;
+				
+				assert( $field instanceof IFormField );
 				return $field;
+				
 			} else {
 				// the field is not stored in the topic META:FIELD tag and also
 				// not defined by FormModel
@@ -185,6 +188,7 @@ class TopicFormNode implements IParseNode {
 			try {
 				$translatedField = $this->getFormField( $fieldName.' @'.$twikiConfig->language );
 				if( is_object($translatedField) && ! $translatedField->isEmpty() ) {
+					assert( $translatedField instanceof IFormField );
 					return $translatedField;
 				}
 			} catch(Exception $e) { /* ignore any exception */ }

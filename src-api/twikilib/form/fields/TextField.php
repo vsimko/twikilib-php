@@ -18,18 +18,18 @@ use twikilib\form\IFormField;
 class TextField implements IFormField {
 
 	/**
-	 * @var twikilib\form\FieldTag
+	 * @var \twikilib\form\FieldTag
 	 */
 	private $fieldTag;
 
 	/**
-	 * @var twikilib\form\FormModel
+	 * @var \twikilib\form\FormModel
 	 */
 	private $formModel;
 
 	/**
 	 * (non-PHPdoc)
-	 * @see twikilib\form.IFormField::getFormModel()
+	 * @see \twikilib\form.IFormField::getFormModel()
 	 */
 	final public function getFormModel() {
 		return $this->formModel;
@@ -46,7 +46,7 @@ class TextField implements IFormField {
 
 	/**
 	 * (non-PHPdoc)
-	 * @see twikilib\form.IFormField::__toString()
+	 * @see \twikilib\form.IFormField::__toString()
 	 */
 	final public function __toString() {
 		return $this->getFieldValue();
@@ -54,7 +54,7 @@ class TextField implements IFormField {
 
 	/**
 	 * (non-PHPdoc)
-	 * @see twikilib\core.IRenderable::toWikiString()
+	 * @see \twikilib\core.IRenderable::toWikiString()
 	 */
 	final public function toWikiString() {
 		return $this->fieldTag->toWikiString();
@@ -62,7 +62,7 @@ class TextField implements IFormField {
 
 	/**
 	 * (non-PHPdoc)
-	 * @see twikilib\form.IFormField::getFieldValue()
+	 * @see \twikilib\form.IFormField::getFieldValue()
 	 */
 	final public function getFieldValue() {
 		return $this->fieldTag->value;
@@ -70,7 +70,7 @@ class TextField implements IFormField {
 
 	/**
 	 * (non-PHPdoc)
-	 * @see twikilib\form.IFormField::isEmpty()
+	 * @see \twikilib\form.IFormField::isEmpty()
 	 */
 	final public function isEmpty() {
 		return empty($this->fieldTag->value);
@@ -78,7 +78,7 @@ class TextField implements IFormField {
 
 	/**
 	 * (non-PHPdoc)
-	 * @see twikilib\form.IFormField::setFieldValue()
+	 * @see \twikilib\form.IFormField::setFieldValue()
 	 */
 	public function setFieldValue($newValue) {
 		assert( is_string($newValue) );
@@ -87,7 +87,7 @@ class TextField implements IFormField {
 
 	/**
 	 * (non-PHPdoc)
-	 * @see twikilib\form.IFormField::getFieldName()
+	 * @see \twikilib\form.IFormField::getFieldName()
 	 */
 	final public function getFieldName() {
 		return $this->fieldTag->name;
@@ -95,7 +95,7 @@ class TextField implements IFormField {
 
 	/**
 	 * (non-PHPdoc)
-	 * @see twikilib\form.IFormField::hasFieldAttr()
+	 * @see \twikilib\form.IFormField::hasFieldAttr()
 	 */
 	final public function hasFieldAttr($attrSpec) {
 		// always use the FormModel to check attributes

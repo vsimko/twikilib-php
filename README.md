@@ -34,20 +34,20 @@ Note: See UsageExamples if you have never used PHARs before.
 For more examples and user documentation see UsageExamples.
 
 ```php
-   <?php
-    require_once 'init-twikilib-api.php';
-    
-    use twikilib\core\Config;
-    use twikilib\core\FilesystemDB;
-    
-    $config = new Config('myconfig.ini');
-    
-    $db = new FilesystemDB($config);
-    $topic = $db->loadTopicByName('Main.WebHome');
-    $lastModified = $topic->getTopicInfoNode()->getTopicDate();
-    
-    echo $lastModified;
-    ?>
+<?php
+   require_once 'init-twikilib-api.php';
+   
+   use twikilib\core\Config;
+   use twikilib\core\FilesystemDB;
+   
+   $config = new Config('myconfig.ini');
+   
+   $db = new FilesystemDB($config);
+   $topic = $db->loadTopicByName('Main.WebHome');
+   $lastModified = $topic->getTopicInfoNode()->getTopicDate();
+   
+   echo $lastModified;
+?>
 ```
 
 # Features Overview

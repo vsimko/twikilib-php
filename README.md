@@ -33,7 +33,8 @@ Note: See UsageExamples if you have never used PHARs before.
 ## Example
 For more examples and user documentation see UsageExamples.
 
-    <?php
+```php
+   <?php
     require_once 'init-twikilib-api.php';
     
     use twikilib\core\Config;
@@ -47,7 +48,7 @@ For more examples and user documentation see UsageExamples.
     
     echo $lastModified;
     ?>
-
+```
 
 # Features Overview
  * Object-oriented API that uses namespaces (PHP 5.3+ required)

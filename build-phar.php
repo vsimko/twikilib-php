@@ -3,7 +3,7 @@
 
 // This script should be either executable: chmod +x build-phar.php
 // or you should run it using: php -d phar.readonly=false build-phar.php
-// The cretaed PHAR archive is intended to be put on include path and used with PHP 5.3+
+// The created PHAR archive is intended to be put on include path and used with PHP 5.3+
 //
 // How to set include path:
 // 1. in .htaccess file: php_value include_path phar://path/to/mylib.phar

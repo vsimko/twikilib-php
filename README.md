@@ -1,7 +1,5 @@
 # About TWikiLib for PHP
 
-[![Documentation Status](https://readthedocs.org/projects/twikilib-php/badge/?version=latest)](http://twikilib-php.readthedocs.org/en/latest/?badge=latest)
-
 **Note:** The project was originally hosted on google code at http://code.google.com/p/twikilib-php
 
 This library provides an object-oriented API to a TWiki database.

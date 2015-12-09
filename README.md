@@ -27,7 +27,7 @@ Download the following PHAR bundles and move them to your project's directory:
  * [twikilib-php-api.phar](https://github.com/vsimko/twikilib-php/raw/master/dist/twikilib-php-api.phar) - this bundle contains the API code.
  * [twikilib-php-examples.phar](https://github.com/vsimko/twikilib-php/raw/master/dist/twikilib-php-examples.phar) - this optional bundle contains example applications.
 
-Note: See [Usage Examples](UsageExamples) if you have never used PHARs before.
+Note: See [Usage Examples](../../wiki/Usage-Examples) if you have never used PHARs before.
 
 ## Requirements
  * PHP 5.3 (we use namespaces)

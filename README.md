@@ -1,6 +1,6 @@
 # About TWikiLib for PHP
 
-**Note:** The project was originally hosted on google code at http://code.google.com/p/twikilib-php
+**Note:** More info in [github wiki](https://github.com/vsimko/twikilib-php/wiki)
 
 This library provides an object-oriented API to a TWiki database.
 The main goal is to help users familiar with PHP extract data from

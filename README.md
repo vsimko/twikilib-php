@@ -37,7 +37,7 @@ Note: See [Usage Examples](../../wiki/Usage-Examples) if you have never used PHA
 ## Example
 For more examples and user documentation see UsageExamples.
 
-```{php}
+```php
 <?php
    require_once 'init-twikilib-api.php';
    
@@ -51,7 +51,6 @@ For more examples and user documentation see UsageExamples.
    $lastModified = $topic->getTopicInfoNode()->getTopicDate();
    
    echo $lastModified;
-?>
 ```
 
 # Features Overview

@@ -1,14 +1,6 @@
 <?php
 namespace twikilib\utils;
 
-// tries to load a missing GD extension
-if( ! extension_loaded('gd'))
-	throw new \Exception(
-		'The "gd" PHP extension is not loaded. '.
-		'You should probably modify your php.ini file.'.
-		' Here is a list of loaded extensions:'.
-		print_r(get_loaded_extensions(), true));
-
 /**
  * Improved by Viliam Simko 2011-01-31
  *
@@ -30,6 +22,16 @@ if( ! extension_loaded('gd'))
  * http://www.gnu.org/licenses/gpl.html
  */
 class SimpleImage {
+
+  function __constructor() {
+// tries to load a missing GD extension
+if( ! extension_loaded('gd'))
+	throw new \Exception(
+		'The "gd" PHP extension is not loaded. '.
+		'You should probably modify your php.ini file.'.
+		' Here is a list of loaded extensions:'.
+		print_r(get_loaded_extensions(), true));
+  }
 
 	var $image;
 	var $image_type;

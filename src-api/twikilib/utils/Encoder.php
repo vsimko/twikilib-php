@@ -86,6 +86,7 @@ abstract class Encoder {
 	/**
 	 * For every element of a given array calls the toWikiString() function.
 	 * @param array $arrayOfRenderableObjects
+   * @return string
 	 */
 	final static public function arrayToWikiString(array & $arrayOfRenderableObjects) {
 		return implode( array_map(

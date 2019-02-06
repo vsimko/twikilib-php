@@ -53,14 +53,14 @@ interface ITimeSpan {
 
 
 	/**
-	 * @param ITimeSpan $otherInterval
+	 * @param ITimeSpan $other
 	 * @return ITimeSpan
 	 */
 	function getIntersection(ITimeSpan $other);
 
 	/**
 	 * Whether this interval (a,b) has an intersection with $other interval (c,d).
-	 * @param ITimeSpan $otherInterval
+	 * @param ITimeSpan $other
 	 * @return boolean <pre>
 	 * |   c======d       |
 	 * |     a===b        | true
@@ -73,7 +73,7 @@ interface ITimeSpan {
 
 	/**
 	 * Whether this interval (a,b) ends within $other interval (c,d).
-	 * @param ITimeSpan $otherInterval
+	 * @param ITimeSpan $other
 	 * @return boolean <pre>
 	 * |   c======d       |
 	 * |     a===b        | true
@@ -86,7 +86,7 @@ interface ITimeSpan {
 
 	/**
 	 * Whether this interval (a,b) starts within $other interval (c,d).
-	 * @param ITimeSpan $otherInterval
+	 * @param ITimeSpan $other
 	 * @return boolean <pre>
 	 * |   c======d       |
 	 * |     a===b        | true

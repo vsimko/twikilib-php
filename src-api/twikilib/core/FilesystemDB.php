@@ -169,6 +169,7 @@ class FilesystemDB implements ITopicFactory {
 	/**
 	 * Helper method.
 	 * @param ITopic $topicObject
+   * @return string
 	 */
 	private function topicObjectToFilename(ITopic $topicObject) {
 		$topicName = $topicObject->getTopicName();

@@ -63,8 +63,7 @@ class FieldFactory {
 		} catch (FormFieldNotFoundException $e) {
 			return new UnknownField($fieldTag, $formModel);
 		}
-
-		assert(/* could not reach this line */);
+		//assert(/* could not reach this line */);
 	}
 
 	/**

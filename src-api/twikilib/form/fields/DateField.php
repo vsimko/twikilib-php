@@ -52,6 +52,7 @@ class DateField extends TextField {
 	 * Check whether the given date is within a date interval.
 	 * @param string $lowerBoundDate Unbound if empty
 	 * @param string $upperBoundDate Unbound if empty
+   * @return boolean
 	 */
 	public function isWithinInterval($lowerBoundDate, $upperBoundDate) {
 

@@ -30,6 +30,7 @@ class Preference implements IRenderable {
 	 */
 	final public function __toString() {
 		assert(/* conversion to string not supported */);
+		return '';
 	}
 
 	/**

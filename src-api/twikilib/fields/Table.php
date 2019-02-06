@@ -16,7 +16,7 @@ class Table implements IRenderable, \Iterator {
 
 	/**
 	 * TODO: use string instead of an array
-	 * @param string $tableData array of strings
+	 * @param array $tableData array of strings
 	 */
 	final public function __construct(array $tableData) {
 

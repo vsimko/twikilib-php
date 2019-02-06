@@ -136,6 +136,7 @@ class TopicTextNode implements IRenderable {
 	 * Helper recursive function
 	 * @param array $node root of a tree
 	 * @param array $collectedSections the list built during the recursion
+   * @return string
 	 */
 	private function resolveNode(&$node, &$collectedSections) {
 		$level = &$node[0];

@@ -45,6 +45,7 @@ class ResultCache {
 	 * the callback is executed to generate the cached value.
 	 * @param callback $callback
 	 * @param mixed $_ variable arguments
+   * @return mixed
 	 */
 	final public function getCachedData($callback, $_ = null) {
 		$params = func_get_args();

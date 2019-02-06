@@ -1,0 +1,49 @@
+%META:TOPICINFO{author="DummyUser" date="1338553853" format="1.1" version="1.42"}%
+   * Set ALLOWTOPICCHANGE = CiantAdminGroup
+   * Set TINYMCEPLUGIN_DISABLE = 1
+
+---
+%TOC%
+---
+
+---++ Organisations, legal bodies and CIANT partners
+
+The form is also extensible, additional fields can be easily added in future. If we remove a field, it will be removed after the topic has been edited again. For more information about forms see TWiki.TWikiForms
+
+%EDITTABLE{}%
+| *Name* | *Type* | *Size* | *Values* | *Tooltip message* | *Attributes* |
+| Name | text | 60 | | Name of the organisation to be displayed | MP |
+| Name @cs | text | 60 | | Name of the organisation to be displayed in Czech | P |
+| Departement/Unit | text | 60 | | DEPRECATED: Departement - organizational unit | |
+| Acronym | text | 60 | | | P |
+| Address | text | 60 | | Street_number | P |
+| Post code | text | 60 | | | P |
+| City | text | 40 | | | P |
+| Country | select | 1 | %INCLUDE{"HelperLists" section="countries"}% | | P |
+| Telephone | textarea | 60x4 | | | |
+| Fax | text | 60 | | | |
+| Homepage | textarea | 60x4 | | Link to the homepage | P |
+| Email | text | 60 | | | |
+| Type | select | 1 | ?, Private, Public | | |
+| Recover VAT | select | 1 | ?, YES, NO | | |
+| Established | date | | | | |
+| Statutory Representative | text | 40 | | | |
+| Contact Person | textarea | 80x6 | | [name : email] (e.g. Firstname Surname : <nop>mail@example.com) or [topic] (e.g. <nop>FirstnameSurname) or multiple contacts separated by comma (e.g. <nop>SomeUser | |
+| Members | textarea | 80x6 | | | |
+| Bank Account Info | textarea | 60x9 | | | |
+| Options | checkbox | 4 | Is Partner,Is Funder,Is EC Partner, Is Visualized | | |
+
+---++ List of organisations using this form
+
+<verbatim>%INCLUDE{"OrganisationForm" section="huge"}%</verbatim>
+%STARTSECTION{"huge"}%
+%SEARCH{
+  type="query" nosearch="on" nototal="on"
+  "form.name='OrganisationForm' AND Name != ''"
+  order="formfield(Name)" reverse="off"
+  header="|*Organisation Name*|*Homepage*|*Country - City*|*Topic Name*|*Options*|"
+  format="| [[$topic][$formfield(Name,40,...)]] | $formfield(Homepage) | $formfield(Country) - $formfield(City) | <small><nop>$topic</small>| $formfield(Options)|"
+}%
+%ENDSECTION{"huge"}%
+
+%META:REVCOMMENT{ncomments="0"}%

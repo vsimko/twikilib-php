@@ -1,0 +1,75 @@
+%META:TOPICINFO{author="DummyUser1" date="1336746782" format="1.1" reprev="1.41" version="1.41"}%
+%META:TOPICPARENT{name="HumanResources"}%
+---+ CIANT members
+
+%TOC%
+
+---++ List of CIANT members
+
+   * This information will be shown on http://www.ciant.cz
+   * Do not change the column names "User", "Begin", "End" which are used by the PHP API to extract information about CIANT members.
+
+%TWISTY% List of members of the CiantGroup (for debugging):
+   * %INCLUDE{"HelperLists" section="ciant"}%
+
+%ENDTWISTY%
+
+---+++ Current Members
+
+%EDITTABLE{format="|text,20|date|date|"}%
+| *User* | *Begin* | *End* |
+| TestUser | unknown | now |
+| NonexistingUser | 1.1.2000 | now |
+| TestUser | unknown | now |
+
+---+++ Former Members
+
+%EDITTABLE{format="|text,20|date|date|"}%
+| *User* | *Begin* | *End* |
+| DummyUser1 | 12 September 2005 | now |
+| DummyUser2 | 17 August 2008 | 31 July 2011 |
+| DummyUser3 | unknown | 31 July 2011 |
+| DummyUser4 | unknown | 31 January 2011 |
+| DummyUser5 | unknown | unknown |
+
+---++ Guidelines
+
+---+++ IN
+| *Action* | *Related Wiki topic* | *Who* |
+| create an email [[mailto:jmeno.prijmeni@ciant.cz][jmeno.prijmeni@ciant.cz]] | CiantEmails | DummyUser1 |
+| <p>add to [[mailto:team@ciant.cz][team@ciant.cz]]</p> <p>if the new member is replacing somebody then adjust forwards</p> | CiantEmails | DummyUser1 |
+| register at CIANT Wiki | TWiki.TWikiRegistration | DummyUser1 |
+| Wiki training (principles, basics + CIANT specific workflow) | WikiHowto | DummyUser1 / DummyUser1 |
+| add to WebNotify | WebNotify | DummyUser1 |
+| add to CiantGroup | CiantGroup | DummyUser1 |
+| update CiantPhonebook (including Gigaset phonebooks) | CiantPhonebook | DummyUser1 |
+| update CiantVoIP | CiantVoIP | DummyUser1 |
+| update GoogleApps | GoogleApps | DummyUser1 |
+| update CiantEventival | CiantEventival | DummyUser1 |
+| create a business card | CiantBusinessCards | DummyUser7 |
+| publish profile on http://www.ciant.cz/ Team | CiantWebsites, CiantMembers, CiantResidenciesAndInternships | DummyUser4 |
+| photo | CiantWebsites | DummyUser6 |
+| give some keys | CiantKeys | DummyUser7 |
+| sign the contract + inform about the internal regulation | InternalLegalWorkingRules | DummyUser3, DummyUser3 |
+| give Akropolis restaurant cards | SomeTopic | DummyUser9 |
+| think of a place and a computer | CiantTech | DummyUser7 |
+---+++ OUT
+| *Action* | *Related Wiki topic* | *Who* |
+| redirect email [[mailto:jmeno.prijmeni@ciant.cz][jmeno.prijmeni@ciant.cz]] to DummyUser2 | CiantEmails | DummyUser1 |
+| remove from [[mailto:team@ciant.cz][team@ciant.cz]] | CiantEmails | DummyUser1 |
+| remove from WebNotify | WebNotify | DummyUser1 |
+| remove from CiantGroup | CiantGroup | DummyUser1 |
+| remove from CiantPhonebook (including Gigaset phonebooks) | CiantPhonebook | DummyUser1 |
+| remove from CiantVoIP | CiantVoIP | DummyUser1 |
+| remove from GoogleApps | GoogleApps | DummyUser1 |
+| remove from CiantEventival | CiantEventival | DummyUser1 |
+| remove profile on http://www.ciant.cz/ Team | CiantWebsites, CiantMembers | DummyUser4 |
+| re-collect the keys | CiantKeys | DummyUser7 |
+| re-collect all the HW, clean HD | Inventory.WebHome | DummyUser7 |
+| change project manager in affected project(s) and activities | *Project | DummyUser11 |
+| sign the termination of the contract  | InternalLegalWorkingRules | DummyUser3, DummyUser3 |
+| re-collect Akropolis restaurant cards | SomeTopic | DummyUser9 |
+| transfer the job and files to somebody to enable smooth follow-up | | SomeDummyGroup |
+
+%META:TOPICMOVED{by="DummyUser1" date="1296742376" from="Main.CiantMember" to="Main.CiantMembers"}%
+%META:REVCOMMENT{ncomments="0"}%

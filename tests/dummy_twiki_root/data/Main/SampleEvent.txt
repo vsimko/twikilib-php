@@ -1,0 +1,41 @@
+%META:TOPICINFO{author="DummyUser" date="1338561139" format="1.1" reprev="1.3" version="1.3"}%
+%META:TOPICPARENT{name="ChanceProject"}%
+---++ People
+   * multipurpose table for Credits (for artworks) and Speakers (TransISTor trainings, conferences, lectures, etc.)
+
+%EDITTABLE{format="|select,1,Artist,Speaker,Technical|select,1,yes,no|text,30|text,30|text,30|"}%
+| *Role* | *Public* | *Who* | *Description* | *Description @cs* |
+
+---++ Production
+
+Do not erase this table, each column serves its purpose:
+   * *Role* quick link for the further sections in the topic
+   * *Who* person responsible for the particular section
+   * *Accepted* the responsible person should accept (change &ldquo;no&rdquo; to &ldquo;yes&rdquo;) his/her role after receiving a notification email from the event creator
+   * *When* specification of date/time if e.g. photo will take place only at certain time form the whole event
+
+---++ Minutes
+
+   * event minutes
+
+%META:FORM{name="EventForm"}%
+%META:FIELD{name="Title" attributes="PM" title="<span style='white-space:nowrap' title='Title/Name of the event'><b>Title</b> %25ICON%7bparts%7d%25</span>" value="Sample Ciant Event"}%
+%META:FIELD{name="Titlecs" attributes="P" title="<span style='white-space:nowrap' title='Title/Name of the event in Czech'><b>Title @cs</b> %25ICON%7bparts%7d%25</span>" value="Zkušební akce Ciantu"}%
+%META:FIELD{name="Author" attributes="P" title="<span style='white-space:nowrap' title='Name of the author of an exhibition, performance, etc.'><b>Author</b> %25ICON%7bparts%7d%25</span>" value=""}%
+%META:FIELD{name="Collaborators" attributes="P" title="<span style='white-space:nowrap' title='People who are involved in the event as a technicians, programmers, curators, etc.'><b>Collaborators</b> %25ICON%7bparts%7d%25</span>" value=""}%
+%META:FIELD{name="EventType" attributes="M" title="<span style='white-space:nowrap' title='Type of the event'>Event Type</span>" value="For Public"}%
+%META:FIELD{name="Category" attributes="MP" title="<span style='white-space:nowrap' title='Type of activity or event'><b>Category</b> %25ICON%7bparts%7d%25</span>" value="Performance"}%
+%META:FIELD{name="FrameEvent" attributes="" title="<span style='white-space:nowrap' title='DEPRECATED FIELD! - An Event higher in the hierarchy.'>Frame Event</span>" value=""}%
+%META:FIELD{name="Venue" attributes="P" title="<span style='white-space:nowrap' title='Topic name of Organisation or exact address.'><b>Venue</b> %25ICON%7bparts%7d%25</span>" value="CiantOrg, Lab"}%
+%META:FIELD{name="Begin" attributes="P" title="<span style='white-space:nowrap' title='When the event begins [date time] e.g. 10 Mar 2010 18:00'><b>Begin</b> %25ICON%7bparts%7d%25</span>" value="6 Jun 2012"}%
+%META:FIELD{name="End" attributes="P" title="<span style='white-space:nowrap' title='When the event ends [date time] e.g. 12 Mar 2010 20:00'><b>End</b> %25ICON%7bparts%7d%25</span>" value="8 Jun 2012"}%
+%META:FIELD{name="Abstract" attributes="PM" title="<span style='white-space:nowrap' title='Short description of the event (EN version)'><b>Abstract</b> %25ICON%7bparts%7d%25</span>" value="This time we focus on technological approach (contrarily to the previous workshop of Aga Pokrywka - Velveteen Rabbit).%0d%0a%0d%0aJakub Hybler's workshop, dealing with the measuring of toxicity, humidity, generally quality of the space and environment, is again about the condition for life. Only it is about the necessary contidions, not those sufficient. "}%
+%META:FIELD{name="Abstractcs" attributes="P" title="<span style='white-space:nowrap' title='Short description of the event (CS version)'><b>Abstract @cs</b> %25ICON%7bparts%7d%25</span>" value="Narozdíl od minulého ateliéru na platformě RESET (Dejme šanci hračkám! Agnieszky Pokrywky) se tentokrát zaměříme na technologie samé, ačkoliv i tentokrát půjde o životní podmínky, a to doslova o podmínky životně nutné.%0d%0a"}%
+%META:FIELD{name="PRLinks" attributes="" title="<span style='white-space:nowrap' title='List of URLs separated by commas, that suppose to be used for PR purposes. Each link should start with http... or ftp...'>PR Links</span>" value=""}%
+%META:FIELD{name="Organiser" attributes="" title="<span style='white-space:nowrap' title='Name of organising osganisation'>Organiser</span>" value=""}%
+%META:FIELD{name="ResponsiblePerson" attributes="" title="<span style='white-space:nowrap' title='Person responsible for the event from an organising organisation.'>Responsible Person</span>" value=""}%
+%META:FIELD{name="Photo" attributes="P" title="<span style='white-space:nowrap' title='List of photo gallery URLs'><b>Photo</b> %25ICON%7bparts%7d%25</span>" value="1 ,3"}%
+%META:FIELD{name="Video" attributes="P" title="<span style='white-space:nowrap' title='List of vimeo URLs'><b>Video</b> %25ICON%7bparts%7d%25</span>" value="http://vimeo.com/37508152, http://vimeo.com/32587013"}%
+%META:FIELD{name="Options" attributes="" title="<span style='white-space:nowrap' title=''>Options</span>" value="Published on Web"}%
+%META:REVCOMMENT{ncomments="0"}%
+%META:PREFERENCE{name="VIEW_TEMPLATE" title="VIEW_TEMPLATE" type="Local" value="EventView"}%

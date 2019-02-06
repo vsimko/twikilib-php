@@ -1,0 +1,29 @@
+%META:TOPICINFO{author="DummyUser" date="1334068090" format="1.1" reprev="1.25" version="1.25"}%
+ See: CiantArchive
+
+
+%META:FORM{name="OrganisationForm"}%
+%META:FIELD{name="Name" attributes="MP" title="<span style='white-space:nowrap' title='Name of the organisation to be displayed'><b>Name</b> %25ICON%7bparts%7d%25</span>" value="Removed from VCS"}%
+%META:FIELD{name="Namecs" attributes="P" title="<span style='white-space:nowrap' title='Name of the organisation to be displayed in Czech'><b>Name @cs</b> %25ICON%7bparts%7d%25</span>" value="Removed from VCS"}%
+%META:FIELD{name="DepartementUnit" attributes="" title="<span style='white-space:nowrap' title='DEPRECATED: Departement - organizational unit'>Departement/Unit</span>" value=""}%
+%META:FIELD{name="Acronym" attributes="P" title="<span style='white-space:nowrap' title=''><b>Acronym</b> %25ICON%7bparts%7d%25</span>" value="Removed from VCS"}%
+%META:FIELD{name="Address" attributes="" title="<span style='white-space:nowrap' title='Street_number'>Address</span>" value="Removed from VCS"}%
+%META:FIELD{name="Postcode" attributes="" title="<span style='white-space:nowrap' title=''>Post code</span>" value="Removed from VCS"}%
+%META:FIELD{name="City" attributes="P" title="<span style='white-space:nowrap' title=''><b>City</b> %25ICON%7bparts%7d%25</span>" value="Removed from VCS"}%
+%META:FIELD{name="Country" attributes="P" title="<span style='white-space:nowrap' title=''><b>Country</b> %25ICON%7bparts%7d%25</span>" value="Removed from VCS"}%
+%META:FIELD{name="Telephone" attributes="" title="<span style='white-space:nowrap' title=''>Telephone</span>" value="Removed from VCS"}%
+%META:FIELD{name="Fax" attributes="" title="<span style='white-space:nowrap' title=''>Fax</span>" value="Removed from VCS"}%
+%META:FIELD{name="Homepage" attributes="P" title="<span style='white-space:nowrap' title='Link to the homepage'><b>Homepage</b> %25ICON%7bparts%7d%25</span>" value="http://www.ciant.cz"}%
+%META:FIELD{name="Email" attributes="" title="<span style='white-space:nowrap' title=''>Email</span>" value="info@ciant.cz"}%
+%META:FIELD{name="Type" attributes="" title="<span style='white-space:nowrap' title=''>Type</span>" value="Private"}%
+%META:FIELD{name="RecoverVAT" attributes="" title="<span style='white-space:nowrap' title=''>Recover VAT</span>" value="YES"}%
+%META:FIELD{name="Established" attributes="" title="<span style='white-space:nowrap' title=''>Established</span>" value="17 Dec 1998"}%
+%META:FIELD{name="StatutoryRepresentative" attributes="" title="<span style='white-space:nowrap' title=''>Statutory Representative</span>" value=""}%
+%META:FIELD{name="ContactPerson" attributes="" title="<span style='white-space:nowrap' title='Removed from VCS" value="Removed from VCS"}%
+%META:FIELD{name="Members" attributes="" title="<span style='white-space:nowrap' title=''>Members</span>" value="CiantGroup"}%
+%META:FIELD{name="BankAccountInfo" attributes="" title="<span style='white-space:nowrap' title=''>Bank Account Info</span>" value="Removed from VCS"}%
+%META:FIELD{name="Options" attributes="" title="<span style='white-space:nowrap' title=''>Options</span>" value="Is Partner, Is EC Partner"}%
+%META:FILEATTACHMENT{name="CIANT_logo_kit.rar" attachment="CIANT_logo_kit.rar" attr="" comment="Ciant logo kit - jpeg, ai, png" date="1322002949" path="CIANT_logo kit.rar" size="14206623" stream="CIANT_logo kit.rar" tmpFilename="/tmp/94iXDB9r7E" version="2"}%
+%META:FILEATTACHMENT{name="ciant_logo_4CP_rgb_forwhite.jpg" attachment="ciant_logo_4CP_rgb_forwhite.jpg" attr="" comment="logo" date="1322040118" path="ciant_logo_4CP_rgb_forwhite.jpg" size="60893" stream="ciant_logo_4CP_rgb_forwhite.jpg" tmpFilename="/tmp/0exQZ10nLi" version="1"}%
+%META:REVCOMMENT{comment_1="Changed properties for attachment !CIANT.docx" minor_1="0" ncomments="1" rev_1="25" t_1="PropChanged1334068042"}%
+%META:PREFERENCE{name="VIEW_TEMPLATE" title="VIEW_TEMPLATE" type="Local" value="OrganisationView"}%

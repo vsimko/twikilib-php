@@ -1,0 +1,40 @@
+.info {
+	border: 1px solid #aaaaaa;
+	padding: 5px;
+}
+body {
+	margin: 0px 0px 60px; padding:0px; /* Need to set body margin and padding to get consistency between browsers. */
+	text-align:center; /* Hack for IE5/Win */
+	background-color: #ffffff;
+	font-family: Verdana;
+	font-size: 10pt;
+}
+#uploaderRuntime {
+	font-weight: bolder;
+}
+#uploaderWidget {
+	/* Silverlight would not be initialized until the widget is visible
+	 * we will hide the elemnt using jQuery as soon as the uploader runtime
+	 * is initialized
+	 */
+	visibility: visible;
+}
+#uploaderForm, #uploaderWidget {
+	width:500px;
+	margin:0px auto; /* Right and left margin widths set to "auto" */
+	text-align:left; /* Counteract to IE5/Win Hack */
+	padding:15px;
+}
+#uploaderForm table {
+	width:100%;
+	margin-bottom:30px;
+}
+#uploaderForm th {
+	white-space: nowrap;
+	font-weight: bold;
+	text-align: left;
+	vertical-align: top;
+	padding-top: 4px;
+}
+#uploaderForm td { width:100%; }
+#uploaderForm input, #uploaderForm textarea { width:100%; }

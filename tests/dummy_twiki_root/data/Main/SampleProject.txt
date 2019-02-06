@@ -1,0 +1,28 @@
+%META:TOPICINFO{author="DummyUser" date="1318262342" format="1.1" reprev="1.126" version="1.126"}%
+---++ This is a sample project
+%ACTION_LIST%
+%ACTION_ADD%
+%META:FORM{name="ProjectForm"}%
+%META:FIELD{name="Name" attributes="MP" title="Name" value="Sample Project"}%
+%META:FIELD{name="Acronym" attributes="P" title="Acronym" value="SAMPLE"}%
+%META:FIELD{name="Manager" attributes="M" title="Manager" value="Main.TestUser"}%
+%META:FIELD{name="Category" attributes="P" title="Category" value=""}%
+%META:FIELD{name="IncludedEvents" attributes="" title="Included Events" value=""}%
+%META:FIELD{name="Homepage" attributes="P" title="Homepage" value="http://sample-project.eu"}%
+%META:FIELD{name="Abstract" attributes="P" title="Abstract" value="This is sample project for testing purposes"}%
+%META:FIELD{name="Abstractcs" attributes="P" title="Abstract @cs" value="Přiklad projektu pro účely testování"}%
+%META:FIELD{name="ProposalDeadline" attributes="" title="Proposal Deadline" value=""}%
+%META:FIELD{name="Begin" attributes="P" title="Begin" value="1 Nov 2007"}%
+%META:FIELD{name="End" attributes="P" title="End" value="31 Oct 2009"}%
+%META:FIELD{name="Status" attributes="M" title="Status" value="Past Project"}%
+%META:FIELD{name="Importance" attributes="M" title="Importance" value="∗"}%
+%META:FIELD{name="FundingProgramme" attributes="" title="Funding Programme" value="EC : Main.Culture2000Programme"}%
+%META:FIELD{name="ProjectOfficer" attributes="" title="Project Officer" value="Somebody from EC"}%
+%META:FIELD{name="Coordinator" attributes="MP" title="Co-ordinator" value="SomeOrganisation"}%
+%META:FIELD{name="Coorganisers" attributes="P" title="Co-organisers" value="SomeOrg1, SomeOrg2"}%
+%META:FIELD{name="AssociatedPartners" attributes="" title="Associated Partners" value=""}%
+%META:FIELD{name="ProjectNr" attributes="" title="Project Nr" value=""}%
+%META:FIELD{name="ReferenceNr" attributes="" title="Reference Nr" value="ECP-2006-DILI-123"}%
+%META:FIELD{name="Options" attributes="" title="Options" value=""}%
+%META:REVCOMMENT{ncomments="0"}%
+%META:PREFERENCE{name="VIEW_TEMPLATE" title="VIEW_TEMPLATE" type="Local" value="ProjectView"}%

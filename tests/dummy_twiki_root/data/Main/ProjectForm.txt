@@ -1,0 +1,35 @@
+%META:TOPICINFO{author="DummyUser" date="1336555409" format="1.1" version="1.67"}%
+---+ Projects
+
+The form is extensible, additional fields can be easily added in future.
+If we remove a field, it will be removed after the topic has been edited again.
+For more information about forms see TWiki.TWikiForms
+
+%EDITTABLE{}%
+| *Name* | *Type* | *Size* | *Values* | *Tooltip message* | *Attributes* |
+| Name | text | 60 | | Name of the project to be displayed | MP |
+| Acronym | text | 30 | | Acronym | P |
+| Manager | select+values | 1 | | Project manager | M |
+| Category | checkbox | 2 | Artistic, Archives, Culture, Residencies, Networking, Education, Exhibitions | A project can be listed in multiple categories | P |
+| Included Events | textarea | 120x12 | | List of events (topic names) that should be listed under the project (added to the ordinary hierarchy of events) | |
+| Homepage | text | 60 | | Link to the project homepage | P |
+| Abstract | textarea | 120x12 | | Short description without formatting (in English) approx. 1500 characters | P |
+| Abstract @cs | textarea | 120x12 | | Short description without formatting (in Czech) approx. 1500 characters | P |
+| Proposal Deadline | date | 16 | | Proposal Deadline | |
+| Final Report Deadline | date | 16 | | final report deadline or actual date of report submission | |
+| Begin | date | 16 | | Beginning of the project | P |
+| End | date | 16 | | End of the project | P |
+| Status | select | 1 | Proposal, Project, Cancelled Proposal, Rejected Proposal, Past Project, Multiproject | Status of the project/proposal | M |
+| Importance | select | 1 | standby, ∗, ∗∗, ∗∗∗, ∗∗∗∗, ∗∗∗∗∗ | Defines the order | M |
+| Funding Programme | select+values | 1 | | Choose one of the grant programme / funding authority by which this project is financed. | |
+| Project Officer | text | 20 | | Topic name representing the project officer (employee of the contracting organisation) | |
+| Co-ordinator | select+values | 1 | | | MP |
+| Co-organisers | textarea | 60x4 | | Links to all organisations which are consortium partners | P |
+| Associated Partners | textarea | 60x4 | | Links to all organisations which are not consortium partners, however, they cooperate on the project | |
+| Project Nr | text | 20 | | Number assigned to the project application. (before the project is accepted) | |
+| Reference Nr | text | 20 | | Number assigned to the grant agreement. (Usually appears in the email communication from the contracting organisation) | |
+| Options | checkbox | 1 | Published on Web | | |
+
+%META:PREFERENCE{name="ALLOWTOPICCHANGE" title="ALLOWTOPICCHANGE" type="Set" value="AdminGroup"}%
+%META:PREFERENCE{name="TINYMCEPLUGIN_DISABLE" title="TINYMCEPLUGIN_DISABLE" type="Set" value="1"}%
+%META:PREFERENCE{name="ALLOWTOPICVIEW" title="ALLOWTOPICVIEW" type="Set" value="ShareGroup"}%

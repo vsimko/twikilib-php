@@ -1,0 +1,30 @@
+%META:TOPICINFO{author="DummyUser" date="1338557995" format="1.1" version="1.38"}%
+---+ Event Form
+
+The form is also extensible, additional fields can be easily added in future. If we remove a field, it will be removed after the topic has been edited again. For more information about forms see TWiki.TWikiForms
+
+%EDITTABLE{}%
+| *Name* | *Type* | *Size* | *Values* | *Tooltip message* | *Attributes* |
+| Title | text | 120 | | Title/Name of the event | PM |
+| Title @cs | text | 120 | | Title/Name of the event in Czech | P |
+| Author | textarea | 120x3 | | Name of the author of an exhibition, performance, etc. | P |
+| Collaborators | textarea | 120x3 | | People who are involved in the event as a technicians, programmers, curators, etc. | P |
+| Event Type | select | 1 | Unknown, For Public, Internal | Type of the event | M |
+| Category | select | 1 | Other, Festival, Exhibition, Installation, Performance, Conference, Symposium, Presentation, Panel, Roundtable, Seminar, Lecture, Training, Workshop, Kick Off Meeting, Partners Meeting, Final Meeting, Artwork/Performance, Artwork/Sound Installation, Artwork/Visualization, Artwork/Interactive Installation, Artwork/Film | Type of activity or event | MP |
+| Frame Event | text | 120 | | DEPRECATED FIELD! - An Event higher in the hierarchy. | |
+| Venue | text | 120 | | Topic name of Organisation or exact address. | P |
+| Begin | date | 16 | | When the event begins [date time] e.g. 10 Mar 2010 18:00 | P |
+| End | date | 16 | | When the event ends [date time] e.g. 12 Mar 2010 20:00 | P |
+| Abstract | textarea | 120x6 | | Short description of the event (EN version) | PM |
+| Abstract @cs | textarea | 120x6 | | Short description of the event (CS version) | P |
+| PR Links | textarea | 120x4 | | List of URLs separated by commas, that suppose to be used for PR purposes. Each link should start with http... or ftp... | |
+| Organiser | text | 120 | | Name of organising osganisation | |
+| Responsible Person | text | 120 | | Person responsible for the event from an organising organisation. | |
+| Photo | textarea | 120x3 | | List of photo gallery URLs | P |
+| Video | textarea | 120x3 | | List of vimeo URLs | P |
+| Options | checkbox | 1 | Invisible in Wiki Calendar, Published on Web, Unconfirmed | | |
+
+%META:REVCOMMENT{ncomments="0"}%
+%META:PREFERENCE{name="ALLOWTOPICCHANGE" title="ALLOWTOPICCHANGE" type="Set" value="Main.CiantAdminGroup"}%
+%META:PREFERENCE{name="ALLOWTOPICVIEW" title="ALLOWTOPICVIEW" type="Set" value="ShareGroup"}%
+%META:PREFERENCE{name="TINYMCEPLUGIN_DISABLE" title="TINYMCEPLUGIN_DISABLE" type="Set" value="1"}%

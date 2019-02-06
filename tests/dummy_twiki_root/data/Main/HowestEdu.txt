@@ -1,0 +1,26 @@
+%META:TOPICINFO{author="DummyUser" date="1294328147" format="1.1" reprev="1.5" version="1.5"}%
+---+ Company
+some info
+
+%META:FORM{name="OrganisationForm"}%
+%META:FIELD{name="Name" attributes="MP" title="Name" value="HowestEdu"}%
+%META:FIELD{name="Namecs" attributes="P" title="Name @cs" value=""}%
+%META:FIELD{name="DepartementUnit" attributes="" title="Departement/Unit" value=""}%
+%META:FIELD{name="Acronym" attributes="P" title="Acronym" value="Removed from VCS"}%
+%META:FIELD{name="Address" attributes="" title="Address" value=""}%
+%META:FIELD{name="Postcode" attributes="" title="Post code" value=""}%
+%META:FIELD{name="City" attributes="P" title="City" value=""}%
+%META:FIELD{name="Country" attributes="P" title="Country" value="Removed from VCS"}%
+%META:FIELD{name="Telephone" attributes="" title="Telephone" value=""}%
+%META:FIELD{name="Fax" attributes="" title="Fax" value=""}%
+%META:FIELD{name="Homepage" attributes="P" title="Homepage" value="Removed from VCS"}%
+%META:FIELD{name="Email" attributes="" title="Email" value=""}%
+%META:FIELD{name="Type" attributes="" title="Type" value="?"}%
+%META:FIELD{name="RecoverVAT" attributes="" title="Recover VAT" value="?"}%
+%META:FIELD{name="Established" attributes="" title="Established" value=""}%
+%META:FIELD{name="StatutoryRepresentative" attributes="" title="Statutory Representative" value=""}%
+%META:FIELD{name="ContactPerson" attributes="" title="Contact Person" value=""}%
+%META:FIELD{name="Members" attributes="" title="Members" value="Removed from VCS"}%
+%META:FIELD{name="Options" attributes="" title="Options" value=""}%
+%META:REVCOMMENT{ncomments="0"}%
+%META:PREFERENCE{name="VIEW_TEMPLATE" title="VIEW_TEMPLATE" type="Local" value="OrganisationView"}%

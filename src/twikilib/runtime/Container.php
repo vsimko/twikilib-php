@@ -1,8 +1,6 @@
 <?php
 namespace twikilib\runtime;
 
-use twikilib\runtime\ContainerRuntimeException;
-
 class ContainerRuntimeException extends \Exception {};
 
 /**
@@ -38,7 +36,7 @@ class Container {
 
 	/**
 	 * @param string $componentsDir
-	 * @throws twikilib\runtime\ContainerRuntimeException
+	 * @throws \twikilib\runtime\ContainerRuntimeException
 	 */
 	final static public function init($componentsDir) {
 		//echo "COMPDIR:$componentsDir\n";
@@ -92,30 +90,6 @@ class Container {
 					Logger::log($out);
 				}
 				Logger::log("</pre>");
-
-// In the older version we printed errors directly to the standard output
-// Now, we use the Logger class instead, so that errors can be hidden or redirected to the log
-// 				echo "<pre>\n";
-// 				echo "ERROR: $errstr\n";
-// 				echo "-----------------------------------------\n";
-// 				foreach (debug_backtrace() as $idx => $bt ) {
-// 					echo "#$idx -";
-
-// 					if(isset($bt['class']))
-// 						echo " $bt[class]::";
-
-// 					echo " $bt[function]";
-
-// 					if(isset($bt['line']))
-// 						echo " line $bt[line]";
-
-// 					if(isset($bt['file']))
-// 						echo " in file $bt[file]";
-
-// 					echo "\n";
-// 				}
-// 				//debug_print_backtrace();
-// 				echo "</pre>\n";
 			}
 		});
 
@@ -163,8 +137,7 @@ class Container {
 
 	/**
 	 * @param object $runnableApp
-	 * @return string
-	 * @throws twikilib\runtime\ContainerRuntimeException
+	 * @throws \twikilib\runtime\ContainerRuntimeException
 	 */
 	static final public function runApplication($runnableApp) {
 		if( ! self::isClassRunnable( get_class($runnableApp) ) ) {
@@ -192,7 +165,7 @@ class Container {
 	}
 
 	/**
-	 * A class is deprecated if it contains the @deprecated annotation.
+	 * A class is deprecated if it contains the deprecated annotation.
 	 * @param string $className
 	 * @return boolean
 	 */

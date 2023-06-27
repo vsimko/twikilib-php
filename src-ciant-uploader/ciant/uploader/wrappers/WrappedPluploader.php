@@ -22,7 +22,7 @@ class WrappedPluploader implements IUploadWrapper {
 	final public function onRenderHtmlHead(){
 		echo '
 		<script type="text/javascript" src="http://bp.yahooapis.com/2.4.21/browserplus-min.js"></script>
-		<script type="text/javascript" src="'.$this->uconfig->createUrl("ciant/uploader/tpl/jquery-1.7.min.js").'"></script>
+		<script type="text/javascript" src="'.$this->uconfig->createUrl("https://code.jquery.com/jquery-1.7.min.js").'"></script>
 		<script type="text/javascript" src="'.$this->uconfig->createUrl("plupload/js/plupload.full.js").'"></script>
 		';
 	}
